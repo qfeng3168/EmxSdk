@@ -1,0 +1,78 @@
+{
+  "EmxSdkVersion": "EmxSdk-20231107-5",
+  "devInfo": {
+    "inner": {
+      "type": "EP_CT_M4C7S3W0P0",
+      "version": "2.0.20231106.4"
+    },
+    "outer": {
+      "type": "EP20-CT-Dev",
+      "version": "0.0.2"
+    },
+    "hardware": {
+      "type": "EpCv182xGunV1",
+      "version": "v1.0"
+    }
+  },
+  "cipher": {
+    "key": "EmxAes128Key0000",
+    "iv": "EmxAes128Iv00000"
+  },
+  "user": [
+    {
+      "name": "root",
+      "password": "123"
+    }
+  ],
+  "EmxResToFirmware": [
+    {
+      "src": "zoneinfo/default",
+      "dst": "configs/zoneinfo"
+    },
+    {
+      "src": "audio/music/8k.aac",
+      "dst": "configs/audio/music.aac"
+    },
+    {
+      "src": "font/font-default.ttf",
+      "dst": "configs/media/font/default.ttf"
+    },
+    {
+      "src": "osd/HangYanLogo",
+      "dst": "configs/logo"
+    }
+  ],
+  "ProductAppendFile": [],
+  "spare": {
+    "ena": true,
+    "excludeFileList": [
+      "media/*",
+      "configs/media",
+      "param/media",
+      "3dr/bin/iperf",
+      "3dr/bin/iwconfig",
+      "3dr/bin/iwlist",
+      "3dr/bin/rtwpriv",
+      "3dr/bin/wifi",
+      "app/bin/BootEnvTool",
+      "configs/audio",
+      "configs/logo",
+      "app/drivers/motor.ko",
+      "app/lib/libEmxProtoV1.so",
+      "app/lib/libMp4.so",
+      "app/lib/libNightVision.so",
+      "app/lib/libZone.so"
+    ]
+  },
+  "rom": [
+    {
+      "name": "Rom",
+      "imgs": [
+        "spare",
+        "firmware"
+      ],
+      "pre_script": "",
+      "post_script": ""
+    }
+  ]
+}
