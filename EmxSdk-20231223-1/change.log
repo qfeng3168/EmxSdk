@@ -1,0 +1,21 @@
+###################################################
+version: EmxSdk-20231223-1
+branch: develop
+Publisher: xiaoxiong
+    MOD: code/media/server/MediaServerBase.cpp 修改媒体操作返回-14异常 tangfahong Today 16:42
+    MOD: 支持自动化生成shadow&passwd&group登录账号组管理信息文件 hening Today 10:43
+    MOD: 更新模板启动脚本加载 hening Yesterday 11:43
+    MOD: 更新custom.py自定义模板 hening Yesterday 11:40
+    MOD: 新增自定义脚本资源提供应用差异化资源依赖打包 hening 2023/12/21 11:21
+    MOD: 补充创建app drivers拷贝目标文件夹 hening 2023/12/20 14:15
+    MOD: 补充copy_tree工具接口以适配应用org资源目标拷贝 hening 2023/12/20 11:23
+    MOD: 修改configs:EmxCommon.cmake ,增加riscv64-unknown-linux-musl 编译参数和链接参数，方便其他模块编译引用 tangfahong 2023/12/17 15:48
+    MOD: Key构造调整Bsp::GpioLike*传入 hening 2023/12/13 17:40
+    MOD: 合并old-emx2.0 git最新节点 update模块代码 hening 2023/12/11 17:42
+    FIX:修改MediaServer::m_ctx未初始化赋值引起的崩溃 xiao xiong 2023/12/10 12:08
+    ADD:增加riscv64-unknown-linux-musl编译链的特殊处理 xiao xiong 2023/12/10 11:27
+###################################################
+version: EmxSdk-20231107-4
+branch: master
+Publisher: xiaoxiong
+    初始版本
