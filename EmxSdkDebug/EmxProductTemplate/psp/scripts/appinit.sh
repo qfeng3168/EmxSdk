@@ -24,8 +24,8 @@ net.sh
 telnetd
 ####################insert module####################
 p=${PWD}
-cd ${EMX_MEDIA_DIR}/drivers
-loadko
+app_insertko.sh
+media_insertko.sh
 cd /root
 ####################run deamon####################
 cp ${EMX_CONFIGS_DIR}/zoneinfo/GMT-8 /tmp/localtime

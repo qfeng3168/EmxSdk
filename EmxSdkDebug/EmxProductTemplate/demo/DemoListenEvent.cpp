@@ -19,9 +19,9 @@ public:
         m_sdcardEvent->Create();
 
         // 定义一个key的gpio其中的num是sys/class/gpio/中的gpio号
-        m_keyGpio = new Gpio(408, Emx::Gpio::DirE::In, Emx::Gpio::ActiveE::Low, Gpio::ValueE::Disable);
+        // m_keyGpio = new Gpio(408, Emx::Gpio::DirE::In, Emx::Gpio::ActiveE::Low, Gpio::ValueE::Disable);
         // 创建key，可以给这个key命名一下，传入绑定的loop，传入需要监听的key，传入长按的判断依据时长，按下超过3秒触发长按
-        m_key = new Key("DemoKeyTest", m_loop, m_keyGpio, 3000);
+        m_key = new Key("DemoKeyTest", m_loop, m_bsp.keyReset.get(), 3000);
         // 注册key的监听回调，当按键被短按或者长按的时候触发此回调
         m_key->Create(std::bind(&ListenEvent::OnKeyPressed, this, ph_1, ph_2));
 
@@ -98,6 +98,7 @@ private:
     SDCardClientEvent *m_sdcardEvent; // 用于注册监听SDCard事件
     MediaQrScan *m_qr; // 定义一个二维码扫描对象用来执行扫码
     MediaIspInfo m_isp; // 定义一个isp对象用来接收ISP消息
+    Bsp m_bsp;
 };
 
 int main() {

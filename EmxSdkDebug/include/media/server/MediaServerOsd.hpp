@@ -122,7 +122,7 @@ namespace Emx {
 
         void DestroyOutline(OutlineOsd *outline);
 
-        void GetTime(time_t time, TimeFormatE format, int maxSize, char *content);
+        void GetTime(time_t time, char *formatString, char **weekFormat,  int maxSize, char *content);
 
         void CalcCoordinate(Margin &margin,
                             int regionWidth, int regionHeight,

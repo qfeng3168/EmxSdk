@@ -2,8 +2,8 @@
   {
     "codec": 1,
     "bitRate": 64,
-    "sampleRate": 16000,
-    "volume": 7,
+    "sampleRate": 8000,
+    "volume": 50,
     "bitWidth": 16,
     "mute": false
   }

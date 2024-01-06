@@ -6,6 +6,7 @@
 #define EMX_Key_HPP
 
 #include "EmxCore.hpp"
+#include "Bsp.hpp"
 
 namespace Emx {
 
@@ -19,7 +20,7 @@ namespace Emx {
 
         using OnKeyEvent = std::function<void(const char *name, EventE e)>;
 
-        Key(const char *name, EuvLoop &loop, Gpio *key, int longPressTimeMs) :
+        Key(const char *name, EuvLoop &loop, Bsp::GpioLike *key, int longPressTimeMs) :
                 m_name(name), m_loop(loop), m_key(key), m_longPressTime(longPressTimeMs),
                 m_pressTime(0) {}
 
@@ -35,7 +36,7 @@ namespace Emx {
     private:
         std::string m_name;
         EuvLoop m_loop;
-        Gpio *m_key;
+        Bsp::GpioLike *m_key;
         int m_longPressTime;
         OnKeyEvent m_cb;
         EuvTimer m_timer;

@@ -2,11 +2,17 @@
 import os
 import json
 import utils
+import crypt
+
+
+def chmod_dir(path):
+    if len(os.listdir(path)):
+        os.system("chmod +x {}/*".format(path))
 
 
 def exec_dir(cross, path):
     if len(os.listdir(path)):
-        os.system("chmod +x {}/*")
+        os.system("chmod +x {}/*".format(path))
         if cross != "x86_64":
             os.system("{}-strip {}/*".format(cross, path))
 
@@ -38,14 +44,14 @@ def remap_copy(src_top, dst_top, remap):
 
 
 def build_param(env):
-    utils.copy(env.top + "/param", env.firmware)
+    utils.copy_tree(env.top + "/orgParam", env.firmware + "/param")
     utils.copy(env.top + "/psp/param", env.firmware)
     param_codec = utils.ParamCodec(env.cipher["key"], env.cipher["iv"])
     param_codec.encode(env.firmware + "/param", env.firmware + "/param")
 
 
 def build_configs(env):
-    utils.copy(env.top + "/configs", env.firmware)
+    utils.copy_tree(env.top + "/orgConfigs", env.firmware + "/configs")
     utils.copy(env.top + "/psp/configs", env.firmware)
     # 将密钥加密保存到firmware/configs中
     cipher = utils.AesKey.encrypt(list(env.cipher["key"].encode(encoding="utf-8")),
@@ -86,6 +92,8 @@ def build_media(env):
 def build_app(env):
     app = env.firmware + "/app"
     utils.try_mkdir(app)
+    app_drivers = env.firmware + "/app/drivers"
+    utils.try_mkdir(app_drivers)
     utils.copy(env.EmxSdk + "/{}/cross/{}/bin".format(env.sdk_version, env.cross), app)
     exec_dir(env.cross, app + "/bin")
     utils.copy(env.EmxSdk + "/{}/cross/{}/lib".format(env.sdk_version, env.cross), app)
@@ -113,7 +121,7 @@ def build_3dr(env):
 
 def build_scripts(env):
     utils.copy(env.top + "/psp/scripts", env.firmware)
-    exec_dir(env.cross, env.firmware + "/scripts")
+    chmod_dir(env.firmware + "/scripts")
 
 
 def firmware(env):
@@ -138,13 +146,53 @@ def spare(env):
         if os.path.exists(file_path) or file_path[-1] == "*":
             os.system("rm -r " + file_path)
 
+def generate_password_hash(password):
+    salt = crypt.mksalt(crypt.METHOD_SHA512)
+    hashed_password = crypt.crypt(password, salt)
+    return hashed_password
+
+def product_shadow(env):
+    etc = env.firmware + "/configs/etc"
+    utils.try_mkdir(etc)
+    shadow_file = etc + "/shadow"
+    utils.try_rmfile(shadow_file)
+    passwd_file = etc + "/passwd"
+    utils.try_rmfile(passwd_file)
+    group_file = etc + "/group"
+    utils.try_rmfile(group_file)
+    
+    for item in env.product["user"]:
+        name = item["name"]
+        uid = item["uid"]
+        gid = item["gid"]
+        comment = item["comment"]
+        home_directory = item["home_directory"]
+        src_password = item["password"]
+        dst_password = generate_password_hash(src_password)
+        print("name:", name)
+        print("src password:", src_password)
+        print("dst password:", dst_password)
+        # 写入 /etc/passwd
+        with open(passwd_file, 'a') as file:
+            file.write(f"{name}:{dst_password}:{uid}:{gid}:{comment}:{home_directory}:/bin/sh\n")
+        # 写入 /etc/group
+        with open(group_file, 'a') as file:
+            file.write(f"{name}:x:{gid}:\n")
+        # 写入 /etc/shadow
+        with open(shadow_file, 'a') as file:
+            file.write(f"{name}:{dst_password}\n")
+
 
 def product(env):
     firmware(env)
     spare(env)
     remap_copy(env.EmxRes, env.top, env.psp["EmxResToProduct"])
-    remap_copy(env.top, env.top, env.product["ProductAppendFile"])
-
+    custom_file = env.top + "/scripts/custom.py"
+    if os.path.exists(custom_file):
+        os.system(custom_file)
+    else:
+        print(f"{custom_file} not found.")
+    product_shadow(env)
 
 if __name__ == "__main__":
     env0 = utils.Env(os.getcwd() + "/..")

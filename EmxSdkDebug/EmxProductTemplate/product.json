@@ -21,7 +21,19 @@
   "user": [
     {
       "name": "root",
-      "password": "123"
+      "password": "Function001@eapil",
+      "uid": "0",
+      "gid": "0",
+      "comment": "root",
+      "home_directory": "/root"
+    },
+    {
+      "name": "admin",
+      "password": "admin",
+      "uid": "1",
+      "gid": "1",
+      "comment": "root",
+      "home_directory": "/root"
     }
   ],
   "EmxResToFirmware": [
@@ -42,9 +54,8 @@
       "dst": "configs/logo"
     }
   ],
-  "ProductAppendFile": [],
   "spare": {
-    "ena": true,
+    "ena": false,
     "excludeFileList": [
       "media/*",
       "configs/media",
@@ -68,11 +79,18 @@
     {
       "name": "Rom",
       "imgs": [
-        "spare",
+        "kernel",
+        "rootfs",
         "firmware"
       ],
       "pre_script": "",
       "post_script": ""
     }
-  ]
+  ],
+  "custom": {
+    "3drDepend": [
+    ],
+    "fileDepend": [
+    ]
+  }
 }

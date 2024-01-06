@@ -9,6 +9,7 @@ import hashlib
 from ctypes import *
 import base64
 import json
+import shutil
 
 
 def print_err(string):
@@ -41,6 +42,11 @@ def remkdir(path):
     try_mkdir(path)
 
 
+def try_rmfile(path):
+    if os.path.exists(path):
+        os.system("rm " + path)
+
+
 def get_product_json(path):
     with open(path) as f_product:
         product = json.load(f_product)
@@ -51,6 +57,8 @@ def get_product_json(path):
 def copy(src, dst):
     os.system("cp -R {} {}".format(src, dst))
 
+def copy_tree(src, dst):
+    shutil.copytree(src, dst, symlinks=True)
 
 class Env:
     def __init__(self, top):

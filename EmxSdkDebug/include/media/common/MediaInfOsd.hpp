@@ -14,7 +14,7 @@ namespace Emx {
     class MediaInfOsd {
     public:
         static const int MaxTextSize = 256; //!<字符类型最大长度
-        static const int RateBase = 1000; //!<偏移量比率基准
+        static const int RateBase = 10000; //!<偏移量比率基准
         static const int MaxOSDNum = 8; //!<最大通道数
 
         //!@brief OSD类型
@@ -46,18 +46,13 @@ namespace Emx {
             int rateY; //!<竖直偏移值 1/RateBase
         };
 
-        //!@brief 时间显示格式
-        enum class TimeFormatE : uint8_t {
-            Normal, //!<一般格式 eg.[2022-05-20 12:24:48]
-            NormalWithZhWeek, //!<带有中文的星期 eg.[2022-05-20 星期五 12:24:48]
-        };
-
         //!@brief 时间戳类型OSD持久化参数
         struct ParamTime{
             int size; //!<字体大小
             int thickness; //!<边框大小
             char font[64]; //!<字体文件名(字体文件均放置在configs/media/font目录下)
-            TimeFormatE format; //!<时间显示格式
+            char formatString[128]; //!<时间显示格式
+            char weekFormat[7][16]; //!<星期显示格式
         };
 
         //!@brief 文字类型OSD持久化参数
