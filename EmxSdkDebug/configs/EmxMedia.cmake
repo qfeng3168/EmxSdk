@@ -37,8 +37,8 @@ EmxStrip(EmxMediaServer EmxMediaServer)
 
 # EmxMediaServer依赖的库文件
 target_link_libraries(EmxMediaServer
-        ${ChipLibs}
         EmxMediaServerLib EmxSdk
+        ${ChipLibs}
         libfdk-aac.a
         libzbar.a
         libfreetype.a

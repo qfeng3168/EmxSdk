@@ -21,6 +21,17 @@
     "faceRecognition": {
       "ena": true,
       "drawing": true
+    },
+    "facePersonDetection": {
+      "personFna": true,
+      "faceEna": true,
+      "sensitivity": 60,
+      "exposureOn": false,
+      "exposureAdjust": 60,
+      "snapMode": 0,
+      "qualityValue": 20,
+      "personDrawing": false,
+      "faceDrawing": false
     }
   }
 ]

@@ -1,8 +1,8 @@
 [
   {
     "codec": 1,
-    "width": 2304,
-    "height": 1296,
+    "width": 2560,
+    "height": 1440,
     "fps": 15,
     "bitRate": 1480,
     "rcMode": 2,
@@ -12,7 +12,7 @@
     "drawRect": false
   },
   {
-    "codec": 0,
+    "codec": 1,
     "width": 640,
     "height": 360,
     "fps": 15,
