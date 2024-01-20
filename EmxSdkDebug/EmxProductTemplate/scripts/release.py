@@ -27,6 +27,10 @@ with open(env.firmware + "/configs/devInfo.json", 'w+') as f:
     json.dump(dev_info, f, indent=2, ensure_ascii=False)
 f.close()
 
+if not env.product["spare"]["ena"]:
+    command = 'ubinize -o {} -m 2048 -p 128KiB  firmwareUbinize.cfg'.format(env.imgs+"/firmware.bin")
+    subprocess.call(command,shell=True)
+
 # 构建应用程序安装到spare/app
 if env.product["spare"]["ena"]:
     utils.print_info("build for spare")

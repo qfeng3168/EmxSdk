@@ -6,15 +6,23 @@ import crypt
 
 
 def chmod_dir(path):
-    if len(os.listdir(path)):
-        os.system("chmod +x {}/*".format(path))
+    os.system("chmod +x {}/*".format(path))
+    for e in os.listdir(path):
+        dst_path = os.path.join(path, e)
+        if os.path.isdir(dst_path):
+            # 如果是目录就递归扫描
+            chmod_dir(dst_path)
 
 
 def exec_dir(cross, path):
-    if len(os.listdir(path)):
-        os.system("chmod +x {}/*".format(path))
-        if cross != "x86_64":
-            os.system("{}-strip {}/*".format(cross, path))
+    os.system("chmod +x {}/*".format(path))
+    if cross != "x86_64":
+        os.system("{}-strip {}/*".format(cross, path))
+    for e in os.listdir(path):
+        dst_path = os.path.join(path, e)
+        if os.path.isdir(dst_path):
+            # 如果是目录就递归扫描
+            exec_dir(cross, dst_path)
 
 
 def copy_file_list(src, dst, file_list):
@@ -53,6 +61,7 @@ def build_param(env):
 def build_configs(env):
     utils.copy_tree(env.top + "/orgConfigs", env.firmware + "/configs")
     utils.copy(env.top + "/psp/configs", env.firmware)
+    chmod_dir(env.firmware + "/configs")
     # 将密钥加密保存到firmware/configs中
     cipher = utils.AesKey.encrypt(list(env.cipher["key"].encode(encoding="utf-8")),
                                   list(env.cipher["iv"].encode(encoding="utf-8")))
@@ -63,12 +72,14 @@ def build_configs(env):
 
 def build_media(env):
     utils.try_mkdir(env.firmware + "/media")
-    profile = env.EmxMedia + "/{}/{}".format(env.psp["EmxMediaVersion"], env.psp["EmxMediaProfile"])
+    profile = env.EmxMedia + \
+        "/{}/{}".format(env.psp["EmxMediaVersion"], env.psp["EmxMediaProfile"])
     with open(profile + "/configs.json") as f:
         configs = json.load(f)
         f.close()
     if configs["EmxSdkVersion"] != env.sdk_version:
-        utils.print_err("Warn:the EmxSdkVersion of EmxMedia depended is not match to that in psp.json")
+        utils.print_err(
+            "Warn:the EmxSdkVersion of EmxMedia depended is not match to that in psp.json")
     chip_sdk = env.Emx3dr + "/chip/{}/{}/{}".format(
         configs["ChipManufactory"],
         configs["ChipSerial"],
@@ -81,7 +92,8 @@ def build_media(env):
 
     media_drivers = env.firmware + "/media/drivers"
     utils.try_mkdir(media_drivers)
-    copy_file_list(chip_sdk + "/drivers", media_drivers, configs["runtime"]["drivers"])
+    copy_file_list(chip_sdk + "/drivers", media_drivers,
+                   configs["runtime"]["drivers"])
 
     media_bin = env.firmware + "/media/bin"
     utils.try_mkdir(media_bin)
@@ -94,9 +106,11 @@ def build_app(env):
     utils.try_mkdir(app)
     app_drivers = env.firmware + "/app/drivers"
     utils.try_mkdir(app_drivers)
-    utils.copy(env.EmxSdk + "/{}/cross/{}/bin".format(env.sdk_version, env.cross), app)
+    utils.copy(
+        env.EmxSdk + "/{}/cross/{}/bin".format(env.sdk_version, env.cross), app)
     exec_dir(env.cross, app + "/bin")
-    utils.copy(env.EmxSdk + "/{}/cross/{}/lib".format(env.sdk_version, env.cross), app)
+    utils.copy(
+        env.EmxSdk + "/{}/cross/{}/lib".format(env.sdk_version, env.cross), app)
     exec_dir(env.cross, app + "/lib")
 
 
@@ -106,15 +120,19 @@ def build_3dr(env):
             configs = json.load(f)
             f.close()
         for item in configs["depend"]:
-            src = env.Emx3dr + "/common/{}/{}/{}".format(item["name"], item["version"], env.cross)
+            src = env.Emx3dr + \
+                "/common/{}/{}/{}".format(item["name"],
+                                          item["version"], env.cross)
             dst = env.firmware + "/3dr"
             copy_file_list(src + "/lib", dst + "/lib", item["shared"])
             copy_file_list(src + "/bin", dst + "/bin", item["bin"])
 
     utils.try_mkdir(env.firmware + "/3dr/bin")
     utils.try_mkdir(env.firmware + "/3dr/lib")
-    load_depend(env.EmxSdk + "/{}/configs/EmxCoreCfg.json".format(env.sdk_version))
-    load_depend(env.EmxSdk + "/{}/configs/EmxMediaCfg.json".format(env.sdk_version))
+    load_depend(
+        env.EmxSdk + "/{}/configs/EmxCoreCfg.json".format(env.sdk_version))
+    load_depend(
+        env.EmxSdk + "/{}/configs/EmxMediaCfg.json".format(env.sdk_version))
     exec_dir(env.cross, env.firmware + "/3dr/bin")
     exec_dir(env.cross, env.firmware + "/3dr/lib")
 
@@ -146,10 +164,12 @@ def spare(env):
         if os.path.exists(file_path) or file_path[-1] == "*":
             os.system("rm -r " + file_path)
 
+
 def generate_password_hash(password):
     salt = crypt.mksalt(crypt.METHOD_SHA512)
     hashed_password = crypt.crypt(password, salt)
     return hashed_password
+
 
 def product_shadow(env):
     etc = env.firmware + "/configs/etc"
@@ -160,7 +180,7 @@ def product_shadow(env):
     utils.try_rmfile(passwd_file)
     group_file = etc + "/group"
     utils.try_rmfile(group_file)
-    
+
     for item in env.product["user"]:
         name = item["name"]
         uid = item["uid"]
@@ -173,13 +193,14 @@ def product_shadow(env):
         print("src password:", src_password)
         print("dst password:", dst_password)
         # 写入 /etc/passwd
-        with open(passwd_file, 'a') as file:
-            file.write(f"{name}:{dst_password}:{uid}:{gid}:{comment}:{home_directory}:/bin/sh\n")
+        with open(passwd_file, 'a', encoding="utf-8") as file:
+            file.write(
+                f"{name}:{dst_password}:{uid}:{gid}:{comment}:{home_directory}:/bin/sh\n")
         # 写入 /etc/group
-        with open(group_file, 'a') as file:
+        with open(group_file, 'a', encoding="utf-8") as file:
             file.write(f"{name}:x:{gid}:\n")
         # 写入 /etc/shadow
-        with open(shadow_file, 'a') as file:
+        with open(shadow_file, 'a', encoding="utf-8") as file:
             file.write(f"{name}:{dst_password}\n")
 
 
@@ -193,6 +214,7 @@ def product(env):
     else:
         print(f"{custom_file} not found.")
     product_shadow(env)
+
 
 if __name__ == "__main__":
     env0 = utils.Env(os.getcwd() + "/..")

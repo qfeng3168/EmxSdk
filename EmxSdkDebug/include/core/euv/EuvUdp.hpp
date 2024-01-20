@@ -19,14 +19,12 @@ namespace Emx {
          * @param size [in] 接收到的数据大小
          * @param addr [in] 对方的地址
          */
-        using RecvCallback = std::function<void(Emx::ErrCodeE e, const char *data, int32_t size,
-                                                const struct sockaddr *addr)>;
+        using RecvCallback =
+                std::function<void(Emx::ErrCodeE e, const char *data, int32_t size, const struct sockaddr *addr)>;
 
         EuvUdp() : m_udp(nullptr) {}
 
-        virtual ~EuvUdp() {
-            Destroy();
-        }
+        virtual ~EuvUdp() { Destroy(); }
 
         /*!
          * @brief 创建UDP并绑定到loop
@@ -68,6 +66,11 @@ namespace Emx {
          * @return ErrCodeE
          */
         ErrCodeE StartRecv(char *buffer, int32_t size, RecvCallback cbRecv);
+
+        /*!
+         * @brief 停止接收数据
+         */
+        void StopRecv() { uv_udp_recv_stop(m_udp); }
 
         /*!
          * @brief 以阻塞的方式发送数据
@@ -136,5 +139,5 @@ namespace Emx {
         char *m_buffer;
         int32_t m_size;
     };
-}
-#endif //EMX_EUVUDP_HPP
+}// namespace Emx
+#endif//EMX_EUVUDP_HPP
