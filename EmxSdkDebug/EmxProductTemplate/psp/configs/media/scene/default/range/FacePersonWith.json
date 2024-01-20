@@ -1,0 +1,22 @@
+[
+  {
+    "vpssGrp": 5,
+    "vpssChn": 0,
+    "vbPool": 5,
+    "PDModelId": 18,
+    "FDModelId": 1,
+    "FeatureModelId": 7,
+    "modelFdPath": "scrfd_500m_bnkps_432_768.cvimodel",
+    "modelFdFeaturePath": "pipnet_blurness_v5_64_retinaface_50ep_cv182x.cvimodel",
+    "modelPdPath": "mobiledetv2-pedestrian-d1-ls.cvimodel",
+    "missTime":2,
+    "maxInterval":9,
+    "imgCaptureFlag":2,
+    "landMarkScore":0.2,
+    "vencChannelId":2,
+    "PDThreshold": 0.5,
+    "maxFaceNum": 10,
+    "imgQuality": 90,
+    "fps": 15
+  }
+]
