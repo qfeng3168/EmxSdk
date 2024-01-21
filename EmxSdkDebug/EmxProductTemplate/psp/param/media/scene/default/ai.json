@@ -22,10 +22,10 @@
       "ena": true,
       "drawing": true
     },
-    "facePersonDetection": {
+    "FacePersonWith": {
       "personFna": true,
       "faceEna": true,
-      "sensitivity": 60,
+      "sensitivity": 50,
       "exposureOn": false,
       "exposureAdjust": 60,
       "snapMode": 0,
