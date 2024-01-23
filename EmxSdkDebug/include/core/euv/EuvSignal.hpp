@@ -38,7 +38,9 @@ namespace Emx {
         /*!
          * @brief 停止监听
          */
-        void Stop();
+        void Stop() {
+            if (m_signal) uv_signal_stop(m_signal);
+        }
 
     private:
         static void OnDestroy(uv_handle_t *handle);
