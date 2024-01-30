@@ -37,10 +37,7 @@ if env.product["spare"]["ena"]:
 
 os.chdir(env.imgs)
 os.system("chmod +x mkImg.py")
-if not env.product["spare"]["ena"]:
-    os.system("./mkImg.py 1")
-else:
-    os.system("./mkImg.py 0")
+os.system("./mkImg.py")
 os.chdir(env.top)
 
 # firmware version

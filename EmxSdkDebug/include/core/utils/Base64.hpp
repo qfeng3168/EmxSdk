@@ -35,7 +35,7 @@ namespace Emx {
          * @return 编码后数据大小
          */
         static int GetEncodeSize(int size) {
-            return ((size / 3) + (int) (size % 3 != 0)) * 4 + 1;// + 1 for '/0'
+            return ((size / 3) + (int) (size % 3 != 0)) * 4;
         }
 
         /**

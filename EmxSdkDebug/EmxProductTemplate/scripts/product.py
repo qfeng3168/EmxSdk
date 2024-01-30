@@ -6,6 +6,8 @@ import crypt
 
 
 def chmod_dir(path):
+    if not os.path.exists(path):
+        return
     os.system("chmod +x {}/*".format(path))
     for e in os.listdir(path):
         dst_path = os.path.join(path, e)
@@ -15,6 +17,8 @@ def chmod_dir(path):
 
 
 def exec_dir(cross, path):
+    if not os.path.exists(path):
+        return
     os.system("chmod +x {}/*".format(path))
     if cross != "x86_64":
         os.system("{}-strip {}/*".format(cross, path))
