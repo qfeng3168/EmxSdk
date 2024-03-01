@@ -1,0 +1,64 @@
+version: EmxSdk-20240301-4
+branch: master
+Publisher: xiaoxiong
+    1.增加arm-sigmastar-linux-uclibcgnueabihf支持
+    2.去除media profile中参数配置里的range字段，scene中的range字段增加多通道，同步修改MediaServerXXX中ParamValid中的range多通道支持
+    3.卡刷升级时设备检测到卡刷升级标志位后不再自动重启 
+    4.SD卡热插拔时设备根据是否插入卡升级标志位决定是否进入升级流程，避免误操作 
+    5.卡刷升级后检测到卡刷标志位，设备根据配置信息进行LED闪烁
+    6.修复卡刷升级后自动重启问题 
+    7.修复卡刷重复升级问题
+    8.修复打印数据异常导致程序崩溃问题。
+    9.param文件写数据加局部同步保护。
+    10.shm 类优化共享内存接口
+    11.优化ringbuffer create方法
+    12.增加vdec vo 模块实现
+    13.优化 OutlineOsd ，减少font打印
+    14.修复StopQR无效
+    15.调整获取base64编码所需空间大小除去预留‘\0’
+    16.调整update模块灯控由bsp管控
+    17.product脚本执行chmod和exec操作的时候判断一下路径是否存在
+    18.增加TimeZone2时区配置方式
+    19.调整bsp whiteLight模块配置字段校验
+    20.增加EuvSignal的Stop实现，上个版本忘记实现
+    21.调整bsp子模块配置字段检验
+    22.修改ai.json配置，增加人形人脸协同配置
+    23.修复AI回调没有注册成功的问题
+    24.chmod_dir和exec_dir变为递归形式
+    25.对firmware的configs目录进行chmod_dir，防止其中存放的某些脚本无法执行
+    26.EuvUdp增加停止接收的函数接口
+    27.增加uv的signal用于监听信号
+    28.调整媒体库链接顺序，先链接EmxMediaServerLib以防main函数不对（晶视链接多个main函数不会报错，只会链接最开始的那个main函数）
+    29.修复DevTools-param错误
+    30.修改产品编译脚本的一些错误
+    31.code/media/server/component/osd/OutlineOsd.cpp 增加判断字符大小为0的处理
+    32.code/media/server/MediaServerOsd.cpp 优化osd显示bug
+    33.修改osd.json默认设置
+    34.code/media/include/media/common/mediaInfOsd.hpp 修改偏移量比率基准为10000,时间格式设置使用formatString，星期显示格式weekFormat，废弃 format
+    35.code/media/include/media/server/MediaServerOsd.hpp 修改GetTime 参数定义
+    36.code/media/server/component/osd/OutlineOsd.cpp
+    37.调整音频部分参数
+    38.code/media/server/MediaSererOsd.cpp 优化osd字体库加载失败
+    39.code/media/server/MediaServerSnap.cpp 优化图像抓拍migcid上传失败
+    40.code/media/server/MediaServerVenc.cpp 优化Publish时topic指定失败导致不能拉流问题
+###################################################
+version: EmxSdk-20231223-1
+branch: develop
+Publisher: xiaoxiong
+    MOD: code/media/server/MediaServerBase.cpp 修改媒体操作返回-14异常 tangfahong Today 16:42
+    MOD: 支持自动化生成shadow&passwd&group登录账号组管理信息文件 hening Today 10:43
+    MOD: 更新模板启动脚本加载 hening Yesterday 11:43
+    MOD: 更新custom.py自定义模板 hening Yesterday 11:40
+    MOD: 新增自定义脚本资源提供应用差异化资源依赖打包 hening 2023/12/21 11:21
+    MOD: 补充创建app drivers拷贝目标文件夹 hening 2023/12/20 14:15
+    MOD: 补充copy_tree工具接口以适配应用org资源目标拷贝 hening 2023/12/20 11:23
+    MOD: 修改configs:EmxCommon.cmake ,增加riscv64-unknown-linux-musl 编译参数和链接参数，方便其他模块编译引用 tangfahong 2023/12/17 15:48
+    MOD: Key构造调整Bsp::GpioLike*传入 hening 2023/12/13 17:40
+    MOD: 合并old-emx2.0 git最新节点 update模块代码 hening 2023/12/11 17:42
+    FIX:修改MediaServer::m_ctx未初始化赋值引起的崩溃 xiao xiong 2023/12/10 12:08
+    ADD:增加riscv64-unknown-linux-musl编译链的特殊处理 xiao xiong 2023/12/10 11:27
+###################################################
+version: EmxSdk-20231107-4
+branch: master
+Publisher: xiaoxiong
+    初始版本
