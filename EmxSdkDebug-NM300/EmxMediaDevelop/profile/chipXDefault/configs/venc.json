@@ -26,12 +26,6 @@
       "h264ChromaQpOffset": 0,
       "h265CbQpOffset": 0,
       "h265CrQpOffset": 0
-    },
-    "range": {
-      "resolution": [
-        {"w": 2304, "h": 1296},
-        {"w": 1920, "h": 1080}
-      ]
     }
   },
   {
@@ -61,11 +55,6 @@
       "h264ChromaQpOffset": 0,
       "h265CbQpOffset": 0,
       "h265CrQpOffset": 0
-    },
-    "range": {
-      "resolution": [
-        {"w": 640, "h": 360}
-      ]
     }
   }
 ]

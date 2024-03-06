@@ -15,8 +15,7 @@
       "u32ClkSel": 0,
       "enI2sType": 0,
       "silentTimeMs": 1200,
-      "gain": {"min": 0, "max": 32}
-    },
-    "range": {}
+      "gain": { "min": 0, "max": 32 }
+    }
   }
 ]
