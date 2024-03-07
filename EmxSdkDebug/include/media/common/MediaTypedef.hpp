@@ -65,6 +65,8 @@ namespace Emx {
         Osd = 9,
         Ai = 10,
         Vi = 11,
+        Vdec = 12,
+        Vo = 13,
     };
 }
 #endif //EMX_MEDIATYPEDEF_HPP

@@ -44,6 +44,10 @@ namespace Emx {
                     return MakeAiChn(chn);
                 case MediaModE::Vi:
                     return MakeViChn(chn);
+                case MediaModE::Vdec:
+                    return MakeVdecChn(chn);
+                case MediaModE::Vo:
+                    return MakeVoChn(chn);
                 default:
                     return nullptr;
             }
@@ -68,6 +72,10 @@ namespace Emx {
         virtual MediaServerModuleChnBase *MakeAiChn(int32_t chn) = 0;
 
         virtual MediaServerModuleChnBase *MakeViChn(int32_t chn) = 0;
+
+        virtual MediaServerModuleChnBase *MakeVdecChn(int32_t chn) = 0;
+
+        virtual MediaServerModuleChnBase *MakeVoChn(int32_t chn) = 0;
 
     };
 }

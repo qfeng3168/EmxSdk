@@ -19,7 +19,7 @@ namespace Emx {
          * @param size [in] 缓冲区的大小
          * @return ErrCodeE
          */
-        ErrCodeE Create(int32_t key, int32_t size);
+        ErrCodeE Create(int32_t key, int32_t size = 0);
 
         /**
          * @brief 销毁或断开缓冲区
@@ -57,11 +57,19 @@ namespace Emx {
     class MediaRingBufferReader {
     public:
         /**
+         * @brief 创建或关联一个缓冲区
+         * @param key [in] 缓冲区的识别码
+         * @param size [in] 缓冲区的大小
+         * @return ErrCodeE
+        */
+        ErrCodeE Create(int32_t key, int32_t size);
+
+        /**
          * @brief 关联一个缓冲区
          * @param key [in] 缓冲区的识别码
          * @return ErrCodeE
          */
-        void Create(int32_t key);
+        void Create(int32_t key){Create(key,0);}
 
         /**
          * @brief 断开缓冲区

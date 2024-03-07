@@ -5,9 +5,9 @@
 #ifndef EMX_MediaServerVenc_HPP
 #define EMX_MediaServerVenc_HPP
 
-#include "media/common/MediaInfVenc.hpp"
-#include "MediaServerBase.hpp"
 #include "EmxCore.hpp"
+#include "MediaServerBase.hpp"
+#include "media/common/MediaInfVenc.hpp"
 
 namespace Emx {
 
@@ -62,7 +62,6 @@ namespace Emx {
         virtual void ReleaseOneFrame() = 0;
 
     private:
-
         virtual void OnStream(void *arg);
 
         virtual void OnStreamComplete(ErrCodeE e, void *arg);
@@ -70,6 +69,7 @@ namespace Emx {
     protected:
         Param m_param;
         Param m_paramNew;
+
     private:
         EuvWork m_work;
         FrameData m_frame;
@@ -81,6 +81,6 @@ namespace Emx {
     public:
         MediaServerVenc() : MediaServerModuleBase(MediaModE::Venc, "venc") {}
     };
-}
+}// namespace Emx
 
-#endif //EMX_MediaServerVenc_HPP
+#endif//EMX_MediaServerVenc_HPP

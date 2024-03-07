@@ -6,6 +6,7 @@
 #define EMX_MediaInner_HPP
 
 #define MEDIA_RING_BUFFER_KEY  0x12345000
+#define MEDIA_RING_VO_BUFFER_KEY  0x12346000
 
 //MediaServer Msg Client ID
 #define MEDIA_SERVER_MSG_ID 0x00020000
@@ -41,6 +42,9 @@
 #define MEDIA_TOPIC_QR_SCAN (MEDIA_SERVER_MSG_ID+0x900)
 
 #define MEDIA_TOPIC_AI (MEDIA_SERVER_MSG_ID+0xa00)
+
+#define MEDIA_TOPIC_VDEC (MEDIA_SERVER_MSG_ID+0xb00)
+#define MEDIA_TOPIC_VDEC_FRAME (MEDIA_TOPIC_VDEC+0x20)
 
 namespace Emx {
     ////////////////RPC///////////////////
@@ -101,6 +105,11 @@ namespace Emx {
         SetOutMode,
         GetOutMode,
         DeleteMode,
+    };
+
+    enum class MediaVdecMethodE : uint32_t {
+        Create = (uint32_t) MediaParamMethodE::Butt,
+        Destroy,
     };
 }
 

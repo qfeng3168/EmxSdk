@@ -14,9 +14,8 @@
       "u32ChnCnt": 2,
       "u32ClkSel": 0,
       "enI2sType": 0,
-      "gain": {"min": 0, "max": 7},
+      "gain": { "min": 0, "max": 7 },
       "vqeType": 2
-    },
-    "range": {}
+    }
   }
 ]

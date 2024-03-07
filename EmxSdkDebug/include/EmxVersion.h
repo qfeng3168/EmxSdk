@@ -1,1 +1,1 @@
-#ifndef EMX_EmxVersion_H#define EMX_EmxVersion_H#define EMX_SDK_VERSION "20231223-1"#endif //EMX_EmxVersion_H
+#ifndef EMX_EmxVersion_H#define EMX_EmxVersion_H#define EMX_SDK_VERSION "20240301-4"#endif //EMX_EmxVersion_H

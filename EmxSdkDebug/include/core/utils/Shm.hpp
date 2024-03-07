@@ -27,14 +27,7 @@ namespace Emx {
          * @param size [in] 共享内存大小
          * @return 共享内存指针
          */
-        void *Create(int key, int32_t size);
-
-        /*!
-         * @brief 获取共享内存
-         * @param key [in] 共享内存使用的key
-         * @return 共享内存指针
-         */
-        void *Create(int key);
+        void *Create(int key, int32_t size = 0);
 
         //!断开共享内存
         void Destroy();
