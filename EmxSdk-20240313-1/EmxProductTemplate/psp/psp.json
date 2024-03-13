@@ -1,0 +1,36 @@
+{
+  "Cross": "x86_64",
+  "CrossPath": "",
+  "EmxMediaVersion": "EmxMedia-20231107-1",
+  "EmxMediaProfile": "chipXDefault",
+  "partition": {
+    "flashImgSize": "16M",
+    "partitionTable": [
+      {"name": "boot", "file": "boot.bin", "size": "384K"},
+      {"name": "env", "size": "128K"},
+      {"name": "kernel", "file": "kernel.bin", "size": "2432K"},
+      {"name": "rootfs", "file": "rootfs.bin", "size": "1M"},
+      {"name": "firmware", "file": "firmware.bin", "size": "9408K"},
+      {"name": "spare", "file": "spare.bin", "size": "2560K"},
+      {"name": "data", "size": "448K"}
+    ]
+  },
+  "EmxResToProduct": [
+    {
+      "src": "imgs/boot/boot-cv1821-gun-pub.bin",
+      "dst": "imgs/boot.bin"
+    },
+    {
+      "src": "imgs/kernel/kernel-cv1821-default.bin",
+      "dst": "imgs/kernel.bin"
+    },
+    {
+      "src": "imgs/rootfs/rootfs-cv1821-default.bin",
+      "dst": "imgs/rootfs.bin"
+    },
+    {
+      "src": "imgs/scripts/mkImg-16MB-spare-default.py",
+      "dst": "imgs/mkImg.py"
+    }
+  ]
+}
