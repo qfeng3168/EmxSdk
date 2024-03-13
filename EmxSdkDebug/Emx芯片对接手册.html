@@ -467,8 +467,12 @@ EmxChipPath ：Emx3dr/chip路径
 <span class="token function">cp</span> <span class="token variable">${Emx3drPath}</span>/common/libuv/1.44.2/<span class="token variable">${Cross}</span>/lib/*.so* 3dr/lib
 <span class="token comment"># 拷贝param，调试阶段这里先使用明文参数</span>
 <span class="token function">cp</span> <span class="token parameter variable">-r</span> <span class="token variable">${EmxSdkVersionPath}</span>/EmxProductTemplate/orgParam/* param/
+<span class="token comment"># 拷贝通用psp-param</span>
+<span class="token function">cp</span> <span class="token parameter variable">-r</span> <span class="token variable">${EmxSdkVersionPath}</span>/EmxProductTemplate/psp/param/* param/
 <span class="token comment"># 拷贝通用configs</span>
 <span class="token function">cp</span> <span class="token parameter variable">-r</span> <span class="token variable">${EmxSdkVersionPath}</span>/EmxProductTemplate/orgConfigs/* configs/
+<span class="token comment"># 拷贝通用psp-configs</span>
+<span class="token function">cp</span> <span class="token parameter variable">-r</span> <span class="token variable">${EmxSdkVersionPath}</span>/EmxProductTemplate/psp/configs/* configs/
 <span class="token comment"># 将scene中的配置文件加入到scene中</span>
 <span class="token function">cp</span> <span class="token variable">${EmxProfilePath}</span>/configs/* configs/media/scene/default
 <span class="token comment"># 拷贝EmxMediaServer</span>
