@@ -27,6 +27,8 @@ namespace Emx {
 
         int GetParamSize() override { return sizeof(Param); }
 
+        ErrCodeE GetParamDefaultData(std::string &data) override;
+
         bool ParamValid() override;
 
         ErrCodeE OnRecvReqChn(uint32_t method, const char *data, int32_t size, std::string &out) override;

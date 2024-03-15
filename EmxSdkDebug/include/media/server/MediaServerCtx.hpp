@@ -23,6 +23,8 @@ namespace Emx {
 
         ErrCodeE GetParam(const char *name, Json::Value &json);
 
+        ErrCodeE GetParamDefault(const char *name, Json::Value &json);
+
         ErrCodeE GetRange(const char *name, Json::Value &json);
 
         ErrCodeE GetCfg(const char *name, Json::Value &json);
@@ -37,8 +39,8 @@ namespace Emx {
         MsgTopicPublisherAsync pub;
         char buffer[4 * 1024];
         MediaRingBufferWriter ring;
-//        MediaRingBufferWriter ringAi;
-//        std::mutex lockAi;
+        //        MediaRingBufferWriter ringAi;
+        //        std::mutex lockAi;
     private:
         MediaServerCtx() {}
 
@@ -46,6 +48,6 @@ namespace Emx {
         char m_scene[EMX_MAX_PATH_SIZE];
     };
 
-}
+}// namespace Emx
 
-#endif //EMX_MediaServerCtx_HPP
+#endif//EMX_MediaServerCtx_HPP
