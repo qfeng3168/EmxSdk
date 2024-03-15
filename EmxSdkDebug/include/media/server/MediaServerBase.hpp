@@ -60,7 +60,7 @@ namespace Emx {
 
         virtual int GetParamSize() = 0;
 
-        virtual ErrCodeE GetParamDefaultData(std::string &data) = 0;
+        virtual ErrCodeE GetParamDefaultData(std::string &data) { return ErrCodeE::Success; }
 
         virtual void NewParamInCome(const char *data, int size) { memcpy(GetNewParam(), data, GetParamSize()); }
 
