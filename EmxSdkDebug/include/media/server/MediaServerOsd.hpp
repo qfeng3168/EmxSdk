@@ -56,53 +56,59 @@ namespace Emx {
          */
         virtual Size GetChnPicSize() = 0;
 
-        /**
-         * @brief 创建区域
-         * @param x [in] 区域x坐标
-         * @param y [in] 区域y坐标
-         * @param w [in] 区域宽
-         * @param h [in] 区域高
-         * @param layer [in] 叠加层级
-         * @param show [in] 是否显示
-         * @return 区域id
-         */
-        virtual int RegionCreate(int x, int y, int w, int h, int layer, bool show) = 0;
+        struct RegionInfo {
+            MediaInfOsd::TypeE type;//!< OSD类型
+            int x;                  //!< 区域x坐标
+            int y;                  //!< 区域y坐标
+            int w;                  //!< 区域宽
+            int h;                  //!< 区域高
+            int layer;              //!< 叠加层级
+            bool show;              //!< 是否显示
+            int id;                 //!< region的唯一标识
+        };
 
         /**
-         * @brief 销毁区域
-         * @param region [in] RegionCreate返回的区域id
+         * @brief 创建所有region，并填充id字段，用于标识不同的region
+         * @param region [in] region列表
          */
-        virtual void RegionDestroy(int region) = 0;
+        virtual void RegionCreateAll(std::list<RegionInfo> &region) {}
+
+        /**
+         * @brief 销毁所有region
+         */
+        virtual void RegionDestroyAll();
 
         /**
          * @brief 设置bitmap
-         * @param region [in] RegionCreate返回的区域id
+         * @param id [in] RegionCreate返回的区域id
          * @param pix [in] 内存地址
          * @param w [in] 画面宽
          * @param h [in] 画面高
          */
-        virtual void SetBitMap(int region, uint8_t *pix, int w, int h) = 0;
+        virtual void SetBitMap(int id, uint8_t *pix, int w, int h) = 0;
 
         /**
          * @brief 将图片更新至画布
-         * @param region [in] RegionCreate返回的区域id
+         * @param id [in] RegionCreate返回的区域id
          * @param data [in] 图片数据
          * @return ErrCodeE
          */
-        virtual ErrCodeE ImageToCanvas(int region, const std::string &data) = 0;
+        virtual ErrCodeE ImageToCanvas(int id, const std::string &data) = 0;
+
+        /**
+         * @brief 暂停OSD通道，用于编码通道切换分辨率时停止osd，可视情况选择是否实现
+         */
+        virtual void Pause() {}
+
+        /**
+         * @brief 恢复OSD通道，用于编码通道切换分辨率后恢复osd，可视情况选择是否实现
+         */
+        virtual void Resume() {}
 
     private:
-        void CreateTime();
+        void CreateAll();
 
-        void DestroyTime();
-
-        void CreateText();
-
-        void DestroyText();
-
-        void CreateImage();
-
-        void DestroyImage();
+        void DestroyAll();
 
         OutlineOsd *CreateOutline(int fontSize, const char *font);
 
@@ -132,11 +138,13 @@ namespace Emx {
         struct OsdItem {
             OutlineOsd *outline;
             ParamItem *item;
-            int handle;
+            RegionInfo *region;
         };
+
         std::list<OsdItem> m_osdTime;
         std::list<OsdItem> m_osdText;
         std::list<OsdItem> m_osdImage;
+        std::list<RegionInfo> m_region;
 
         EuvTimer m_timer;
         time_t m_timeRecord;
