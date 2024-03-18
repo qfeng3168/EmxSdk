@@ -76,7 +76,7 @@ namespace Emx {
         /**
          * @brief 销毁所有region
          */
-        virtual void RegionDestroyAll();
+        virtual void RegionDestroyAll() {};
 
         /**
          * @brief 设置bitmap
