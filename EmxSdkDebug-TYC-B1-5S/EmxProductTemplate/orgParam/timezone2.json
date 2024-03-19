@@ -1,0 +1,9 @@
+{
+  "gmt": "GMT+08:00",
+  "daylight": {
+    "ena": false,
+    "save": "",
+    "into": { "in": "", "on": "", "at": "" },
+    "leave": { "in": "", "on": "", "at": "" }
+  }
+}
