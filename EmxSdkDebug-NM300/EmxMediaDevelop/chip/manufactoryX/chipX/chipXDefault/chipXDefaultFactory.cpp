@@ -14,6 +14,9 @@
 #include "DefaultOsd.hpp"
 #include "DefaultAi.hpp"
 #include "DefaultVi.hpp"
+#include "DefaultVdec.hpp"
+#include "DefaultVo.hpp"
+
 
 using namespace Emx;
 
@@ -55,4 +58,12 @@ MediaServerModuleChnBase *chipXDefaultFactory::MakeAiChn(int32_t chn) {
 
 MediaServerModuleChnBase *chipXDefaultFactory::MakeViChn(int32_t chn) {
     return new DefaultVi(chn);
+}
+
+MediaServerModuleChnBase *chipXDefaultFactory::MakeVdecChn(int32_t chn) {
+    return new DefaultVdec(chn);
+}
+
+MediaServerModuleChnBase *chipXDefaultFactory::MakeVoChn(int32_t chn) {
+    return new DefaultVo(chn);
 }

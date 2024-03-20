@@ -30,6 +30,10 @@ namespace Emx {
         MediaServerModuleChnBase *MakeAiChn(int32_t chn) override;
 
         MediaServerModuleChnBase *MakeViChn(int32_t chn) override;
+
+        MediaServerModuleChnBase *MakeVdecChn(int32_t chn) override;
+
+        MediaServerModuleChnBase *MakeVoChn(int32_t chn) override;
     };
 }
 #endif //EMX_chipXDefaultFactory_HPP

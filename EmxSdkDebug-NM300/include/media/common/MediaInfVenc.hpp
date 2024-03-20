@@ -16,6 +16,7 @@ namespace Emx {
             CBR = 0, //!<固定码率
             VBR, //!<可变码率
             AVBR, //!<平均可变码率
+            SmartBR,//!<智能编码，大幅度降低静态码率
             BUTT,
         };
 

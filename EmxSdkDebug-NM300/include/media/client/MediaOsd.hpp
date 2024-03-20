@@ -5,8 +5,8 @@
 #ifndef EMX_MediaOsd_HPP
 #define EMX_MediaOsd_HPP
 
-#include "media/common/MediaInfOsd.hpp"
 #include "MediaParamCBase.hpp"
+#include "media/common/MediaInfOsd.hpp"
 #include <cstring>
 #include <list>
 
@@ -19,7 +19,8 @@ namespace Emx {
         ErrCodeE SetParam(const Param &param) override;
 
         ErrCodeE GetParam(Param &param) override;
-    };
-}
-#endif //EMX_MediaOSD_HPP
 
+        ErrCodeE GetParamDefault(Param &param) override;
+    };
+}// namespace Emx
+#endif//EMX_MediaOSD_HPP

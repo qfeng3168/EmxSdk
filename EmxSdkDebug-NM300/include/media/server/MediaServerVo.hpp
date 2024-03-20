@@ -5,9 +5,9 @@
 #ifndef EMX_MediaServerVo_HPP
 #define EMX_MediaServerVo_HPP
 
-#include "media/common/MediaInfVo.hpp"
-#include "MediaServerBase.hpp"
 #include "EmxCore.hpp"
+#include "MediaServerBase.hpp"
+#include "media/common/MediaInfVo.hpp"
 
 namespace Emx {
 
@@ -27,7 +27,10 @@ namespace Emx {
 
         int GetParamSize() override { return sizeof(Param); }
 
+        ErrCodeE GetParamDefaultData(std::string &data) override;
+
         ErrCodeE OnRecvReqChn(uint32_t method, const char *data, int32_t size, std::string &out) override;
+
     protected:
         /**
          * @brief 开始将vi视频发送到vo
@@ -46,22 +49,22 @@ namespace Emx {
         virtual ErrCodeE runOneViSendVo() = 0;
 
     private:
-
         virtual void OnViSendVo(void *arg);
 
         virtual void OnViSendVoComplete(ErrCodeE e, void *arg);
+
     protected:
         Param m_param;
         Param m_paramNew;
+
     private:
         EuvWork m_work;
-
     };
 
     class MediaServerVo : public MediaServerModuleBase {
     public:
         MediaServerVo() : MediaServerModuleBase(MediaModE::Vo, "vo") {}
     };
-}
+}// namespace Emx
 
-#endif //EMX_MediaServerVo_HPP
+#endif//EMX_MediaServerVo_HPP

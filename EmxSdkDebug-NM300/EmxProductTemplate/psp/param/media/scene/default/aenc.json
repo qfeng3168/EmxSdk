@@ -5,6 +5,7 @@
     "sampleRate": 8000,
     "volume": 80,
     "bitWidth": 16,
+    "aec":true,
     "mute": false
   }
 ]

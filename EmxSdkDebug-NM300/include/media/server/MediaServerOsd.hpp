@@ -5,10 +5,10 @@
 #ifndef EMX_MediaServerOsd_HPP
 #define EMX_MediaServerOsd_HPP
 
-#include "media/common/MediaInfOsd.hpp"
 #include "MediaServerBase.hpp"
-#include "media/common/MediaRegion.hpp"
 #include "core/euv/EuvTimer.hpp"
+#include "media/common/MediaInfOsd.hpp"
+#include "media/common/MediaRegion.hpp"
 #include <list>
 
 class OutlineOsd;
@@ -29,7 +29,9 @@ namespace Emx {
 
         void *GetNewParam() override { return &m_paramNew; }
 
-        int GetParamSize() override { return sizeof(Param); }
+        int GetParamSize() override { return -1; }
+
+        ErrCodeE GetParamDefaultData(std::string &data) override;
 
         void NewParamInCome(const char *data, int size) override;
 
@@ -102,37 +104,20 @@ namespace Emx {
 
         void DestroyImage();
 
-        static void LoadParamItem(ParamItem &item, const Json::Value &json);
-
-        void LoadParamTime(Json::Value &json);
-
-        void LoadParamText(Json::Value &json);
-
-        void LoadParamImage(Json::Value &json);
-
-        static void SaveParamItem(const ParamItem &item, Json::Value &json);
-
-        void SaveParamTime(Json::Value &json);
-
-        void SaveParamText(Json::Value &json);
-
-        void SaveParamImage(Json::Value &json);
-
         OutlineOsd *CreateOutline(int fontSize, const char *font);
 
         void DestroyOutline(OutlineOsd *outline);
 
-        void GetTime(time_t time, char *formatString, char **weekFormat,  int maxSize, char *content);
+        void GetTime(time_t time, char *formatString, char **weekFormat, int maxSize, char *content);
 
-        void CalcCoordinate(Margin &margin,
-                            int regionWidth, int regionHeight,
-                            int backgroundWidth, int backgroundHeight,
-                            int &x, int &y);
+        void CalcCoordinate(Margin &margin, int regionWidth, int regionHeight, int backgroundWidth,
+                int backgroundHeight, int &x, int &y);
 
     protected:
         Param *m_pParam;
         Param m_param;
         Param m_paramNew;
+
     private:
         Size m_chnPicSize;
 
@@ -161,6 +146,6 @@ namespace Emx {
     public:
         MediaServerOsd() : MediaServerModuleBase(MediaModE::Osd, "osd") {}
     };
-}
+}// namespace Emx
 
-#endif //EMX_MediaServerOsd_HPP
+#endif//EMX_MediaServerOsd_HPP
