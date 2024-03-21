@@ -76,7 +76,7 @@ void DefaultOsd::RegionCreateAll(std::list<RegionInfo> &region) {
     // }
 }
 
-void DefaultOsd::RegionDestroyAll() {
+void DefaultOsd::RegionDestroyAll(const std::list<RegionInfo> &region) {
     //! 销毁所有region
     // for(auto &e : myRegionList){
     //    ChipRgnDestroy(region);
