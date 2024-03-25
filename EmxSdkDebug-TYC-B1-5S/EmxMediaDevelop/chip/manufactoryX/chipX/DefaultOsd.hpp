@@ -26,7 +26,7 @@ namespace Emx {
 
         void RegionCreateAll(std::list<RegionInfo> &region) override;
 
-        void RegionDestroyAll() override;
+        void RegionDestroyAll(const std::list<RegionInfo> &region) override;
 
         void SetBitMap(int region, uint8_t *pix, int w, int h) override;
 

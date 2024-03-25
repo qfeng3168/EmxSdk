@@ -13,7 +13,7 @@ namespace Emx {
 
     class MediaInfAiDataPassengerFlowStatistics : public MediaInfAiDataMotionDetection {
     public:
-        MediaInfAiDataPassengerFlowStatistics() : MediaInfAiDataMotionDetection(), entryNum(0), missNum(0) {}
+        MediaInfAiDataPassengerFlowStatistics() : MediaInfAiDataMotionDetection(), entryNum(0), leaveNum(0) {}
 
     public:
         uint32_t entryNum; //!<进入人数
