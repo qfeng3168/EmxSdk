@@ -49,48 +49,7 @@ namespace Emx {
          * @param flags [in] 同bind函数
          * @return ErrCodeE
          */
-        ErrCodeE Bind(const struct sockaddr *addr, unsigned int flags = 0);
-
-        /*!
-         * @brief 创建一个socket并绑定到本地的地址
-         * @param addr [in] ip地址字符串
-         * @param port [in] 端口
-         * @param flags [in] 同bind函数
-         * @return ErrCodeE
-         */
-        ErrCodeE Bind(const char *ip, int port, unsigned int flags = 0);
-
-        typedef enum { EuvLeaveGroup = UV_LEAVE_GROUP, EuvJoinGroup = UV_JOIN_GROUP } EuvMembership;
-
-        /*!
-        * @brief 对一个多播地址设置成员
-        * @param multicastAddr [in] 多播地址
-        * @param interfaceAddr [in] 接口地址
-        * @param membership [in] 加入/退出
-        * @return ErrCodeE
-        */
-        ErrCodeE SetMembership(const char *multicastAddr, const char *interfaceAddr, EuvMembership membership);
-
-        /*!
-        * @brief 设置IP多播循环标志。 使得多播包循环回本地套接字
-        * @param ena [in] 是否使能
-        * @return ErrCodeE
-        */
-        ErrCodeE SetMulticastLoop(bool ena);
-
-        /*!
-        * @brief 设置多播TTL
-        * @param ttl [in] 1到255
-        * @return ErrCodeE
-        */
-        ErrCodeE SetMulticastTTL(int ttl);
-
-        /*!
-        * @brief 设置发送和接收数据所在的多播接口
-        * @param interfaceAddr [in] 接口地址
-        * @return ErrCodeE
-        */
-        ErrCodeE SetMulticastInterface(const char *interfaceAddr);
+        ErrCodeE Bind(const struct sockaddr *addr, unsigned int flags);
 
         /*!
          * @brief 使能广播
@@ -124,16 +83,6 @@ namespace Emx {
         int32_t Send(uint8_t *data, int32_t size, const struct sockaddr *addr, socklen_t addrLen) {
             return sendto(m_udp->io_watcher.fd, data, size, 0, addr, addrLen);
         }
-
-        /*!
-         * @brief 以阻塞的方式发送数据
-         * @param data [in] 发送的数据指针
-         * @param size [in] 发送的数据大小
-         * @param ip [in] 发送的目的ip
-         * @param port [in] 发送的目的端口
-         * @return 同sendto函数
-         */
-        int32_t Send(uint8_t *data, int32_t size, const char *ip, int port);
 
         /*!
          * @brief 获取对端A地址
@@ -191,4 +140,4 @@ namespace Emx {
         int32_t m_size;
     };
 }// namespace Emx
-#endif// EMX_EUVUDP_HPP
+#endif//EMX_EUVUDP_HPP

@@ -30,6 +30,7 @@ namespace Emx {
             uint32_t bitRate; //!<码率kbps
             RcModeE rcMode; //!<码率控制模式
             bool drawRect; //!<是否画框
+            int32_t qualityLevel; //!<编码质量等级 挡位0~10 0=自适应
         };
 
         /**

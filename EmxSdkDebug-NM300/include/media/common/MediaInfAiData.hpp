@@ -43,6 +43,7 @@ namespace Emx {
             PersonRecognition, //!<人形识别数据
             FaceSnap, //!<人脸抓拍数据
             TypeNum, //!<数据类型数量
+            PassengerFlowStatistics, //!<客流统计数据
         };
         //!@brief AI数据头
         struct Header {
