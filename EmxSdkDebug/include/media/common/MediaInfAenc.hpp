@@ -18,6 +18,7 @@ namespace Emx {
             int32_t sampleRate; //!<采样率
             int32_t volume; //!<音量大小
             uint8_t bitWidth; //!<采样位宽
+            bool aec; //!回声消除
             bool mute; //!<是否静音
         };
 

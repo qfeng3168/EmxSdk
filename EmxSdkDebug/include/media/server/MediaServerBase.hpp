@@ -60,6 +60,8 @@ namespace Emx {
 
         virtual int GetParamSize() = 0;
 
+        virtual ErrCodeE GetParamDefaultData(std::string &data) { return ErrCodeE::Success; }
+
         virtual void NewParamInCome(const char *data, int size) { memcpy(GetNewParam(), data, GetParamSize()); }
 
         virtual bool ParamValid() { return true; }
@@ -116,6 +118,6 @@ namespace Emx {
         std::vector<MediaServerModuleChnBase *> m_array;
     };
 
-}
+}// namespace Emx
 
-#endif //EMX_MediaServerGlobalBase_HPP
+#endif//EMX_MediaServerGlobalBase_HPP

@@ -7,8 +7,8 @@
 
 #include "MediaServerBase.hpp"
 #include "core/euv/EuvWork.hpp"
-#include "media/common/MediaRingBuffer.hpp"
 #include "media/common/MediaInfAiData.hpp"
+#include "media/common/MediaRingBuffer.hpp"
 
 namespace Emx {
     class MediaAiJob {
@@ -58,8 +58,7 @@ namespace Emx {
 
     class MediaServerAiChn : public MediaServerModuleChnBase {
     public:
-        explicit MediaServerAiChn(int32_t chn) :
-                MediaServerModuleChnBase(MediaModE::Ai, chn) {}
+        explicit MediaServerAiChn(int32_t chn) : MediaServerModuleChnBase(MediaModE::Ai, chn) {}
 
         ~MediaServerAiChn() override = default;
 
@@ -88,13 +87,11 @@ namespace Emx {
 
         int GetParamSize() override { return 0; }
 
-        void NewParamInCome(const char *data, int size) override {
-            EasyJson::Parse(data, size, m_paramNew);
-        }
+        ErrCodeE GetParamDefaultData(std::string &data) override;
 
-        void GetParamData(std::string &data) override {
-            EasyJson::Serialize(m_param, data);
-        }
+        void NewParamInCome(const char *data, int size) override { EasyJson::Parse(data, size, m_paramNew); }
+
+        void GetParamData(std::string &data) override { EasyJson::Serialize(m_param, data); }
 
         bool ParamChanged() override { return true; }
 
@@ -113,6 +110,6 @@ namespace Emx {
         MediaServerAi() : MediaServerModuleBase(MediaModE::Ai, "ai") {}
     };
 
-}
+}// namespace Emx
 
-#endif //EMX_MediaServerAi_HPP
+#endif//EMX_MediaServerAi_HPP

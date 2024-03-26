@@ -5,9 +5,9 @@
 #ifndef EMX_MediaServerAdec_HPP
 #define EMX_MediaServerAdec_HPP
 
-#include "media/common/MediaInfAdec.hpp"
-#include "MediaServerBase.hpp"
 #include "EmxCore.hpp"
+#include "MediaServerBase.hpp"
+#include "media/common/MediaInfAdec.hpp"
 #include <queue>
 
 namespace Emx {
@@ -29,6 +29,8 @@ namespace Emx {
 
         int GetParamSize() override { return sizeof(Param); }
 
+        ErrCodeE GetParamDefaultData(std::string &data) override;
+
         bool ParamValid() override;
 
         ErrCodeE OnRecvReqChn(uint32_t method, const char *data, int32_t size, std::string &out) override;
@@ -40,7 +42,6 @@ namespace Emx {
         void OnServerDestroy() override;
 
     protected:
-
         /**
          * @brief 发送PCM数据到音频输出
          * @param pcm [in] 16bit pcm原始数据指针
@@ -64,6 +65,7 @@ namespace Emx {
     protected:
         Param m_param;
         Param m_paramNew;
+
     private:
         EuvLoop m_loopAdec;
         MsgTopicSubscriberAsync m_sub;
@@ -87,6 +89,6 @@ namespace Emx {
     public:
         MediaServerAdec() : MediaServerModuleBase(MediaModE::Adec, "adec") {}
     };
-}
+}// namespace Emx
 
-#endif //EMX_MediaServerAdec_HPP
+#endif//EMX_MediaServerAdec_HPP

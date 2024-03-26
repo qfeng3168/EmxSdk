@@ -5,9 +5,9 @@
 #ifndef EMX_MediaServerIsp_HPP
 #define EMX_MediaServerIsp_HPP
 
-#include "media/common/MediaInfIsp.hpp"
 #include "MediaServerBase.hpp"
 #include "core/euv/EuvTimer.hpp"
+#include "media/common/MediaInfIsp.hpp"
 
 namespace Emx {
 
@@ -27,6 +27,8 @@ namespace Emx {
 
         int GetParamSize() override { return sizeof(Param); }
 
+        ErrCodeE GetParamDefaultData(std::string &data) override;
+
         bool ParamValid() override;
 
         ErrCodeE OnRecvReqChn(uint32_t method, const char *data, int32_t size, std::string &out) override;
@@ -36,7 +38,6 @@ namespace Emx {
         void OnServerDestroy() override;
 
     protected:
-
         /**
          * @brief 定时触发收集isp信息
          * @param info [out] isp信息
@@ -57,6 +58,6 @@ namespace Emx {
     public:
         MediaServerIsp() : MediaServerModuleBase(MediaModE::Isp, "isp") {}
     };
-}
+}// namespace Emx
 
-#endif //EMX_MediaServerIsp_HPP
+#endif//EMX_MediaServerIsp_HPP
