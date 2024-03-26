@@ -3,7 +3,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="file:////home/hn/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.12/crossnote/dependencies/katex/katex.min.css">
+      <link rel="stylesheet" href="file:////home/hn/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.13/crossnote/dependencies/katex/katex.min.css">
       
       
       
@@ -86,7 +86,7 @@
 <li>Emx的开发基于Ubuntu 22.04版本</li>
 <li>主机需要安装 cmake &gt;= 3.19，如果版本不够，可通过类似如下方式安装更新</li>
 </ul>
-<pre data-role="codeBlock" data-info="" class="language-text text"><code>sudo apt install build-essential libssl-dev              
+<pre data-role="codeBlock" data-info="" class="language-text"><code>sudo apt install build-essential libssl-dev              
 
 wget https://cmake.org/files/v3.26/cmake-3.26.2.tar.gz  
 tar -zxvf cmake-3.26.2.tar.gz
@@ -258,7 +258,7 @@ eg. ./build.py <span class="token number">0</span>
 <p>  执行下面命令即可，会将所有的profile目录下的所有profile进行编译打包</p>
 <pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>./release.py
 </code></pre><p>最终输出包含版本信息的所有支持的profile</p>
-<pre data-role="codeBlock" data-info="" class="language-text text"><code>EmxMedia-xxxxxxxx-x
+<pre data-role="codeBlock" data-info="" class="language-text"><code>EmxMedia-xxxxxxxx-x
 └── chipXDefault
 </code></pre><p><font color="#FF0000"><b>这个<code>EmxMedia-xxxxxxxx-x</code>就是芯片对接最终版本交付文件</b></font></p>
 <h1 id="4工程配置">4.工程配置 </h1>
@@ -267,7 +267,7 @@ eg. ./build.py <span class="token number">0</span>
 <p><strong>0.命名</strong></p>
 </blockquote>
 <p>  首先要对即将对接芯片系列进行命名，包括厂商-芯片系列-默认profile，可以参考如下定义方式，<strong>后面的所有说明均以此为例</strong></p>
-<pre data-role="codeBlock" data-info="" class="language-text text"><code>厂商-ChipManufactory：cvitek
+<pre data-role="codeBlock" data-info="" class="language-text"><code>厂商-ChipManufactory：cvitek
 芯片系列-ChipSerial：cv182x
 默认profile-Profile：cv182xDefault
 </code></pre><blockquote>
@@ -391,7 +391,7 @@ eg. ./build.py <span class="token number">0</span>
 <p><strong>4.编写build.cmake</strong></p>
 </blockquote>
 <p>  顶层CMakeLists.txt会根据选择的profile定位并包含此文件，是芯片厂编译自身代码的入口，其中有一些由顶层CMakeLists.txt传进来的变量可以使用，包括：</p>
-<pre data-role="codeBlock" data-info="" class="language-text text"><code>CMAKE_SOURCE_DIR : 工程顶层EmxMediaDevelop的绝对路径
+<pre data-role="codeBlock" data-info="" class="language-text"><code>CMAKE_SOURCE_DIR : 工程顶层EmxMediaDevelop的绝对路径
 ChipManufactory ：厂商名
 ChipSerial ：芯片系列
 ChipSdkVersion ：芯片sdk版本号
@@ -524,7 +524,7 @@ EmxMediaServer <span class="token parameter variable">-b</span>
 <pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>EmxToolsV2 <span class="token parameter variable">-b</span>
 </code></pre><h1 id="6模块开发">6.模块开发 </h1>
 <p>  EmxMediaServer包含如下功能模块，程序启动时会逐一的去启动各个模块，其中每个模块启动的时候会将自身配置的支持的所有通道按顺序启动。销毁顺序是创建的逆过程</p>
-<pre data-role="codeBlock" data-info="" class="language-text text"><code>System(系统)-&gt;Vi(视频输入)-&gt;Isp(画质处理)-&gt;Venc(视频编码)-&gt;
+<pre data-role="codeBlock" data-info="" class="language-text"><code>System(系统)-&gt;Vi(视频输入)-&gt;Isp(画质处理)-&gt;Venc(视频编码)-&gt;
 Aenc(音频编码)-&gt;Adec(音频解码)-&gt;Snap(缩略图抓拍)-&gt;Osd(水印)-&gt;
 QrScan(二维码扫描)-&gt;Ai(智能模块)-&gt;Vo(视频输出[可选])
 </code></pre><p>  芯片对接需要实现的代码放在<code>chip/cvitek/cv182xDefault</code>下，以<code>Default+模块名.xpp</code>命名。所有模块都有一些相同的特性，了解这些特性对于后续对接开发有很大帮助，这里为了方便描述，我们假设一个模块名为<code>Xxxx</code>(例如Venc,Aenc...)，<code>Xxxx</code>模块对应的源文件是<code>DefaultXxxx.cpp</code>和<code>DefaultXxxx.hpp</code>，在<code>DefaultXxxx.hpp</code>定义了一个同名的类<code>DefaultXxxx</code>这个类继承了<code>MediaServerXxxxChn</code>，它是Emx实现的一个基础类，表示一个模块的某个通道，所以实际上我们是在实现模块通道的回调，我们不需要过于关心<code>MediaServerXxxxChn</code>，因为在<code>DefaultXxxx</code>类中已经将需要实现的回调函数事先写了出来，并在<code>DefaultXxxx.cpp</code>中进行了定义，我们只需要重点关注这些定义函数的实现即可。<br>
@@ -940,22 +940,16 @@ QrScan(二维码扫描)-&gt;Ai(智能模块)-&gt;Vo(视频输出[可选])
 <span class="token keyword keyword-virtual">virtual</span> Size <span class="token function">GetChnPicSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
 <span class="token comment">/**
- * @brief 创建区域
- * @param x [in] 区域x坐标
- * @param y [in] 区域y坐标
- * @param w [in] 区域宽
- * @param h [in] 区域高
- * @param layer [in] 叠加层级
- * @param show [in] 是否显示
- * @return 区域id
+ * @brief 创建所有region，并填充id字段，用于标识不同的region
+ * @param xregion [in] region列表
  */</span>
-<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-int">int</span> <span class="token function">RegionCreate</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> x<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> y<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> w<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> h<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> layer<span class="token punctuation">,</span> <span class="token keyword keyword-bool">bool</span> show<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-int">int</span> <span class="token function">RegionCreateAll</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>list<span class="token operator">&lt;</span>RegionInfo<span class="token operator">&gt;</span> <span class="token operator">&amp;</span>region<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
 <span class="token comment">/**
- * @brief 销毁区域
- * @param region [in] RegionCreate返回的区域id
+ * @brief 销毁所有region
+ * @param region [in] region列表
  */</span>
-<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-void">void</span> <span class="token function">RegionDestroy</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> region<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-void">void</span> <span class="token function">RegionDestroyAll</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> std<span class="token double-colon punctuation">::</span>list<span class="token operator">&lt;</span>RegionInfo<span class="token operator">&gt;</span> <span class="token operator">&amp;</span>region<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
 <span class="token comment">/**
  * @brief 设置bitmap
@@ -978,9 +972,9 @@ QrScan(二维码扫描)-&gt;Ai(智能模块)-&gt;Vo(视频输出[可选])
 </blockquote>
 <p>  除了必要的参数加载和初始化之外，需要在<code>OnCreate</code>阶段记录一下当前osd通道所叠加背景图像的宽高信息，之后会收到<code>GetChnImgSize</code>回调来获取宽高信息</p>
 <blockquote>
-<p>RegionCreate</p>
+<p>RegionCreateAll<br>
+  这个函数用于创建所有odf区域，不同厂商的处理可能会有不同，<code>RegionCreateAll</code>需要将region句柄赋值给region list的<code>id</code>，这个region句柄具体的生成方式由芯片厂商自行定义，后续的<code>RegionDestroyAll</code>，<code>SetBitMap</code>以及<code>ImageToCanvas</code>等回调都会携带这个region句柄来标识身份</p>
 </blockquote>
-<p>  这个函数用于创建一个区域，不同厂商的处理可能会有不同，<code>RegionCreate</code>返回的是一个int型的region句柄，这个region句柄具体的生成方式由芯片厂商自行定义，后续的<code>RegionDestroy</code>，<code>SetBitMap</code>以及<code>ImageToCanvas</code>等回调都会携带这个region句柄来标识身份</p>
 <h2 id="610-ai">6.10. Ai </h2>
 <p>  Ai模块负责智能部分，对外输出Ai处理的结果数据并响应外部的参数配置，这个模块与其他模块有很大的不同，原因是AI算法各种各样，客户的需求也是千奇百怪，所以Ai模块使用插件的方式进行开发。需要厂商实现<code>MakePlugin</code>这个插件工厂函数，当上层调用的时候传入Ai插件的名称，厂商负责构造并实现这个插件。<br>
   下面首先介绍两个概念，需要厂商在对接的时候留意区分，一个是Ai数据，Ai数据是需要发送给客户的，是预先由Emx定义好的，各个芯片厂商都需要符合的数据格式标准，例如：移动侦测的数据，人脸检测的数据。另一个是Ai插件，Ai插件就是为了产生某个Ai数据由芯片厂商实现的一套代码或模型。一般来讲，一个Ai插件可以产生一种或多种Ai数据，一个Ai数据只由一种Ai插件生成。例如：芯片商实现了2个Ai插件，起名叫做"GodLikeMan"和"WhatsUpBaby"，其中"GodLikeMan"实现了移动侦测和人脸识别，"WhatsUpBaby"实现了客流统计，那么最终这两个插件向外提供了3种Ai数据，厂商实现的<code>MakePlugin</code>就需要能接收"GodLikeMan"和"WhatsUpBaby"这两个参数，并生成相应的插件</p>
@@ -1070,6 +1064,55 @@ QrScan(二维码扫描)-&gt;Ai(智能模块)-&gt;Vo(视频输出[可选])
 <h6 id="mediainfaidata">MediaInfAiData </h6>
 <p>  <code>MediaInfAiData</code>就是Ai数据的基类，里面定义了目前支持或即将支持的Ai数据类型，以继承<code>MediaInfAiData</code>的移动侦测数据<code>MediaInfAiDataMotionDetection</code>为例，厂商可参考代码中<code>DefaultAiPluginMotionDetection</code>伪代码的实现在<code>MediaAiJob</code>的<code>onWork</code>回调中对其进行赋值，然后在<code>MediaAiJob</code>的<code>onWorkComplete</code>回调中对其进行<code>PushAiData</code>和释放</p>
 <h2 id="611-votodo">6.11. Vo[todo] </h2>
+<h2 id="612-draw">6.12. Draw </h2>
+<p>  Draw模块实现线框的叠加，目前支持的有三种类型，分别是直线，矩形和椭圆</p>
+<h5 id="需要实现的接口-10">需要实现的接口: </h5>
+<pre data-role="codeBlock" data-info="c++" class="language-cpp c++"><code><span class="token comment">/**
+ * @brief 创建draw总句柄
+ * 
+ * @return
+ */</span>
+ErrCodeE <span class="token function">OnCreate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token comment">/**
+* @brief 释放draw总句柄
+*/</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">OnDestroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+* @brief 获取通道图像大小(叠加的画面大小，例如vpss chn的宽高)
+* @return
+*/</span>
+Size <span class="token function">GetChnPicSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token comment">/**
+* @brief 创建Draw画线框
+* @param data [in] 画线框数据
+* return 返回draw id，-1=失败
+*/</span>
+<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-int">int</span> <span class="token function">DrawCreateItem</span><span class="token punctuation">(</span>ParamItem <span class="token operator">&amp;</span>item<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token comment">/**
+* @brief 设置Draw画线框
+* @param id [in] 画线框id
+* @param data [in] 画线框数据
+*/</span>
+<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-void">void</span> <span class="token function">DrawSetItem</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> id<span class="token punctuation">,</span> ParamItem <span class="token operator">&amp;</span>item<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token comment">/**
+* @brief 销毁Draw
+* @param data [in] draw id
+*/</span>
+<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-void">void</span> <span class="token function">DrawDestroyItem</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> id<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+</code></pre><blockquote>
+<p>DrawCreateItem</p>
+</blockquote>
+<p>  这个函数用于创建一个画线框，不同厂商的处理可能会有不同，要注意<code>item</code>参数判断<code>type</code>类型，创建完成后返回对应句柄id</p>
+<blockquote>
+<p>DrawSetItem</p>
+</blockquote>
+<p>  这个函数用于修改指定句柄<code>id</code>的<code>item</code>属性，不同厂商的处理可能会有不同</p>
+<blockquote>
+<p>DrawDestroyItem</p>
+</blockquote>
+<p>  这个函数用于释放指定句柄<code>id</code>的画线框</p>
 
       </div>
       
