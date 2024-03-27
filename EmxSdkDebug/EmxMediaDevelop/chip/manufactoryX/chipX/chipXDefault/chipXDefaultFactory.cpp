@@ -69,6 +69,6 @@ MediaServerModuleChnBase *chipXDefaultFactory::MakeVoChn(int32_t chn) {
     return new DefaultVo(chn);
 }
 
-MediaServerModuleChnBase *cv181xDefaultFactory::MakeDrawChn(int32_t chn) {
+MediaServerModuleChnBase *chipXDefaultFactory::MakeDrawChn(int32_t chn) {
     return new DefaultDraw(chn);
 }
