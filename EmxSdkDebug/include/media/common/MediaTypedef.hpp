@@ -67,6 +67,7 @@ namespace Emx {
         Vi = 11,
         Vdec = 12,
         Vo = 13,
+        Draw = 14,
     };
 }
 #endif //EMX_MEDIATYPEDEF_HPP
