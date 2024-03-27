@@ -3,7 +3,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="file:////home/hn/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.13/crossnote/dependencies/katex/katex.min.css">
+      <link rel="stylesheet" href="file:////home/tangfahong/.vscode-server/extensions/shd101wyy.markdown-preview-enhanced-0.8.13/crossnote/dependencies/katex/katex.min.css">
       
       
       
@@ -1084,11 +1084,11 @@ ErrCodeE <span class="token function">OnCreate</span><span class="token punctuat
 */</span>
 Size <span class="token function">GetChnPicSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token comment">/**
-* @brief 创建Draw画线框
-* @param data [in] 画线框数据
-* return 返回draw id，-1=失败
-*/</span>
-<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-int">int</span> <span class="token function">DrawCreateItem</span><span class="token punctuation">(</span>ParamItem <span class="token operator">&amp;</span>item<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+ * @brief 创建Draw画线框
+ * @param info [in] 画线框数据,需要赋值id返回
+ * 
+ */</span>
+<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-void">void</span> <span class="token function">DrawCreateAll</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>list<span class="token operator">&lt;</span>DrawInfo<span class="token operator">&gt;</span> <span class="token operator">&amp;</span>info<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token comment">/**
 * @brief 设置Draw画线框
 * @param id [in] 画线框id
@@ -1097,22 +1097,22 @@ Size <span class="token function">GetChnPicSize</span><span class="token punctua
 <span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-void">void</span> <span class="token function">DrawSetItem</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> id<span class="token punctuation">,</span> ParamItem <span class="token operator">&amp;</span>item<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token comment">/**
 * @brief 销毁Draw
-* @param data [in] draw id
+* @param info [in] 需要销毁的画线框数据
 */</span>
-<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-void">void</span> <span class="token function">DrawDestroyItem</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> id<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-void">void</span> <span class="token function">DrawDestroyAll</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>list<span class="token operator">&lt;</span>DrawInfo<span class="token operator">&gt;</span> <span class="token operator">&amp;</span>info<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
 </code></pre><blockquote>
-<p>DrawCreateItem</p>
+<p>DrawCreateAll</p>
 </blockquote>
-<p>  这个函数用于创建一个画线框，不同厂商的处理可能会有不同，要注意<code>item</code>参数判断<code>type</code>类型，创建完成后返回对应句柄id</p>
+<p>  这个函数用于创建所有画线框，不同厂商的处理可能会有不同，要注意<code>item</code>参数判断<code>type</code>类型，每一个item都需要赋值id</p>
 <blockquote>
 <p>DrawSetItem</p>
 </blockquote>
 <p>  这个函数用于修改指定句柄<code>id</code>的<code>item</code>属性，不同厂商的处理可能会有不同</p>
 <blockquote>
-<p>DrawDestroyItem</p>
+<p>DrawDestroyAll</p>
 </blockquote>
-<p>  这个函数用于释放指定句柄<code>id</code>的画线框</p>
+<p>  这个函数用于释放所有的画线框，可以根据指定<code>id</code>处理</p>
 
       </div>
       

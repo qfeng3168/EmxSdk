@@ -17,14 +17,14 @@ namespace Emx {
           * @brief 构造什么都不干
           * @param chn
           */
-        DefaultDraw(int32_t chn) : MediaServerDrawChn(chn) {m_chn = chn;}
+        DefaultDraw(int32_t chn) : MediaServerDrawChn(chn) { m_chn = chn; }
 
         virtual ~DefaultDraw(){};
 
     public:
         /**
          * @brief 创建draw总句柄
-         * 这里是初始化一个最大的画布，但是依赖osd，要注意两者的使用
+         * 
          * @return
          */
         ErrCodeE OnCreate() override;
@@ -33,13 +33,29 @@ namespace Emx {
          */
         void OnDestroy() override;
 
+        /**
+         * @brief 获取通道图像大小(叠加的画面大小，例如vpss chn的宽高)
+         * @return
+         */
         Size GetChnPicSize() override;
+        /**
+         * @brief 创建Draw画线框
+         * @param info [in] 画线框数据,需要赋值id返回
+         * 
+         */
+        virtual void DrawCreateAll(std::list<DrawInfo> &info) override;
 
-        virtual int DrawCreateItem(ParamItem& item) override;
-        
-        virtual void DrawSetItem(const int id,ParamItem& item) override;
-        
-        virtual void DrawDestroyItem(const int id) override;
+        /**
+         * @brief 设置Draw画线框
+         * @param id [in] 画线框id
+         * @param data [in] 画线框数据
+         */
+        virtual void DrawSetItem(const int id, ParamItem &item) override;
+        /**
+         * @brief 销毁Draw
+         * @param info [in] 需要销毁的画线框数据
+         */
+        virtual void DrawDestroyAll(std::list<DrawInfo> &info) override;
 
     protected:
         int m_chn = 0;
@@ -47,7 +63,7 @@ namespace Emx {
         int m_vpssChn;
         int m_chnWidth;
         int m_chnHeight;
-        int m_lineIdx =0 ; //!< draw句柄
+        int m_lineIdx = 0;//!< draw句柄
     };
 }// namespace Emx
 
