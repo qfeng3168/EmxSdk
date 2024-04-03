@@ -28,9 +28,10 @@ namespace Emx {
             uint16_t fps; //!<帧率
             uint16_t iFrameInv; //!<I帧间隔单位s
             uint32_t bitRate; //!<码率kbps
+            uint32_t qualityLevel; //!<编码质量等级 挡位0~10 0=自适应
             RcModeE rcMode; //!<码率控制模式
             bool drawRect; //!<是否画框
-            int32_t qualityLevel; //!<编码质量等级 挡位0~10 0=自适应
+            bool smartCode; //!<智能编码开关
         };
 
         /**

@@ -57,16 +57,20 @@ def get_product_json(path):
 def copy(src, dst):
     os.system("cp -R {} {}".format(src, dst))
 
+
 def copy_tree(src, dst):
     shutil.copytree(src, dst, symlinks=True)
+
 
 class Env:
     def __init__(self, top):
         self.top = top
-        self.EmxSdk = top + "/EmxSdk"
-        self.Emx3dr = top + "/Emx3dr"
-        self.EmxRes = top + "/EmxRes"
-        self.EmxMedia = top + "/EmxMedia"
+        self.Public = top + "/Public"
+        self.EmxSdk = self.Public + "/EmxSdk"
+        self.Emx3dr = self.Public + "/Emx3dr"
+        self.EmxRes = self.Public + "/EmxRes"
+        self.EmxMedia = self.Public + "/EmxMedia"
+        self.EmxAiPlugin = self.Public + "/EmxAiPlugin"
         self.rootfs = top + "/rootfs"
         self.firmware = top + "/firmware"
         self.spare = top + "/spare"
@@ -269,7 +273,7 @@ class Md5:
 
 def mx(z, y, sum1, k, p, e):
     return c_uint32(((z.value >> 5 ^ y.value << 2) + (y.value >> 3 ^ z.value << 4)) ^ (
-            (sum1.value ^ y.value) + (k[(p & 3) ^ e.value] ^ z.value)))
+        (sum1.value ^ y.value) + (k[(p & 3) ^ e.value] ^ z.value)))
 
 
 class XXTEA:
@@ -290,7 +294,8 @@ class XXTEA:
                 v[p] = c_uint32(v[p] + mx(z, y, sum1, k, p, e).value).value
                 z.value = v[p]
             y = c_uint32(v[0])
-            v[n - 1] = c_uint32(v[n - 1] + mx(z, y, sum1, k, n - 1, e).value).value
+            v[n - 1] = c_uint32(v[n - 1] + mx(z, y, sum1,
+                                k, n - 1, e).value).value
             z.value = v[n - 1]
             rounds -= 1
         return v
@@ -333,7 +338,8 @@ class AesKey:
         tea = list()
         byte = base64.decodebytes(base)
         for i in range(0, 32):
-            tea.append(int.from_bytes(byte[i * 4:i * 4 + 4], byteorder='big', signed=False))
+            tea.append(int.from_bytes(
+                byte[i * 4:i * 4 + 4], byteorder='big', signed=False))
         v = XXTEA.decrypt(tea, 32)
         return v[0:16], v[16:]
 
@@ -373,7 +379,8 @@ class AesKey:
 def rom(aes_key, aes_iv, dev_info, out, imgs_dir, partition, img_list, pre_script_file=None, post_script_file=None):
     img_info = pack_prepare(imgs_dir, partition)
     write_file_list = []
-    rom_info = RomInfoJson(dev_info["inner"]["type"], dev_info["inner"]["version"])
+    rom_info = RomInfoJson(
+        dev_info["inner"]["type"], dev_info["inner"]["version"])
 
     # 如果存在前处理脚本，则添加到rom json header中
     if pre_script_file is not None and len(pre_script_file):
@@ -397,7 +404,8 @@ def rom(aes_key, aes_iv, dev_info, out, imgs_dir, partition, img_list, pre_scrip
         exit(-1)
 
     rom_data = bytearray()
-    rom_data.extend(rom_info_json_size.to_bytes(4, byteorder='big', signed=False))
+    rom_data.extend(rom_info_json_size.to_bytes(
+        4, byteorder='big', signed=False))
     rom_data.extend(rom_info_json_string.encode(encoding="utf-8"))
     for file in write_file_list:
         with open(file, "rb") as f:
@@ -406,7 +414,8 @@ def rom(aes_key, aes_iv, dev_info, out, imgs_dir, partition, img_list, pre_scrip
     aes = Aes(aes_key, aes_iv)
     rom_encrypted = aes.encode(rom_data)
     with open(out, 'wb+') as out_file:
-        out_file.write(len(rom_encrypted).to_bytes(4, byteorder='big', signed=False))
+        out_file.write(len(rom_encrypted).to_bytes(
+            4, byteorder='big', signed=False))
         out_file.write(bytes(Md5.content(rom_encrypted), encoding='utf-8'))
         out_file.write(rom_encrypted)
         out_file.close()
@@ -525,10 +534,12 @@ def flash(imgs_dir, partition, out):
             else:
                 with open(one_img["file"], "rb") as file:
                     flash_data.write(file.read())
-                    flash_data.write(bytearray([255] * (part_size - os.path.getsize(one_img["file"]))))
+                    flash_data.write(
+                        bytearray([255] * (part_size - os.path.getsize(one_img["file"]))))
             writen_size += part_size
         if writen_size > flash_img_size:
-            print_err("flash_img_size:[{}] < writen_size:[{}]".format(flash_img_size, writen_size))
+            print_err("flash_img_size:[{}] < writen_size:[{}]".format(
+                flash_img_size, writen_size))
             exit(-1)
         flash_data.write(bytearray([255] * (flash_img_size - writen_size)))
         flash_data.close()
@@ -540,7 +551,8 @@ def parse_rom_info(file, aes_key, aes_iv):
         total_md5 = f.read(32)
         aes = Aes(aes_key, aes_iv)
         rom_data = aes.decode(f.read())
-        rom_info_json_size = int.from_bytes(rom_data[0:4], byteorder='big', signed=False)
+        rom_info_json_size = int.from_bytes(
+            rom_data[0:4], byteorder='big', signed=False)
         print_info("rom info json size = {}".format(rom_info_json_size))
         rom_info_json = json.loads(rom_data[4:rom_info_json_size + 4])
         print_info("rom_info_json = {}".format(

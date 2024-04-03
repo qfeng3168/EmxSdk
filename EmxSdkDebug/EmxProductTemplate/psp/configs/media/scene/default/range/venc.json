@@ -14,7 +14,8 @@
     "iFrameInv": { "min": 1, "max": 10 },
     "flip": [ true, false ],
     "mirror": [ true, false ],
-    "drawRect": [ true, false ]
+    "drawRect": [ true, false ],
+    "smartCode": [ true, false ]
   }, {
     "codec": [ 0, 1 ],
     "resolution": [
@@ -28,6 +29,7 @@
     "iFrameInv": { "min": 1, "max": 10 },
     "flip": [ true, false ],
     "mirror": [ true, false ],
-    "drawRect": [ true, false ]
+    "drawRect": [ true, false ],
+    "smartCode": [ true, false ]
   }
 ]

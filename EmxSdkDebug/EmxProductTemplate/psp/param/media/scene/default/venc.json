@@ -9,7 +9,8 @@
     "iFrameInv": 4,
     "flip": false,
     "mirror": false,
-    "drawRect": false
+    "drawRect": false,
+    "smartCode": false
   },
   {
     "codec": 0,
@@ -21,6 +22,7 @@
     "iFrameInv": 4,
     "flip": false,
     "mirror": false,
-    "drawRect": false
+    "drawRect": false,
+    "smartCode": false
   }
 ]

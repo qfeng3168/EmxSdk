@@ -167,7 +167,8 @@ sudo make install
     <span class="token property">"iFrameInv"</span><span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
     <span class="token property">"flip"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
     <span class="token property">"mirror"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-    <span class="token property">"drawRect"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+    <span class="token property">"drawRect"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"smartCode"</span><span class="token operator">:</span> <span class="token boolean">false</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token punctuation">{</span>
     <span class="token property">"codec"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
@@ -179,7 +180,8 @@ sudo make install
     <span class="token property">"iFrameInv"</span><span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
     <span class="token property">"flip"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
     <span class="token property">"mirror"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-    <span class="token property">"drawRect"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+    <span class="token property">"drawRect"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"smartCode"</span><span class="token operator">:</span> <span class="token boolean">false</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">]</span>
 </code></pre><blockquote>
@@ -200,10 +202,9 @@ sudo make install
 </blockquote>
 <p>  将EmxSdk中的EmxMediaDevelop拷贝到一个让自己舒适的地方，然后进入到scripts目录执行下面的操作，这一步是为了将依赖的EmxSdk和Emx3dr目录软连接到EmxMediaDevelop工程目录下，方便为后续编译和打包提供一致性环境(不连接编不过的)</p>
 <pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code><span class="token function">chmod</span> +x *
-./softLink.py the/path/of/EmxSdk the/path/of/Emx3dr
+./softLink.py the/path/of/Public
 </code></pre><p>下面来介绍一下这个工程里面的内容</p>
-<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>├── EmxSdk <span class="token comment"># 刚刚软连接过来的，里面存放了各个EmxSdk版本</span>
-├── Emx3dr <span class="token comment"># 刚刚软连接过来的，里面是各种各样的3dr</span>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>├── Public <span class="token comment"># 刚刚软连接过来的，里面存放了各个EmxSdk版本和依赖库</span>
 ├── CMakeLists.txt <span class="token comment"># 工程编译的顶层cmake文件，不需要改动</span>
 ├── EmxMedia.cpp <span class="token comment"># 固定的抽象工厂实例化代码文件，不需要改动</span>
 ├── EmxMediaVersion <span class="token comment"># 版本号记录文件，不需要理会，每次编译自动更新</span>
@@ -1084,11 +1085,11 @@ ErrCodeE <span class="token function">OnCreate</span><span class="token punctuat
 */</span>
 Size <span class="token function">GetChnPicSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token comment">/**
-* @brief 创建Draw画线框
-* @param data [in] 画线框数据
-* return 返回draw id，-1=失败
-*/</span>
-<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-int">int</span> <span class="token function">DrawCreateItem</span><span class="token punctuation">(</span>ParamItem <span class="token operator">&amp;</span>item<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+ * @brief 创建Draw画线框
+ * @param info [in] 画线框数据,需要赋值id返回
+ * 
+ */</span>
+<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-void">void</span> <span class="token function">DrawCreateAll</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>list<span class="token operator">&lt;</span>DrawInfo<span class="token operator">&gt;</span> <span class="token operator">&amp;</span>info<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token comment">/**
 * @brief 设置Draw画线框
 * @param id [in] 画线框id
@@ -1097,22 +1098,22 @@ Size <span class="token function">GetChnPicSize</span><span class="token punctua
 <span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-void">void</span> <span class="token function">DrawSetItem</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> id<span class="token punctuation">,</span> ParamItem <span class="token operator">&amp;</span>item<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token comment">/**
 * @brief 销毁Draw
-* @param data [in] draw id
+* @param info [in] 需要销毁的画线框数据
 */</span>
-<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-void">void</span> <span class="token function">DrawDestroyItem</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> <span class="token keyword keyword-int">int</span> id<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-virtual">virtual</span> <span class="token keyword keyword-void">void</span> <span class="token function">DrawDestroyAll</span><span class="token punctuation">(</span>std<span class="token double-colon punctuation">::</span>list<span class="token operator">&lt;</span>DrawInfo<span class="token operator">&gt;</span> <span class="token operator">&amp;</span>info<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
 </code></pre><blockquote>
-<p>DrawCreateItem</p>
+<p>DrawCreateAll</p>
 </blockquote>
-<p>  这个函数用于创建一个画线框，不同厂商的处理可能会有不同，要注意<code>item</code>参数判断<code>type</code>类型，创建完成后返回对应句柄id</p>
+<p>  这个函数用于创建所有画线框，不同厂商的处理可能会有不同，要注意<code>item</code>参数判断<code>type</code>类型，每一个item都需要赋值id</p>
 <blockquote>
 <p>DrawSetItem</p>
 </blockquote>
 <p>  这个函数用于修改指定句柄<code>id</code>的<code>item</code>属性，不同厂商的处理可能会有不同</p>
 <blockquote>
-<p>DrawDestroyItem</p>
+<p>DrawDestroyAll</p>
 </blockquote>
-<p>  这个函数用于释放指定句柄<code>id</code>的画线框</p>
+<p>  这个函数用于释放所有的画线框，可以根据指定<code>id</code>处理</p>
 
       </div>
       

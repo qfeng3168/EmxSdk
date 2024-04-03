@@ -8,7 +8,4 @@ __pycache__
 /spare
 /firmware
 /rootfs/root/firmware
-/EmxSdk
-/Emx3dr
-/EmxRes
-/EmxMedia
+Public
