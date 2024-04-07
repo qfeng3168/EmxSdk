@@ -40,10 +40,11 @@ namespace Emx {
         Size GetChnPicSize() override;
         /**
          * @brief 创建Draw画线框
-         * @param data [in] 画线框数据
-         * return 返回draw id，-1=失败
+         * @param info [in] 画线框数据,需要赋值id返回
+         * 
          */
-        virtual int DrawCreateItem(ParamItem &item) override;
+        virtual void DrawCreateAll(std::list<DrawInfo> &info) override;
+
         /**
          * @brief 设置Draw画线框
          * @param id [in] 画线框id
@@ -52,9 +53,9 @@ namespace Emx {
         virtual void DrawSetItem(const int id, ParamItem &item) override;
         /**
          * @brief 销毁Draw
-         * @param data [in] draw id
+         * @param info [in] 需要销毁的画线框数据
          */
-        virtual void DrawDestroyItem(const int id) override;
+        virtual void DrawDestroyAll(std::list<DrawInfo> &info) override;
 
     protected:
         int m_chn = 0;

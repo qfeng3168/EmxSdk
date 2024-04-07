@@ -32,33 +32,25 @@ Size DefaultDraw::GetChnPicSize() {
     return {m_chnWidth, m_chnHeight};
 }
 
-
-void DefaultDraw::DrawCreateAll(std::list<DrawInfo> &data) {
-    //! 创建所有画线，厂商按照自己的特性来，最终需要填充DrawInfo中的id字段
-    //! 需要自己保证id的唯一性即可
-
-}
-
-void DefaultDraw::DrawDestroyAll(const std::list<DrawInfo> &data) {
-   //! 销毁所有data
-    // for(auto &e : data){
-    //   销毁data 
-    // }
-}
-
-int DefaultDraw::DrawCreateItem(ParamItem &item) {
-    int id = 0;
-    //! 创建所有画线框，厂商按照自己的特性来，最终需要返回此item使用的id
-    //! 需要自己保证id的唯一性即可
-    return id;
-}
-
 void DefaultDraw::DrawSetItem(const int id, ParamItem &item) {
    //! 根据id设置对应画线框属性
     //  设置item
 }
 
-void DefaultDraw::DrawDestroyItem(const int id) {
-   //! 根据id销毁对应画线框
-    //  销毁data 
+void DefaultDraw::DrawCreateAll(std::list<DrawInfo> &info){
+     //! 创建所有画线框，厂商按照自己的特性来，需要赋值使用的e.id
+    //! 需要自己保证id的唯一性即可
+    // for(auto &e: info){
+    //     e.id = Draw(e.item);
+    // }
+    
+}
+
+void DefaultDraw::DrawDestroyAll(std::list<DrawInfo> &info) {
+    // for(auto &e: info){
+    // 根据id销毁对应画线框
+    // 销毁data 
+    //      DeleteDraw(e.id);
+    //      e.id = -1;
+    // }
 }

@@ -57,29 +57,28 @@ namespace Emx {
 
         struct DrawInfo {
             int id;//!< Draw的唯一标识
-            std::shared_ptr<ParamItem> item;//!< param 缓存
+            ParamItem item;//!< item数据
         };
-
         /**
          * @brief 创建Draw画线框
-         * @param data [in] 画线框数据
-         * return 返回draw id，-1=失败
+         * @param info [in] 画线框数据,需要赋值id返回
+         * 
          */
-        virtual int DrawCreateItem(ParamItem& item) {return -1;}
-        
-         /**
+        virtual void DrawCreateAll(std::list<DrawInfo> &info) {}
+
+        /**
+         * @brief 销毁Draw
+         * @param info [in] 需要销毁的画线框数据
+         */
+        virtual void DrawDestroyAll(std::list<DrawInfo> &info){}
+
+        /**
          * @brief 设置Draw画线框
          * @param id [in] 画线框id
          * @param data [in] 画线框数据
          */
         virtual void DrawSetItem(const int id,ParamItem& item) {}
         
-        /**
-         * @brief 销毁Draw
-         * @param data [in] draw id
-         */
-        virtual void DrawDestroyItem(const int id){}
-
     private:      
 
         void CreateAll();
