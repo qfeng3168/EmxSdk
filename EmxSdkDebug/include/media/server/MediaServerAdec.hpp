@@ -49,6 +49,11 @@ namespace Emx {
          */
         virtual void SendToAo(const int16_t *pcm, int32_t pktNum) = 0;
 
+        /**
+         * @brief 清空Ao的缓存buffer
+         */
+        virtual void ClearAoBuffer() { }
+
     protected:
         void OnGetMsg(uint32_t topic, const char *data, int32_t size);
 

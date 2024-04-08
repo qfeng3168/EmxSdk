@@ -64,10 +64,11 @@ namespace Emx {
         /**
          * @brief 终止播放并清空媒体服务播放列表
          * @param chn [in] 目的通道号
+         * @param fullInterrupt [in] 是否完全中断 默认true
          * @param timeoutMs [in] 超时时间，默认1s
          * @return ErrCode
          */
-        static ErrCodeE PlayCtrlQuit(int32_t chn, int32_t timeoutMs = 1000);
+        static ErrCodeE PlayCtrlQuit(int32_t chn, bool fullInterrupt = true, int32_t timeoutMs = 1000);
     };
 }
 
