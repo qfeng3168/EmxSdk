@@ -9,9 +9,9 @@ if (NOT Profile)
     set(Profile chipXDefault)
 endif ()
 
-set(EmxSdkPath ${CMAKE_SOURCE_DIR}/EmxSdk)
-set(Emx3drPath ${CMAKE_SOURCE_DIR}/Emx3dr/common)
-set(EmxChipPath ${CMAKE_SOURCE_DIR}/Emx3dr/chip)
+set(EmxSdkPath ${CMAKE_SOURCE_DIR}/Public/EmxSdk)
+set(Emx3drPath ${CMAKE_SOURCE_DIR}/Public/Emx3dr/common)
+set(EmxChipPath ${CMAKE_SOURCE_DIR}/Public/Emx3dr/chip)
 
 file(READ profile/${Profile}/configs.json json)
 string(JSON ChipManufactory GET ${json} "ChipManufactory")

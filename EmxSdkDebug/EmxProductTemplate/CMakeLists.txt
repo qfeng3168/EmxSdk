@@ -6,8 +6,8 @@ list(GET PathList -1 TopDirName)
 project(${TopDirName})
 
 # 固定配置
-set(EmxSdkPath ${CMAKE_SOURCE_DIR}/EmxSdk)
-set(Emx3drPath ${CMAKE_SOURCE_DIR}/Emx3dr/common)
+set(EmxSdkPath ${CMAKE_SOURCE_DIR}/Public/EmxSdk)
+set(Emx3drPath ${CMAKE_SOURCE_DIR}/Public/Emx3dr/common)
 if (NOT InstallDir)
     set(InstallDir ${CMAKE_SOURCE_DIR}/output/debug)
 endif ()
