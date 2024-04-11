@@ -6,21 +6,24 @@
 #define EMX_MediaAi_HPP
 
 #include "media/client/MediaParamCBase.hpp"
+#include "media/common/MediaInfAi.hpp"
 #include "media/common/MediaInfAiData.hpp"
-#include "media/common/MediaRingBuffer.hpp"
+#include "media/common/MediaInfAiDataFaceSnap.hpp"
 #include "media/common/MediaInfAiDataMotionDetection.hpp"
 #include "media/common/MediaInfAiDataPersonDetection.hpp"
-#include "media/common/MediaInfAiDataFaceSnap.hpp"
+#include "media/common/MediaRingBuffer.hpp"
 
 namespace Emx {
     //!@brief AI
-    class MediaAi : public MediaParamCBase<Json::Value> {
+    class MediaAi : public MediaInfAi, public MediaParamCBase<Json::Value> {
     public:
         explicit MediaAi(int32_t chn) : MediaParamCBase(MediaModE::Ai, chn) {}
 
         ErrCodeE SetParam(const Json::Value &param) override;
 
         ErrCodeE GetParam(Json::Value &param) override;
+
+        ErrCodeE GetVersion(std::string &version) override;
     };
 
     //!@brief AI数据接收基类
@@ -112,6 +115,5 @@ namespace Emx {
         MsgTopicSubscriberSync m_sub;
     };
 
-}
-#endif //EMX_MediaAi_HPP
-
+}// namespace Emx
+#endif//EMX_MediaAi_HPP

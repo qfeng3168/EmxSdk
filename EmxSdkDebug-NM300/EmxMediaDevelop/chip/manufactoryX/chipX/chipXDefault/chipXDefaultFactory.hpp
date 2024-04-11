@@ -10,7 +10,6 @@
 namespace Emx {
     class chipXDefaultFactory : public MediaFactory {
     public:
-
         MediaServerModuleChnBase *MakeSystemChn(int32_t chn) override;
 
         MediaServerModuleChnBase *MakeVencChn(int32_t chn) override;
@@ -27,7 +26,7 @@ namespace Emx {
 
         MediaServerModuleChnBase *MakeOsdChn(int32_t chn) override;
 
-        MediaServerModuleChnBase *MakeAiChn(int32_t chn) override;
+        // MediaServerModuleChnBase *MakeAiChn(int32_t chn) override;
 
         MediaServerModuleChnBase *MakeViChn(int32_t chn) override;
 
@@ -37,5 +36,5 @@ namespace Emx {
         
         MediaServerModuleChnBase *MakeDrawChn(int32_t chn) override;
     };
-}
-#endif //EMX_chipXDefaultFactory_HPP
+}// namespace Emx
+#endif//EMX_chipXDefaultFactory_HPP

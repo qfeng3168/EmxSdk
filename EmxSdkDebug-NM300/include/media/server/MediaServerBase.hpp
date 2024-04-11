@@ -99,19 +99,17 @@ namespace Emx {
 
         /**
          * @brief 模块构造函数，通过配置文件的通道数，创建模块的各个通道
-         * @param cfgName 配置文件名称，例如"aenc"/"isp"等
-         * @param make 创建此模块通道所需的工厂方法
          */
-        void Create();
+        virtual void Create();
 
         /**
          * @brief 模块析构函数，销毁各个通道
          */
-        void Destroy();
+        virtual void Destroy();
 
         virtual ErrCodeE OnRecvReq(uint32_t method, int32_t chn, const char *data, int32_t size, std::string &out);
 
-        int LoadChnNum();
+        virtual int LoadChnNum();
 
         MediaModE m_mod;
         std::string m_name;
