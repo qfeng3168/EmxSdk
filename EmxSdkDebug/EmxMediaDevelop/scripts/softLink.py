@@ -15,8 +15,12 @@ if len(sys.argv) != 2:
 
 cwd = os.getcwd()
 top = cwd + "/.."
+<<<<<<< HEAD
 
 s = sys.argv[1]
+=======
+s = os.path.join(cwd, sys.argv[1])
+>>>>>>> split_mediaAi
 if len(sys.argv[1]) and not os.path.isabs(sys.argv[1]):
     s = os.path.join(cwd, sys.argv[1])
 if not os.path.exists(s):

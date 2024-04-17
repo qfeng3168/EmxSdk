@@ -1,6 +1,8 @@
 [
   {
-    "vpssGrp": 2,
-    "vpssChn": 0
+    "attr": {
+      "VpssGrp": 0,
+      "VpssChn": 1
+    }
   }
 ]
