@@ -1,0 +1,32 @@
+{
+  "depend": [
+    {
+      "name": "fdk-aac",
+      "version": "0.1.6",
+      "include": [],
+      "bin": [],
+      "shared": []
+    },
+    {
+      "name": "zbar",
+      "version": "0.10",
+      "include": [],
+      "bin": [],
+      "shared": []
+    },
+    {
+      "name": "freetype",
+      "version": "2.4.10",
+      "include": ["freetype2"],
+      "bin": [],
+      "shared": []
+    },
+    {
+      "name": "zlib",
+      "version": "1.2.11",
+      "include": [],
+      "bin": [],
+      "shared": []
+    }
+  ]
+}
