@@ -16,7 +16,6 @@ namespace Emx {
             CBR = 0, //!<固定码率
             VBR, //!<可变码率
             AVBR, //!<平均可变码率
-            SmartBR,//!<智能编码，大幅度降低静态码率
             BUTT,
         };
 
@@ -31,6 +30,7 @@ namespace Emx {
             RcModeE rcMode; //!<码率控制模式
             bool drawRect; //!<是否画框
             int32_t qualityLevel; //!<编码质量等级 挡位0~10 0=自适应
+            bool smartCode; //!<智能编码开关
         };
 
         /**

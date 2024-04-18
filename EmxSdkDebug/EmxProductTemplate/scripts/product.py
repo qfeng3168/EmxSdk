@@ -74,6 +74,47 @@ def build_configs(env):
         f.close()
 
 
+def build_ai_plugin(env):
+    utils.copy(env.top + "/psp/AiPlugin", env.firmware+"/media")
+    AiPluginDir = f"{env.firmware}/media/AiPlugin"
+    profile_dir = "{}/{}/{}".format(env.EmxAiPlugin,
+                                    env.psp["EmxAiPluginVersion"], env.psp["EmxAiPluginProfile"])
+    utils.copy(f"{profile_dir}/libEmxAiPlugin.so",
+               f"{env.firmware}/media/AiPlugin")
+    with open(f"{profile_dir}/profile.json") as f:
+        profile = json.load(f)
+        f.close()
+    AiPluginJson = {}
+    AiPluginJson["profile"] = env.psp["EmxAiPluginProfile"]
+    AiPluginJson["version"] = env.psp["EmxAiPluginVersion"]
+    AiPluginJson["verify"] = True
+    runtime_dir = f"{env.Emx3dr}/chip/{profile['ChipManufactory']}/{profile['ChipSerial']}/ai/{profile['ChipAiVersion']}"
+
+    # 拷贝3dr中的lib和file
+    AiPluginLibsJson = []
+    for lib in profile["runtime"]["lib"]:
+        AiPluginLibsJson.append(lib)
+        utils.copy(f"{runtime_dir}/{lib}", AiPluginDir)
+    AiPluginJson["libs"] = AiPluginLibsJson
+
+    for file in profile["runtime"]["file"]:
+        utils.copy(f"{runtime_dir}/{file}", AiPluginDir)
+
+    # 遍历AiPlugin所有文件并生成md5
+    AiPluginMd5Json = []
+    for root, dirs, files in os.walk(AiPluginDir):
+        for file in files:
+            abs_path = os.path.join(root, file)
+            rel_path = os.path.relpath(abs_path, AiPluginDir)
+            item = {}
+            item["file"] = rel_path
+            item["md5"] = utils.Md5.file(abs_path)
+            AiPluginMd5Json.append(item)
+    AiPluginJson["files"] = AiPluginMd5Json
+    with open(AiPluginDir + "/AiPlugin.json", "w+") as f:
+        json.dump(AiPluginJson, f, indent=4)
+
+
 def build_media(env):
     utils.try_mkdir(env.firmware + "/media")
     profile = env.EmxMedia + \
@@ -151,6 +192,7 @@ def firmware(env):
     build_3dr(env)
     build_app(env)
     build_media(env)
+    build_ai_plugin(env)
     build_configs(env)
     build_param(env)
     build_scripts(env)

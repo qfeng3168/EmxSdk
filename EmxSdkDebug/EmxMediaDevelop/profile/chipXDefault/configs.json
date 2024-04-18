@@ -1,12 +1,12 @@
 {
-  "EmxSdkVersion": "EmxSdk-20231107-5",
+  "EmxSdkVersion": "EmxSdkDebug",
   "ChipManufactory": "manufactoryX",
   "ChipSerial": "chipX",
   "ChipSdkVersion": "0.0.0.0",
   "Cross": "x86_64",
   "CrossPath": "",
   "runtime": {
-    "lib": [],
-    "drivers": []
+    "lib": [ ],
+    "drivers": [ ]
   }
 }

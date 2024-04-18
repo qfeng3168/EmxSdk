@@ -15,14 +15,13 @@ namespace Emx {
     public:
         MediaInfAiDataMotionDetection() : MediaInfAiData(), num(0), array(nullptr) {}
 
-        virtual ~MediaInfAiDataMotionDetection() {
-            Free();
-        }
+        virtual ~MediaInfAiDataMotionDetection() { Free(); }
 
     public:
         void Alloc(int n) {
             Free();
             array = (Rect *) malloc(n * (int) sizeof(Rect));
+            if (array) { memset((void *) array, 0, n * sizeof(Rect)); }
         }
 
         void Free() {
@@ -32,9 +31,7 @@ namespace Emx {
             }
         }
 
-        int GetSerializeSize() override {
-            return (int) sizeof(num) + num * (int) sizeof(Rect);
-        }
+        int GetSerializeSize() override { return (int) sizeof(num) + num * (int) sizeof(Rect); }
 
         void Serialize(uint8_t *buffer) override {
             int off = 0;
@@ -57,6 +54,6 @@ namespace Emx {
         int num;
         Rect *array;
     };
-}
+}// namespace Emx
 
-#endif //EMX_MediaInfAiMotionDetection_HPP
+#endif//EMX_MediaInfAiMotionDetection_HPP
