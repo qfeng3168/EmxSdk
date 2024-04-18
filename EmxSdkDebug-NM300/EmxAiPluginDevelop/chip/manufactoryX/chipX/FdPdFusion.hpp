@@ -39,6 +39,7 @@ namespace Emx {
         int m_interval;
         int m_threshold;
         int m_minArea;
+        bool m_ena;
         Json::Value m_param;
         MediaAiJob m_job;
         bool m_gotPersonDetection;

@@ -11,4 +11,4 @@ namespace Emx {
     using MediaInfAiDataPersonDetection = MediaInfAiDataMotionDetection;
 }
 
-#endif //EMX_MediaInfAiPersonDetection_HPP
+#endif//EMX_MediaInfAiPersonDetection_HPP

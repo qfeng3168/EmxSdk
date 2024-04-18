@@ -10,20 +10,28 @@ using namespace Emx;
 
 void PersonDetection::Create(const char *workspace, Json::Value &param) {
     if (m_created) return;
-    m_param = param;
+    m_param = param[m_name];
     //! 加载本算法需要的芯片参数
     Json::Value root;
     char path[EMX_MAX_PATH_SIZE] = {};
-    snprintf(path, sizeof(path), "%s/configs/%s.json", workspace, m_name.c_str());
+    snprintf(path, sizeof(path), "%s/AiPlugin/configs/%s.json", SysEnv::GetDataDir(), m_name.c_str());
+    auto e = EasyJson::Load(path, root);
+    if (e != ErrCodeE::Success) {
+        emxloge("get media %s configuration failed\n", path);
+        return;
+    }
     auto &json = root[m_chn];
     m_vpssGrp = json["vpssGrp"].asInt();
     m_vpssChn = json["vpssChn"].asInt();
     m_interval = json["interval"].asInt();
     m_threshold = json["threshold"].asInt();
     m_minArea = json["minArea"].asInt();
+
+    m_ena = m_param["ena"].asBool();
     //! 开始Ai处理
     Start(m_param);
     m_created = true;
+    emxlogi("done\n");
 }
 
 void PersonDetection::Destroy() {
@@ -35,29 +43,39 @@ void PersonDetection::Destroy() {
 }
 
 ErrCodeE PersonDetection::SetParam(const Json::Value &paramNew) {
-    Stop(m_param);
-    Start(paramNew);
-    m_param = paramNew;
+    m_param = paramNew[m_name];
+    bool enable = m_param["ena"].asBool();
+    if (enable != m_ena) {
+        if (m_ena) {
+            m_job.Destroy();
+        } else {
+            m_job.Create(std::bind(&PersonDetection::OnGetFrame, this, ph_1),
+                    std::bind(&PersonDetection::OnGetFrameComplete, this, ph_1));
+        }
+        m_ena = enable;
+    }
+
     return ErrCodeE::Success;
 }
 
 void PersonDetection::Start(const Json::Value &param) {
     if (m_started) return;
-    if (!param["ena"].asBool()) return;
     //! 初始化模型等操作
     //! ...
     //! 使用job获取线程池资源，其中OnGetFrame运行在线程池中，OnGetFrameComplete运行在EmxMediaServer的主loop中
     m_got = false;
-    m_job.Create(std::bind(&PersonDetection::OnGetFrame, this, ph_1),
-            std::bind(&PersonDetection::OnGetFrameComplete, this, ph_1));
-    m_started = true;
+    if (m_ena) {
+        m_job.Create(std::bind(&PersonDetection::OnGetFrame, this, ph_1),
+                std::bind(&PersonDetection::OnGetFrameComplete, this, ph_1));
+				 m_started = true;
+    }
     emxlogi("done\n");
 }
 
 void PersonDetection::Stop(const Json::Value &param) {
     //! 结束任务
+	if (m_ena) { m_job.Destroy(); }
     if (m_started) {
-        m_job.Destroy();
         m_started = false;
         emxlogi("done\n");
     }
@@ -93,6 +111,7 @@ void PersonDetection::OnGetFrame(void *arg) {
     //    if (s32Ret != 0) {
     //        emxloge("chn %d ChipVpssReleaseChnFrame failed with %#x\n", m_chn, s32Ret);
     //    }
+	// 	  m_got = true;
     m_got = true;
 }
 

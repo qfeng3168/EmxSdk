@@ -5,8 +5,9 @@
 #ifndef EMX_MotionDetection_HPP
 #define EMX_MotionDetection_HPP
 
-#include "media/common/MediaInfAiDataMotionDetection.hpp"
 #include "media/server/MediaServerAi.hpp"
+#include "media/common/MediaInfAiDataMotionDetection.hpp"
+
 namespace Emx {
 
     class MotionDetection : public EmxAiPluginAlgBase {
@@ -33,11 +34,13 @@ namespace Emx {
     private:
         bool m_created;
         bool m_started;
+        bool m_ena;
         int m_vpssGrp;
         int m_vpssChn;
         int m_interval;
         int m_threshold;
         int m_minArea;
+        int m_count;
         bool m_got;
         Json::Value m_param;
         MediaAiJob m_job;

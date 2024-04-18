@@ -33,7 +33,7 @@ namespace Emx {
         MediaServerModuleChnBase *MakeVdecChn(int32_t chn) override;
 
         MediaServerModuleChnBase *MakeVoChn(int32_t chn) override;
-        
+
         MediaServerModuleChnBase *MakeDrawChn(int32_t chn) override;
     };
 }// namespace Emx

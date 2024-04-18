@@ -5,8 +5,10 @@
 #ifndef EMX_PersonDetection_HPP
 #define EMX_PersonDetection_HPP
 
-#include "media/common/MediaInfAiDataPersonDetection.hpp"
 #include "media/server/MediaServerAi.hpp"
+#include "media/common/MediaRegion.hpp"
+#include "media/common/MediaInfAiDataPersonDetection.hpp"
+
 namespace Emx {
 
     class PersonDetection : public EmxAiPluginAlgBase {
@@ -35,10 +37,12 @@ namespace Emx {
         bool m_started;
         int m_vpssGrp;
         int m_vpssChn;
+		std::string m_modePath;
         int m_interval;
         int m_threshold;
         int m_minArea;
         bool m_got;
+		bool m_ena;
         Json::Value m_param;
         MediaAiJob m_job;
         MediaInfAiDataPersonDetection m_data;

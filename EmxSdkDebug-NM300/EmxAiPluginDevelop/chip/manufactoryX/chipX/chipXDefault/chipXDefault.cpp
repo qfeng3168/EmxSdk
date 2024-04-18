@@ -8,7 +8,7 @@
 using namespace Emx;
 
 static char g_AiPluginWorkspace[EMX_MAX_PATH_SIZE] = {0};
-
+static EmxAiPluginVersionT g_AiPluginVersion;
 int EmxAiPluginInit(const char *path) {
     //! 这里进行整个插件的初始化
 
@@ -55,4 +55,16 @@ void chipXDefault::OnDestroy() {
         delete e;
     }
     m_algs.clear();
+}
+
+struct EmxAiPluginVersionT EmxAiPluginGetVersion() {
+    g_AiPluginVersion.sEmxAiPluginVersion = EmxAiPluginVersion;
+    g_AiPluginVersion.sEmxMediaVersion = EmxMediaVersion;
+    g_AiPluginVersion.sEmxSdkVersion = EmxSdkVersion;
+    g_AiPluginVersion.sChipManufactory = ChipManufactory;
+    g_AiPluginVersion.sChipSerial = ChipSerial;
+    g_AiPluginVersion.sChipAiVersion = ChipAiVersion;
+    g_AiPluginVersion.sChipSdkVersion = ChipSdkVersion;
+    g_AiPluginVersion.sAiPluginProfile = AiPluginProfile;
+    return g_AiPluginVersion;
 }

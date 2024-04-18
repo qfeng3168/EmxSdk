@@ -9,7 +9,7 @@ def verify_dependency(profile, version):
     with open("profile/" + profile + "/profile.json") as f:
         profile_cfg = json.load(f)
         f.close()
-    depend_path = "Emx3dr/chip/{}/{}/ai/{}".format(
+    depend_path = "Public/Emx3dr/chip/{}/{}/ai/{}".format(
         profile_cfg["ChipManufactory"], profile_cfg["ChipSerial"], profile_cfg["ChipAiVersion"])
     for lib in profile_cfg["runtime"]["lib"]:
         path = depend_path+"/" + lib
@@ -22,6 +22,37 @@ def verify_dependency(profile, version):
             print(f"could not found {path}")
             exit(-1)
 
+    AiPluginJson = {}
+    AiPluginJson["profile"] = profile
+    AiPluginJson["version"] = version
+    AiPluginJson["verify"] = False
+
+    # 拷贝3dr中的lib和file
+    AiPluginLibsJson = []
+    # 遍历AiPlugin所有文件并生成md5
+    AiPluginMd5Json = []
+    for lib in profile_cfg["runtime"]["lib"]:
+        AiPluginLibsJson.append(lib)
+        abs_path = os.path.join(depend_path, lib)
+        rel_path = os.path.relpath(abs_path, depend_path)
+        item = {}
+        item["file"] = rel_path
+        item["md5"] = utils.Md5.file(abs_path)
+        AiPluginMd5Json.append(item)
+    AiPluginJson["libs"] = AiPluginLibsJson
+
+    for file in profile["runtime"]["file"]:
+        abs_path = os.path.join(depend_path, file)
+        rel_path = os.path.relpath(abs_path, depend_path)
+        item = {}
+        item["file"] = rel_path
+        item["md5"] = utils.Md5.file(abs_path)
+        AiPluginMd5Json.append(item)
+
+    AiPluginJson["files"] = AiPluginMd5Json
+    print_err("%s",os.getcwd() + "/output/EmxAiPlugin-Debug/version/AiPlugin.json")
+    with open(os.getcwd() + "/output/EmxAiPlugin-Debug/version/AiPlugin.json", "w+") as f:
+        json.dump(AiPluginJson, f, indent=4)
 
 def build(install_dir, profile, version):
     if not os.path.exists("profile/" + profile):

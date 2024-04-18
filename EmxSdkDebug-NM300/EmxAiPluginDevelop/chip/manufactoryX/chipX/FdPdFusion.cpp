@@ -10,17 +10,25 @@ using namespace Emx;
 
 void FdPdFusion::Create(const char *workspace, Json::Value &param) {
     if (m_created) return;
-    m_param = param;
+    m_param = param[m_name];
     //! 加载本算法需要的芯片参数
     Json::Value root;
     char path[EMX_MAX_PATH_SIZE] = {};
-    snprintf(path, sizeof(path), "%s/configs/%s.json", workspace, m_name.c_str());
+    snprintf(path, sizeof(path), "%s/AiPlugin/configs/%s.json", SysEnv::GetDataDir(), m_name.c_str());
+    auto e = EasyJson::Load(path, root);
+    if (e != ErrCodeE::Success) {
+        emxloge("get media %s configuration failed\n", path);
+        return;
+    }
+
     auto &json = root[m_chn];
     m_vpssGrp = json["vpssGrp"].asInt();
     m_vpssChn = json["vpssChn"].asInt();
     m_interval = json["interval"].asInt();
     m_threshold = json["threshold"].asInt();
     m_minArea = json["minArea"].asInt();
+    m_ena = m_param["ena"].asBool();
+    
     //! 开始Ai处理
     Start(m_param);
     m_created = true;
@@ -35,15 +43,16 @@ void FdPdFusion::Destroy() {
 }
 
 ErrCodeE FdPdFusion::SetParam(const Json::Value &paramNew) {
-    Stop(m_param);
-    Start(paramNew);
-    m_param = paramNew;
+    m_param = paramNew[m_name];
+    m_ena = m_param["ena"].asBool();
+    // Stop(m_param);
+    // Start(paramNew);
     return ErrCodeE::Success;
 }
 
 void FdPdFusion::Start(const Json::Value &param) {
     if (m_started) return;
-    if (!param["ena"].asBool()) return;
+    if (m_ena) return;
     //! 初始化模型等操作
     //! ...
     //! 使用job获取线程池资源，其中OnGetFrame运行在线程池中，OnGetFrameComplete运行在EmxMediaServer的主loop中
