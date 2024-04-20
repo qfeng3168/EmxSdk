@@ -11,6 +11,8 @@
 #include "media/common/MediaInfAiDataFaceSnap.hpp"
 #include "media/common/MediaInfAiDataMotionDetection.hpp"
 #include "media/common/MediaInfAiDataPersonDetection.hpp"
+#include "media/common/MediaInfAiDataCrossingDetection.hpp"
+#include "media/common/MediaInfAiDataInvasionDetection.hpp"
 #include "media/common/MediaRingBuffer.hpp"
 
 namespace Emx {
