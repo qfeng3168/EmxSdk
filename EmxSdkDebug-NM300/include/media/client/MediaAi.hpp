@@ -86,7 +86,6 @@ namespace Emx {
         bool IsReceivingFrame() { return m_sub.IsReceiving(); }
 
     private:
-        EuvLoop *m_loop;
         MsgTopicSubscriberAsync m_sub;
     };
 
