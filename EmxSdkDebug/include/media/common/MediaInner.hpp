@@ -115,6 +115,7 @@ namespace Emx {
 
     enum class MediaAiMethodE : uint32_t {
         GetVersion = (uint32_t) MediaParamMethodE::Butt,
+        Ctrl,
     };
 }// namespace Emx
 

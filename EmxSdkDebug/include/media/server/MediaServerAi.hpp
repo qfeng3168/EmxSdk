@@ -59,7 +59,9 @@ namespace Emx {
 
         const char *GetName() { return m_name.c_str(); }
 
-
+        virtual ErrCodeE Ctrl(const Json::Value &in, Json::Value &out) {
+            return ErrCodeE::OperationNotSupport;
+        }
     protected:
         int m_chn;
         std::string m_name;
@@ -79,12 +81,12 @@ namespace Emx {
 
         ErrCodeE GetParamRange(Json::Value &range) override;
 
+        ErrCodeE Ctrl(const Json::Value &in, Json::Value &out) override;
+
     protected:
         ErrCodeE LoadParam(Json::Value &param);
 
         ErrCodeE SaveParam(const Json::Value &param);
-
-    protected:
         std::vector<EmxAiPluginAlgBase *> m_algs;
 
     private:

@@ -20,6 +20,7 @@ public:
 
 private:
     void ProcAiData(MediaInfAiData::Header &header) {
+        emxlogd("header type: %d\n", header.type);
         switch (header.type) {
             case MediaInfAiData::TypeE::MotionDetection: {
                 // 处理移动侦测消息
@@ -29,6 +30,7 @@ private:
                 // 遍历所有数据，例如：如果检测到运动面积大于10%，就认为是移动事件
                 // 另外基于data中的x/y/w/h以及header中的srcPicSize，可以用来定位事件在画面中的位置
                 // 可以用来做移动追踪或者检测区域的过滤
+                emxlogd("data num: %d\n", data.num);
                 for (int i = 0; i < data.num; i++) {
                     if (data.array[i].Area() > header.srcPicSize.w * header.srcPicSize.h * 10 / 100) {
                         emxlogi("motion alarm triggered\n");
@@ -45,6 +47,7 @@ private:
                 // 遍历所有数据，例如：如果检测到运动面积大于10%，就认为是人形事件
                 // 另外基于data中的x/y/w/h以及header中的srcPicSize，可以用来定位事件在画面中的位置
                 // 可以用来做移动追踪或者检测区域的过滤
+                emxlogd("data num: %d\n", data.num);
                 for (int i = 0; i < data.num; i++) {
                     if (data.array[i].Area() > header.srcPicSize.w * header.srcPicSize.h * 10 / 100) {
                         emxlogi("person alarm triggered\n");

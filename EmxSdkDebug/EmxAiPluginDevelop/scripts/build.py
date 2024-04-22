@@ -27,9 +27,9 @@ def verify_dependency(profile, version):
     AiPluginJson["version"] = version
     AiPluginJson["verify"] = False
 
-    # 拷贝3dr中的lib和file
+    # 鎷疯礉3dr涓殑lib鍜宖ile
     AiPluginLibsJson = []
-    # 遍历AiPlugin所有文件并生成md5
+    # 閬嶅巻AiPlugin鎵�鏈夋枃浠跺苟鐢熸垚md5
     AiPluginMd5Json = []
     for lib in profile_cfg["runtime"]["lib"]:
         AiPluginLibsJson.append(lib)
