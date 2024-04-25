@@ -112,6 +112,11 @@ namespace Emx {
         Create = (uint32_t) MediaParamMethodE::Butt,
         Destroy,
     };
+
+    enum class MediaAiMethodE : uint32_t {
+        GetVersion = (uint32_t) MediaParamMethodE::Butt,
+        Ctrl,
+    };
 }// namespace Emx
 
 #endif//EMX_MediaInner_HPP

@@ -20,6 +20,7 @@ public:
 
 private:
     void ProcAiData(MediaInfAiData::Header &header) {
+        emxlogd("header type: %d,size=%d\n", header.type,header.size);
         switch (header.type) {
             case MediaInfAiData::TypeE::MotionDetection: {
                 // 处理移动侦测消息
@@ -29,6 +30,7 @@ private:
                 // 遍历所有数据，例如：如果检测到运动面积大于10%，就认为是移动事件
                 // 另外基于data中的x/y/w/h以及header中的srcPicSize，可以用来定位事件在画面中的位置
                 // 可以用来做移动追踪或者检测区域的过滤
+                emxlogd("data num: %d\n", data.num);
                 for (int i = 0; i < data.num; i++) {
                     if (data.array[i].Area() > header.srcPicSize.w * header.srcPicSize.h * 10 / 100) {
                         emxlogi("motion alarm triggered\n");
@@ -45,11 +47,23 @@ private:
                 // 遍历所有数据，例如：如果检测到运动面积大于10%，就认为是人形事件
                 // 另外基于data中的x/y/w/h以及header中的srcPicSize，可以用来定位事件在画面中的位置
                 // 可以用来做移动追踪或者检测区域的过滤
+                emxlogd("data num: %d\n", data.num);
                 for (int i = 0; i < data.num; i++) {
                     if (data.array[i].Area() > header.srcPicSize.w * header.srcPicSize.h * 10 / 100) {
                         emxlogi("person alarm triggered\n");
                         return;
                     }
+                }
+                return;
+            }
+            case MediaInfAiData::TypeE::InvasionDetection: {
+                // 处理入侵侦测消息
+                MediaInfAiDataInvasionDetection data;
+                if (m_ai.GetDataByInfo(header, &data) != ErrCodeE::Success)
+                    return;
+                emxlogd("data num: %d,fullPic.size=%d\n", data.num, data.fullPic.size);
+                for (int i = 0; i < data.num; i++) {
+                   emxlogi("[%d]id=%lld,x=%d,y=%d,w=%d,h=%d\n",i,data.array[i].id,data.array[i].rect.x,data.array[i].rect.y,data.array[i].rect.w,data.array[i].rect.h);
                 }
                 return;
             }

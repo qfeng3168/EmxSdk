@@ -1,9 +1,0 @@
-[
-  {
-    "vpssGrp": 4,
-    "vpssChn": 0,
-    "interval": 25,
-    "threshold": 64,
-    "minArea": 512
-  }
-]

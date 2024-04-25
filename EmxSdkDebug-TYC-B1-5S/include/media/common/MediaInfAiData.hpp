@@ -44,6 +44,14 @@ namespace Emx {
             FaceSnap, //!<人脸抓拍数据
             TypeNum, //!<数据类型数量
             PassengerFlowStatistics, //!<客流统计数据
+            CrossingDetection, //!<越界数据
+            InvasionDetection, //!<区域入侵数据
+            StrangerRecognition, //!<陌生人识别
+            MaskDetection, //!<口罩检测
+            PersonVehicleNonDetection, //!<人车非检测
+            ElectricBicycleDetection, //!<电动车检测
+            VehicleRecognition, //!<车辆识别
+            LicensePlateRecognition, //!<车牌识别
         };
         //!@brief AI数据头
         struct Header {

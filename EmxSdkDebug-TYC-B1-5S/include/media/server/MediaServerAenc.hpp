@@ -80,6 +80,8 @@ namespace Emx {
         FrameData m_frame;
         ErrCodeE m_getFrameErrCode;
         AudioEncoder *m_encoder;
+        AudioCodecE m_codec;
+        bool m_codecChange;
     };
 
     class MediaServerAenc : public MediaServerModuleBase {

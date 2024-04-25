@@ -17,5 +17,7 @@
 #include "media/client/MediaVenc.hpp"
 #include "media/client/MediaOsd.hpp"
 #include "media/client/MediaVi.hpp"
+#include "media/client/MediaVdec.hpp"
+#include "media/client/MediaVo.hpp"
 
 #endif // EMX_EmxMedia_HPP
