@@ -129,7 +129,7 @@ void MotionDetection::OnGetFrame(void *arg) {
 }
 
 void MotionDetection::OnGetFrameComplete(void *arg) {
-    //! 得到数据后这里才能push出去
+    //! 得到数据后只能在Complete push出去
     if (!m_got) return;
     MediaAiJob::PushAiData(&m_data);
     m_data.Free();

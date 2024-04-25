@@ -21,7 +21,8 @@ namespace Emx {
         void Destroy() override;
 
         ErrCodeE SetParam(const Json::Value &paramNew) override;
-
+        
+        ErrCodeE Ctrl(const Json::Value &in, Json::Value &out) override;
     private:
         void Start(const Json::Value &param);
 
@@ -30,7 +31,12 @@ namespace Emx {
         void OnGetFrame(void *arg);
 
         void OnGetFrameComplete(void *arg);
+        
+        ErrCodeE FaceRegister(const Json::Value &info, Json::Value &out);
 
+        ErrCodeE FaceUnregister(const Json::Value &id);
+
+        ErrCodeE FaceSyncLibrary(const Json::Value &library);
     private:
         bool m_created;
         bool m_started;

@@ -91,7 +91,7 @@ namespace Emx {
                 if (fullPic.img) { memcpy(fullPic.img, buffer + off, fullPic.size); }
             }
             off += fullPic.size;
-            if (num * (int) sizeof(DataMsg) + off < size) {
+            if (num * (int) sizeof(DataMsg) + off <= size) {
                 Alloc(num);
                 memcpy(array, buffer + off, num * (int) sizeof(DataMsg));
                 for (int i = 0; i < num; i++) {
