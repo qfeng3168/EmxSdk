@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
         Json::Value out;
         Json::Value info;
         for (int i = 2; i < argc; i++) {
-            array.append(argv[i]);
+            array.append(atoi(argv[i]));
         }
         faceUnregister["faceUnregister"] = array;
         ErrCodeE e = demo.Ctrl(faceUnregister,out);

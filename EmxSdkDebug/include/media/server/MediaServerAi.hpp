@@ -87,6 +87,8 @@ namespace Emx {
         ErrCodeE LoadParam(Json::Value &param);
 
         ErrCodeE SaveParam(const Json::Value &param);
+
+    protected:
         std::vector<EmxAiPluginAlgBase *> m_algs;
 
     private:
