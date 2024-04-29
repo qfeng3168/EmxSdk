@@ -144,7 +144,7 @@ ErrCodeE FdPdFusion::FaceRegister(const Json::Value &info, Json::Value &out) {
         std::string buf;
         faceInfo["id"] = info[i]["id"].asInt();
         //是使用jpg图片提取
-        if(info["isImg"].asBool()){
+        if(info[i]["isImg"].asBool()){
              //e = getFeature(info[i]["path"].asString(),buf);
             emxlogi("register[%d],id=%d,path=%s\n", i,info[i]["id"].asInt(),info[i]["path"].asString().c_str());
         }else{
@@ -186,7 +186,7 @@ ErrCodeE FdPdFusion::FaceSyncLibrary(const Json::Value &library) {
 }
 
 ErrCodeE FdPdFusion::Ctrl(const Json::Value &in, Json::Value &out) {
-    ErrCodeE e = ErrCodeE::Success;
+    ErrCodeE e = ErrCodeE::OperationNotSupport;
     if (in.isMember("faceRegister")) { e = FaceRegister(in["faceRegister"], out); }
     if (in.isMember("faceUnregister")) { e = FaceUnregister(in["faceUnregister"]); }
     if (in.isMember("syncLibrary")) { e = FaceSyncLibrary(in["syncLibrary"]); }

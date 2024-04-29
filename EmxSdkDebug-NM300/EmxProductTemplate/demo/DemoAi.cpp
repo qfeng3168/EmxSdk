@@ -20,7 +20,7 @@ public:
 
 private:
     void ProcAiData(MediaInfAiData::Header &header) {
-        emxlogd("header type: %d\n", header.type);
+        emxlogi("header type: %d,size=%d\n", header.type,header.size);
         switch (header.type) {
             case MediaInfAiData::TypeE::MotionDetection: {
                 // 处理移动侦测消息
@@ -53,6 +53,17 @@ private:
                         emxlogi("person alarm triggered\n");
                         return;
                     }
+                }
+                return;
+            }
+            case MediaInfAiData::TypeE::InvasionDetection: {
+                // 处理入侵侦测消息
+                MediaInfAiDataInvasionDetection data;
+                if (m_ai.GetDataByInfo(header, &data) != ErrCodeE::Success)
+                    return;
+                emxlogd("data num: %d,fullPic.size=%d\n", data.num, data.fullPic.size);
+                for (int i = 0; i < data.num; i++) {
+                   emxlogi("[%d]id=%lld,x=%d,y=%d,w=%d,h=%d\n",i,data.array[i].id,data.array[i].rect.x,data.array[i].rect.y,data.array[i].rect.w,data.array[i].rect.h);
                 }
                 return;
             }

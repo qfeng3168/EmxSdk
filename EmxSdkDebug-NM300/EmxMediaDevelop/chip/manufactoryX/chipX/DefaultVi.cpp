@@ -46,3 +46,12 @@ ErrCodeE DefaultVi::SetMirrorFlip(MediaInfVi::Param &param) {
 //    }
     return ErrCodeE::Success;
 }
+
+ErrCodeE DefaultVi::SetHideStatus(bool enable){
+    if(enable){
+        //将vi数据流全部置黑
+    }else{
+        //vi数据正常输出sorsor送入画面
+    }
+    return ErrCodeE::Success;
+}

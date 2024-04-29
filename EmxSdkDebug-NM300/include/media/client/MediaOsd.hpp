@@ -18,6 +18,8 @@ namespace Emx {
 
         ErrCodeE SetParam(const Param &param) override;
 
+        ErrCodeE SetTmpParam(const Param &param) override;
+
         ErrCodeE GetParam(Param &param) override;
 
         ErrCodeE GetParamDefault(Param &param) override;
