@@ -20,7 +20,7 @@ void MotionDetection::Create(const char *workspace, Json::Value &param) {
         emxloge("get media %s configuration failed\n", path);
         return;
     }
-
+    m_pause = false;
     auto &json = root[m_chn];
     m_vpssGrp = json["vpssGrp"].asInt();
     m_vpssChn = json["vpssChn"].asInt();
@@ -44,15 +44,14 @@ void MotionDetection::Destroy() {
 
 ErrCodeE MotionDetection::SetParam(const Json::Value &paramNew) {
     m_param = paramNew[m_name];
-	//刷新参数或者设置启停
+    //刷新参数或者设置启停
     bool enable = m_param["ena"].asBool();
-    if(m_param.isMember("threshold"))
-        m_threshold = m_param["threshold"].asInt();
+    if (m_param.isMember("threshold")) m_threshold = m_param["threshold"].asInt();
     if (enable != m_ena) {
         if (m_ena) {
             m_job.Destroy();
         } else {
-            m_count = m_interval-1;
+            m_count = m_interval - 1;
             m_job.Create(std::bind(&MotionDetection::OnGetFrame, this, ph_1),
                     std::bind(&MotionDetection::OnGetFrameComplete, this, ph_1));
         }
@@ -69,7 +68,7 @@ void MotionDetection::Start(const Json::Value &param) {
     //! 使用job获取线程池资源，其中OnGetFrame运行在线程池中，OnGetFrameComplete运行在EmxMediaServer的主loop中
     m_got = false;
     if (m_ena) {
-        m_count = m_interval-1;
+        m_count = m_interval - 1;
         m_job.Create(std::bind(&MotionDetection::OnGetFrame, this, ph_1),
                 std::bind(&MotionDetection::OnGetFrameComplete, this, ph_1));
     }
@@ -88,6 +87,7 @@ void MotionDetection::Stop(const Json::Value &param) {
 
 
 void MotionDetection::OnGetFrame(void *arg) {
+    if (m_pause) return;
     //! 这个函数会被循环调用，运行在线程池中，允许阻塞操作
     //    int s32Ret = 0;
     //    s32Ret = ChipVpssGetChnFrame(m_vpssGrp, m_vpssChn, &stFrame, 500);
@@ -95,15 +95,15 @@ void MotionDetection::OnGetFrame(void *arg) {
     //        emxloge("chn %d ChipVpssGetChnFrame failed with %#x\n", m_chn, s32Ret);
     //        return;
     //    }
-	
-	//m_count 背景刷新间隔
- 	//m_count++;
-   // if (m_count == m_interval) {
-     //   m_count = 0;
+
+    //m_count 背景刷新间隔
+    //m_count++;
+    // if (m_count == m_interval) {
+    //   m_count = 0;
     //    s32Ret =ChipAi_MotionDetection_Background(m_aiHandle, &stFrame);
     //    if (s32Ret != 0) { emxloge("chn %d update background failed with %#x\n", m_chn, s32Ret); }
-   // }
-   
+    // }
+
     //    ChipAiMotionDetection(&stFrame, &obj, m_threshold, m_minArea);
     //    if (obj.size == 0)
     //        return;
@@ -134,4 +134,14 @@ void MotionDetection::OnGetFrameComplete(void *arg) {
     MediaAiJob::PushAiData(&m_data);
     m_data.Free();
     m_got = false;
+}
+
+ErrCodeE MotionDetection::Ctrl(const Json::Value &in, Json::Value &out) {
+    ErrCodeE e = ErrCodeE::OperationNotSupport;
+    if (in.isMember("motionDetection")) {
+        m_pause = in["motionDetection"]["pause"].asBool();
+        m_count = m_interval - 1;
+        e = ErrCodeE::Success;
+    }
+    return e;
 }

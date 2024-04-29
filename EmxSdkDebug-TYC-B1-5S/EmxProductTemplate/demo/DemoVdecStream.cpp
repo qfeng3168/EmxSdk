@@ -6,73 +6,104 @@
 
 using namespace Emx;
 
-// 实时流解码示例
-class VdecSyncStream {
-public:
-    VdecSyncStream() { }
+int stream2645Parse(void *pData, int *ps32ReadLen) {
+    int s32Ret = 0;
+    uint8_t *pu8Buf = (uint8_t *)pData;
+    int i = 0;
+    bool bFindStart = false;
+    bool bFindEnd = false;
 
-    void Create(EuvLoop &loop, char *buffer, int size) {
-        // 首先定义通道，并向通道中加入需要监听的媒体帧类型
-        MediaStream::Channel channel;
-        channel.Add(Emx::MediaFrame::TypeE::Venc, 0); // 加入视频编码通道0
-        channel.Add(Emx::MediaFrame::TypeE::Aenc, 0); // 加入音频编码通道0
-        // 注册当获取到媒体帧时候的回调
-        m_stream.Start(loop, buffer, size, channel, std::bind(&VdecSyncStream::OnRecvFrame, this, ph_1, ph_2));
-
-        m_vdecStream = new MediaVdecStream(0);
-        m_vdecStream->Create();
-    }
-
-    void Destroy() {
-        // 停止媒体帧的监听
-        m_stream.Stop();
-        m_vdecStream->Destroy();
-        delete(m_vdecStream);
-    }
-
-private:
-    // 当收到媒体帧时触发此回调
-    void OnRecvFrame(ErrCodeE e, MediaFrame &frame) {
-        // 如果获取失败则返回
-        if (e != Emx::ErrCodeE::Success) {
-            emxlogw("recv stream failed\n");
-            return;
-        }
-
-        //这里只会收到m_stream.Start的时候在channel中Add的帧类型+通道的帧
-        if (frame.type == Emx::MediaFrame::TypeE::Venc) {
-            // 收到视频帧
-            MediaInfVdec::FrameData frameOut = {};
-            frameOut.tsInUs = frame.tsInUs;
-            frameOut.data.data = (uint8_t *) frame.data;
-            frameOut.data.size = (int) frame.size;
-            m_vdecStream->PushFrame(frameOut,1000);
+    for (i = 0; i < *ps32ReadLen - 8; i++) {
+        if (pu8Buf[i] == 0 && pu8Buf[i + 1] == 0 && pu8Buf[i + 2] == 0 && pu8Buf[i + 3] == 1) {
+            bFindStart = true;
+            i += 128;
+            break;
         }
     }
 
-private:
-    MediaVdecStream *m_vdecStream;
-    MediaStreamAsync m_stream; // 定义一个异步音视频流的监听句柄
-};
+    for (; i < *ps32ReadLen - 8; i++) {
+        if (pu8Buf[i] == 0 && pu8Buf[i + 1] == 0 && pu8Buf[i + 2] == 0 && pu8Buf[i + 3] == 1) {
+            bFindEnd = true;
+            break;
+        }
+    }
 
-int main() {
-    EuvLoop loop; // 定义一个loop用于所有事件的监听
-    VdecSyncStream demo; // 定义demo对象
-    // loop取名为VdecSyncStream，当loop销毁时执行demo.Destroy()
-    loop.Init("VdecSyncStream", [&]() { demo.Destroy(); }, Emx::EuvLoop::Dynamic);
+    if ((bFindStart == false) || (bFindEnd == false)) {
+        return -1;
+    }
 
-    //创建
-    char buffer[1024];
-    demo.Create(loop, buffer, (int) sizeof(buffer));
+    if (i > 0) {
+        *ps32ReadLen = i;
+    }
 
-    // loop启动
-    loop.Start();
+    return s32Ret;
+}
 
+
+int main(int argc,char **argv) {
+    MediaVdecStream * vdecStream = new MediaVdecStream(0);
+    MediaVdec::Param param = {};
+    MediaVdec vdec(0);
+    // 先获取当前的配置
+    if (vdec.GetParam(param) != ErrCodeE::Success) {
+        emxloge("GetParam failed\n");
+        return -1;
+    }
+    if(strstr(argv[1],"h265")){
+        param.codec = VideoCodecE::H265;
+    }else{
+        param.codec = VideoCodecE::H264;
+    }
+    if (vdec.SetParam(param) != ErrCodeE::Success) {
+        emxloge("SetParam failed\n");
+        return -1;
+    }
+   
+    vdecStream->Destroy();
+    vdecStream->Create();
+    int s32Ret = 0; 
+    int bufSize = 4147200;
+    int s32UsedBytes = 0;
+    char * pu8Buf = (char *)malloc(bufSize);
+    if (pu8Buf == NULL) {
+		printf("%d in send stream thread!\n", bufSize);
+		return -1;
+	}
+    FILE *fpStrm = fopen(argv[1],"rb");
+    if(!fpStrm){
+        printf("%s open failed!\n", argv[1]);
+		return -1;
+    }   
+    uint64_t pts = 1;
     printf("input 'q' to exit\n");
-    while ('q' != getchar());
+    while ('q' != getchar()){
+        fseek(fpStrm, s32UsedBytes, SEEK_SET);
+        int s32ReadLen = fread(pu8Buf, 1, bufSize, fpStrm);
+        if (s32ReadLen == 0) {
+            s32UsedBytes = 0;
+            fseek(fpStrm, 0, SEEK_SET);
+            s32ReadLen = fread(pu8Buf, 1, bufSize, fpStrm);
+        }
 
-    // 此处会出发loop.Init的时候注册的回调，并执行其中的demo.Destroy()
-    loop.StopAndDeInit();
+        s32Ret = stream2645Parse(pu8Buf, &s32ReadLen);
+        if (s32Ret != 0) {
+            if (s32ReadLen >= bufSize) {
+                printf("can not find H264 start code! "
+                    "s32ReadLen %d, s32UsedBytes %d.!\n",
+                    s32ReadLen, s32UsedBytes);
+            } else {
+                 printf("No a complete framee! ");
+            }
+        }
+
+        MediaInfVdec::FrameData frameOut = {};
+        frameOut.tsInUs = pts++;
+        frameOut.data.data = pu8Buf ;
+        frameOut.data.size = s32ReadLen;
+        vdecStream->PushFrame(frameOut,1000);
+        s32UsedBytes = s32UsedBytes + s32ReadLen;
+        printf("send frame size=%d,pts=%lld \n",s32ReadLen,frameOut.tsInUs);
+    }
 
     printf("exit success\n");
     return 0;
