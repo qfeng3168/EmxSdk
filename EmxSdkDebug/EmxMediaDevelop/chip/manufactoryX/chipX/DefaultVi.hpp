@@ -5,8 +5,8 @@
 #ifndef EMX_DefaultVi_HPP
 #define EMX_DefaultVi_HPP
 
-#include "media/server/MediaServerVi.hpp"
 #include "EmxCore.hpp"
+#include "media/server/MediaServerVi.hpp"
 
 namespace Emx {
 
@@ -14,7 +14,7 @@ namespace Emx {
     public:
         DefaultVi(int32_t chn) : MediaServerViChn(chn) {}
 
-        virtual ~DefaultVi() {};
+        virtual ~DefaultVi(){};
 
         ErrCodeE OnCreate() override;
 
@@ -24,13 +24,14 @@ namespace Emx {
 
     private:
         ErrCodeE SetMirrorFlip(Param &param);
-
+        
+        ErrCodeE SetHideStatus(bool enable);
     protected:
         int m_pipe;
         int m_viChn;
         bool m_originFlip;
         bool m_originMirror;
     };
-}
+}// namespace Emx
 
-#endif //EMX_DefaultVi_HPP
+#endif//EMX_DefaultVi_HPP

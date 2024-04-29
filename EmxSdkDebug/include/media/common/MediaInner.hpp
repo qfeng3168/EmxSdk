@@ -63,6 +63,7 @@ namespace Emx {
         GetParamRange,
         GetChnNum,
         GetParamDefault,
+        SetTmpParam,
         Butt,
     };
 

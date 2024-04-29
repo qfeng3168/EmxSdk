@@ -20,7 +20,7 @@ public:
 
 private:
     void ProcAiData(MediaInfAiData::Header &header) {
-        emxlogd("header type: %d,size=%d\n", header.type,header.size);
+        emxlogi("header type: %d,size=%d\n", header.type,header.size);
         switch (header.type) {
             case MediaInfAiData::TypeE::MotionDetection: {
                 // 处理移动侦测消息
