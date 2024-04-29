@@ -22,11 +22,10 @@ namespace Emx {
 
         ErrCodeE OnParamChanged() override;
 
-        ErrCodeE SetHideStatus(bool enable) override;
-
     private:
         ErrCodeE SetMirrorFlip(Param &param);
-
+        
+        ErrCodeE SetHideStatus(bool enable);
     protected:
         int m_pipe;
         int m_viChn;

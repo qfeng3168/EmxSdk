@@ -15,13 +15,8 @@ namespace Emx {
         struct Param {
             bool flip;  //!<是否上下翻转
             bool mirror;//!<是否左右镜像
+            bool hide;  //!<是否遮挡显示
         };
-        /**
-         * @brief 设置视频遮挡状态
-         * @param enable [bool] 遮挡使能
-         * @return ErrCodeE
-         */
-        virtual ErrCodeE SetHideStatus(bool enable) = 0;
     };
 }// namespace Emx
 

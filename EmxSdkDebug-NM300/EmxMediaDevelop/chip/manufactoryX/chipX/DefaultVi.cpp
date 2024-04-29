@@ -33,6 +33,7 @@ void DefaultVi::OnDestroy() {
 }
 
 ErrCodeE DefaultVi::OnParamChanged() {
+    SetHideStatus(m_paramNew.hide);
     return SetMirrorFlip(m_paramNew);
 }
 
