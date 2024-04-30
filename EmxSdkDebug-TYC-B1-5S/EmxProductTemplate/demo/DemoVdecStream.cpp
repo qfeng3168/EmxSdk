@@ -102,7 +102,7 @@ int main(int argc,char **argv) {
         frameOut.data.size = s32ReadLen;
         vdecStream->PushFrame(frameOut,1000);
         s32UsedBytes = s32UsedBytes + s32ReadLen;
-        printf("send frame size=%d,pts=%lld \n",s32ReadLen,frameOut.tsInUs);
+        printf("send frame size=%d\n",s32ReadLen);
     }
 
     printf("exit success\n");

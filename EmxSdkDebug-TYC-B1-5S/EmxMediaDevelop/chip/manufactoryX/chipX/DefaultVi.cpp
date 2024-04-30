@@ -33,6 +33,7 @@ void DefaultVi::OnDestroy() {
 }
 
 ErrCodeE DefaultVi::OnParamChanged() {
+    SetHideStatus(m_paramNew.hide);
     return SetMirrorFlip(m_paramNew);
 }
 
@@ -44,5 +45,14 @@ ErrCodeE DefaultVi::SetMirrorFlip(MediaInfVi::Param &param) {
 //        emxloge("chn %d ChipSetChnFlipMirror failed with %#x!\n", m_chn, ret);
 //        return ErrCodeE::Failure;
 //    }
+    return ErrCodeE::Success;
+}
+
+ErrCodeE DefaultVi::SetHideStatus(bool enable){
+    if(enable){
+        //将vi数据流全部置黑
+    }else{
+        //vi数据正常输出sorsor送入画面
+    }
     return ErrCodeE::Success;
 }
