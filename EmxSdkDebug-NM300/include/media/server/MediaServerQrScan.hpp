@@ -15,7 +15,7 @@ namespace Emx {
 
     class MediaServerQrScanChn : public MediaInfQrScan, public MediaServerModuleChnBase {
     public:
-        explicit MediaServerQrScanChn(int32_t chn) : MediaServerModuleChnBase(MediaModE::QrScan, chn) {}
+        explicit MediaServerQrScanChn(int32_t chn) : MediaServerModuleChnBase(MediaModE::QrScan, chn) , m_started(false) {}
 
         ~MediaServerQrScanChn() override = default;
 
