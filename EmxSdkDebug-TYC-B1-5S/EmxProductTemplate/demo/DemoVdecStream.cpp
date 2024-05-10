@@ -44,15 +44,25 @@ int main(int argc,char **argv) {
     MediaVdecStream * vdecStream = new MediaVdecStream(0);
     MediaVdec::Param param = {};
     MediaVdec vdec(0);
+    if(argc < 2){
+        emxloge("argc num err!eg:./DemoVdecStream 1.h265(or 1.h264) fps(test fps)\n");
+        return -1;
+    }
     // 先获取当前的配置
     if (vdec.GetParam(param) != ErrCodeE::Success) {
         emxloge("GetParam failed\n");
         return -1;
     }
+    int loopNum = 0;
     if(strstr(argv[1],"h265")){
         param.codec = VideoCodecE::H265;
     }else{
         param.codec = VideoCodecE::H264;
+    }
+    if(argc > 2){
+        if(strstr(argv[2],"fps")){
+            loopNum = 1;
+        }
     }
     if (vdec.SetParam(param) != ErrCodeE::Success) {
         emxloge("SetParam failed\n");
@@ -73,10 +83,15 @@ int main(int argc,char **argv) {
     if(!fpStrm){
         printf("%s open failed!\n", argv[1]);
 		return -1;
-    }   
+    }
+    struct timeval tv;
+    unsigned long long ddd;
+    gettimeofday(&tv, (struct timezone *) 0);
+    ddd = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
+    int realFps = 0;
     uint64_t pts = 1;
     printf("input 'q' to exit\n");
-    while ('q' != getchar()){
+    while (loopNum ||('q' != getchar())){
         fseek(fpStrm, s32UsedBytes, SEEK_SET);
         int s32ReadLen = fread(pu8Buf, 1, bufSize, fpStrm);
         if (s32ReadLen == 0) {
@@ -101,8 +116,15 @@ int main(int argc,char **argv) {
         frameOut.data.data = pu8Buf ;
         frameOut.data.size = s32ReadLen;
         vdecStream->PushFrame(frameOut,1000);
+        realFps++;
         s32UsedBytes = s32UsedBytes + s32ReadLen;
-        printf("send frame size=%d\n",s32ReadLen);
+        gettimeofday(&tv, (struct timezone *) 0);
+        unsigned long long fff = (unsigned long long) tv.tv_sec * 1000 + (unsigned long long) tv.tv_usec / 1000;
+        if(fff - ddd >= 1000){
+            ddd = fff;
+            printf("Real-time frame rate=%d\n",realFps);
+            realFps = 0;
+        }
     }
 
     printf("exit success\n");
