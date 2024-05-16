@@ -19,6 +19,7 @@
 #include "utils/Shm.hpp"
 #include "utils/Socket.hpp"
 #include "utils/Time.hpp"
+#include "utils/Singleton.hpp"
 
 #endif //EMX_EmxUtils_HPP
 

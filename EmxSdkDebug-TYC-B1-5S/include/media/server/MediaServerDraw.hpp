@@ -28,6 +28,8 @@ namespace Emx {
 
         void *GetNewParam() override { return &m_paramNew; }
 
+        void *GetRunningParam() override { return &m_paramRunning; }
+
         int GetParamSize() override { return -1; }
 
         ErrCodeE GetParamDefaultData(std::string &data) override;
@@ -38,16 +40,18 @@ namespace Emx {
 
         void GetParamData(std::string &data) override;
 
-        void UpdateParam() override { m_param = m_paramNew; }
+        void GetRunningParamData(std::string &data) override;
 
-        void ReleaseNewParam() override { m_paramNew.array.clear(); }
+        void UpdateParam() override;
+
+        void UpdateRunningParam() override {};
 
         ErrCodeE OnServerCreate() override;
 
         void OnServerDestroy() override;
 
         ErrCodeE OnParamChanged() override;
-        
+
     protected:
         /**
          * @brief 获取通道图像大小(叠加的画面大小，例如vpss chn的宽高)
@@ -56,7 +60,7 @@ namespace Emx {
         virtual Size GetChnPicSize() = 0;
 
         struct DrawInfo {
-            int id;//!< Draw的唯一标识
+            int id;        //!< Draw的唯一标识
             ParamItem item;//!< item数据
         };
         /**
@@ -70,27 +74,29 @@ namespace Emx {
          * @brief 销毁Draw
          * @param info [in] 需要销毁的画线框数据
          */
-        virtual void DrawDestroyAll(std::list<DrawInfo> &info){}
+        virtual void DrawDestroyAll(std::list<DrawInfo> &info) {}
 
         /**
          * @brief 设置Draw画线框
          * @param id [in] 画线框id
          * @param data [in] 画线框数据
          */
-        virtual void DrawSetItem(const int id,ParamItem& item) {}
-        
-    private:      
+        virtual void DrawSetItem(const int id, ParamItem &item) {}
 
+    private:
         void CreateAll();
 
         void DestroyAll();
 
         void CalcCoordinate(const float &src, float &dst, int obj);
 
+        void SetRunningParam(Param *param);
+
     protected:
         Param *m_pParam;
         Param m_param;
         Param m_paramNew;
+        Param m_paramRunning;
 
     private:
         Size m_chnPicSize;

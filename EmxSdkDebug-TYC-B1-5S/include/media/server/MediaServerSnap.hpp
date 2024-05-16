@@ -5,9 +5,9 @@
 #ifndef EMX_MediaServerSnap_HPP
 #define EMX_MediaServerSnap_HPP
 
-#include "media/common/MediaInfSnap.hpp"
-#include "MediaServerBase.hpp"
 #include "EmxCore.hpp"
+#include "MediaServerBase.hpp"
+#include "media/common/MediaInfSnap.hpp"
 
 namespace Emx {
 
@@ -20,6 +20,8 @@ namespace Emx {
         void *GetParam() override { return &m_param; }
 
         void *GetNewParam() override { return &m_paramNew; }
+
+        void *GetRunningParam() override { return &m_paramRunning; }
 
         int GetParamSize() override { return sizeof(Param); }
 
@@ -34,7 +36,6 @@ namespace Emx {
         ErrCodeE Trigger(int32_t timeoutMs) override;
 
     protected:
-
         /**
          * @brief 获取一帧抓拍图像
          * @param data [out] 将获取到的图像数据放入data中，vector类型可支持非连续内存数据
@@ -48,7 +49,6 @@ namespace Emx {
         virtual void ReleaseOneSnap() = 0;
 
     private:
-
         void OnTrigger(void *arg);
 
         void OnTriggerComplete(ErrCodeE e, void *arg);
@@ -56,6 +56,8 @@ namespace Emx {
     protected:
         Param m_param;
         Param m_paramNew;
+        Param m_paramRunning;
+
     private:
         bool m_isSnapping;
         EuvWork m_work;
@@ -67,6 +69,6 @@ namespace Emx {
     public:
         MediaServerSnap() : MediaServerModuleBase(MediaModE::Snap, "snap") {}
     };
-}
+}// namespace Emx
 
-#endif //EMX_MediaServerSnap_HPP
+#endif//EMX_MediaServerSnap_HPP
