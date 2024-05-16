@@ -95,6 +95,7 @@ namespace Emx {
         ErrCodeE GetVersion(std::string &version) { return ErrCodeE::Success; }
         void *GetParam() override { return nullptr; }
         void *GetNewParam() override { return nullptr; }
+        void *GetRunningParam() override { return nullptr; }
         int GetParamSize() override { return 0; }
         ErrCodeE OnParamChanged() override { return ErrCodeE::Success; }
     };

@@ -27,6 +27,8 @@ namespace Emx {
 
         void *GetNewParam() override { return &m_paramNew; }
 
+        void *GetRunningParam() override { return &m_paramRunning; }
+
         int GetParamSize() override { return sizeof(Param); }
 
         ErrCodeE GetParamDefaultData(std::string &data) override;
@@ -52,7 +54,7 @@ namespace Emx {
         /**
          * @brief 清空Ao的缓存buffer
          */
-        virtual void ClearAoBuffer() { }
+        virtual void ClearAoBuffer() {}
 
     protected:
         void OnGetMsg(uint32_t topic, const char *data, int32_t size);
@@ -70,6 +72,7 @@ namespace Emx {
     protected:
         Param m_param;
         Param m_paramNew;
+        Param m_paramRunning;
 
     private:
         EuvLoop m_loopAdec;

@@ -59,6 +59,8 @@ namespace Emx {
         struct ParamText {
             int size; //!<字体大小
             int thickness; //!<边框大小
+            bool wrapLine; //!<使能换行操作
+            int lineSpace; //!<行间距,分辨率万分比0~10000，wrapLine=true生效
             char font[64]; //!<字体文件名(字体文件均放置在configs/media/font目录下
             char content[MaxTextSize]; //!<显示内容
         };

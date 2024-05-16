@@ -58,6 +58,8 @@ namespace Emx {
 
         virtual void *GetNewParam() = 0;
 
+        virtual void *GetRunningParam() = 0;
+
         virtual int GetParamSize() = 0;
 
         virtual ErrCodeE GetParamDefaultData(std::string &data) { return ErrCodeE::Success; }
@@ -65,12 +67,16 @@ namespace Emx {
         virtual void NewParamInCome(const char *data, int size) { memcpy(GetNewParam(), data, GetParamSize()); }
 
         virtual bool ParamValid() { return true; }
+        
+        virtual void GetRunningParamData(std::string &data) { data.assign((const char *) GetRunningParam(), GetParamSize()); }
 
         virtual void GetParamData(std::string &data) { data.assign((const char *) GetParam(), GetParamSize()); }
 
-        virtual bool ParamChanged() { return memcmp(GetParam(), GetNewParam(), GetParamSize()) != 0; }
+        virtual bool ParamChanged() { return memcmp(GetRunningParam(), GetNewParam(), GetParamSize()) != 0; }
 
         virtual void UpdateParam() { memcpy(GetParam(), GetNewParam(), GetParamSize()); }
+
+        virtual void UpdateRunningParam() { memcpy(GetRunningParam(), GetNewParam(), GetParamSize()); }
 
         virtual void ReleaseNewParam() {}
 

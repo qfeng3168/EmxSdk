@@ -24,6 +24,8 @@ namespace Emx {
         void *GetParam() override { return &m_param; }
 
         void *GetNewParam() override { return &m_paramNew; }
+        
+        void *GetRunningParam() override { return &m_paramRunning; }
 
         int GetParamSize() override { return sizeof(Param); }
 
@@ -71,6 +73,7 @@ namespace Emx {
     protected:
         Param m_param;
         Param m_paramNew;
+        Param m_paramRunning;
 
     private:
         EuvWork m_work;

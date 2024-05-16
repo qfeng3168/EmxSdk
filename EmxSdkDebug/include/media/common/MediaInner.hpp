@@ -64,6 +64,7 @@ namespace Emx {
         GetChnNum,
         GetParamDefault,
         SetTmpParam,
+        GetRunningParam,
         Butt,
     };
 
