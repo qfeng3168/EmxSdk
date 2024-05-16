@@ -25,6 +25,8 @@ namespace Emx {
 
         void *GetNewParam() override { return &m_paramNew; }
 
+        void *GetRunningParam() override { return &m_paramRunning; }
+
         int GetParamSize() override { return sizeof(Param); }
 
         ErrCodeE GetParamDefaultData(std::string &data) override;
@@ -52,6 +54,7 @@ namespace Emx {
     protected:
         Param m_param;
         Param m_paramNew;
+        Param m_paramRunning;
     };
 
     class MediaServerIsp : public MediaServerModuleBase {

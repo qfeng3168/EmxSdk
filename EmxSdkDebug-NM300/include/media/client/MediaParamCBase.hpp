@@ -13,8 +13,10 @@ namespace Emx {
     class MediaParamCBaseImpl {
     public:
         static ErrCodeE SetParam(uint32_t model, int32_t chn, const void *param, int32_t size, int32_t timeoutMs);
-       
+
         static ErrCodeE SetTmpParam(uint32_t model, int32_t chn, const void *param, int32_t size, int32_t timeoutMs);
+
+        static ErrCodeE GetRunningParam(uint32_t model, int32_t chn, void *param, int32_t size, int32_t timeoutMs);
 
         static ErrCodeE GetParam(uint32_t model, int32_t chn, void *param, int32_t size, int32_t timeoutMs);
 
@@ -56,6 +58,15 @@ namespace Emx {
          */
         virtual ErrCodeE GetParam(Param &param) {
             return MediaParamCBaseImpl::GetParam(m_modelId, m_chn, &param, sizeof(param), 2000);
+        }
+
+        /**
+         * @brief 获取当前运行的参数
+         * @param param [out] 参数数据
+         * @return ErrCodeE
+         */
+        virtual ErrCodeE GetRunningParam(Param &param) {
+            return MediaParamCBaseImpl::GetRunningParam(m_modelId, m_chn, &param, sizeof(param), 2000);
         }
 
         /**

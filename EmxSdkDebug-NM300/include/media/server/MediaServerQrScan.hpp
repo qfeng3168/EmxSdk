@@ -5,9 +5,9 @@
 #ifndef EMX_MediaServerQrScan_HPP
 #define EMX_MediaServerQrScan_HPP
 
-#include "media/common/MediaInfQrScan.hpp"
 #include "MediaServerBase.hpp"
 #include "core/euv/EuvWork.hpp"
+#include "media/common/MediaInfQrScan.hpp"
 #include "media/common/MediaRegion.hpp"
 
 namespace Emx {
@@ -15,13 +15,16 @@ namespace Emx {
 
     class MediaServerQrScanChn : public MediaInfQrScan, public MediaServerModuleChnBase {
     public:
-        explicit MediaServerQrScanChn(int32_t chn) : MediaServerModuleChnBase(MediaModE::QrScan, chn) , m_started(false) {}
+        explicit MediaServerQrScanChn(int32_t chn)
+            : MediaServerModuleChnBase(MediaModE::QrScan, chn), m_started(false) {}
 
         ~MediaServerQrScanChn() override = default;
 
         void *GetParam() override { return &m_param; }
 
         void *GetNewParam() override { return &m_paramNew; }
+
+        void *GetRunningParam() override { return &m_paramRunning; }
 
         int GetParamSize() override { return sizeof(Param); }
 
@@ -88,12 +91,13 @@ namespace Emx {
         std::string m_content;
         Param m_param;
         Param m_paramNew;
+        Param m_paramRunning;
     };
 
     class MediaServerQrScan : public MediaServerModuleBase {
     public:
         MediaServerQrScan() : MediaServerModuleBase(MediaModE::QrScan, "qrScan") {}
     };
-}
+}// namespace Emx
 
-#endif //EMX_MediaServerQrScan_HPP
+#endif//EMX_MediaServerQrScan_HPP
