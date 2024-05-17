@@ -3,7 +3,6 @@
 //
 #include "EmxMedia.hpp"
 #include <thread>
-#include <sys/time.h>
 
 using namespace Emx;
 
