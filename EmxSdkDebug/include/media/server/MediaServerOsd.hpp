@@ -29,6 +29,8 @@ namespace Emx {
 
         void *GetNewParam() override { return &m_paramNew; }
 
+        void *GetRunningParam() override { return &m_paramRunning; }
+
         int GetParamSize() override { return -1; }
 
         ErrCodeE GetParamDefaultData(std::string &data) override;
@@ -39,9 +41,11 @@ namespace Emx {
 
         void GetParamData(std::string &data) override;
 
-        void UpdateParam() override { m_param = m_paramNew; }
+        void GetRunningParamData(std::string &data) override;
 
-        void ReleaseNewParam() override { m_paramNew.array.clear(); }
+        void UpdateParam() override;
+
+        void UpdateRunningParam() override {};
 
         ErrCodeE OnServerCreate() override;
 
@@ -119,10 +123,13 @@ namespace Emx {
         void CalcCoordinate(Margin &margin, int regionWidth, int regionHeight, int backgroundWidth,
                 int backgroundHeight, int &x, int &y);
 
+        void SetRunningParam(Param *param);
+
     protected:
         Param *m_pParam;
         Param m_param;
         Param m_paramNew;
+        Param m_paramRunning;
 
     private:
         Size m_chnPicSize;
@@ -148,6 +155,23 @@ namespace Emx {
 
         EuvTimer m_timer;
         time_t m_timeRecord;
+
+    private:
+        /**
+         * @brief 带换行字符串切割，返回实际map size
+         * 根据指定字符串来分割原始字符串，得到
+         * @param paramText [in]被分割字符串对象
+         * @param region [out]返回需要使用的宽高
+         * @param outline [in]字体创建句柄
+         */
+        void TextWrapLineSize(ParamText &paramText, RegionInfo &region, OutlineOsd *outline);
+        /**
+         * @brief 带换行字符串切割，返回bitmap
+         * 根据指定字符串来分割原始字符串，并直接创建位图
+         * @param paramText [in]被分割字符串对象
+         * @return 返回位图数据
+         */
+        uint8_t *TextWrapLine(OsdItem &text, int *w, int *h);
     };
 
     class MediaServerOsd : public MediaServerModuleBase {

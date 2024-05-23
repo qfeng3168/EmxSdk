@@ -22,6 +22,7 @@ namespace Emx {
 
         ErrCodeE SetParam(const Json::Value &paramNew) override;
 
+        ErrCodeE Ctrl(const Json::Value &in, Json::Value &out) override;
     private:
         void Start(const Json::Value &param);
 
@@ -41,6 +42,7 @@ namespace Emx {
         int m_threshold;
         int m_minArea;
         int m_count;
+        bool m_pause;
         bool m_got;
         Json::Value m_param;
         MediaAiJob m_job;

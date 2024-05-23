@@ -13,10 +13,11 @@ namespace Emx {
     public:
         //!@brief 视频输入持久化参数
         struct Param {
-            bool flip; //!<是否上下翻转
-            bool mirror; //!<是否左右镜像
+            bool flip;  //!<是否上下翻转
+            bool mirror;//!<是否左右镜像
+            bool hide;  //!<是否遮挡显示
         };
     };
-}
+}// namespace Emx
 
-#endif //EMX_MediaViInf_HPP
+#endif//EMX_MediaViInf_HPP

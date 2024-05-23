@@ -135,3 +135,60 @@ void FdPdFusion::OnGetFrameComplete(void *arg) {
         m_gotFaceSnap = false;
     }
 }
+
+ErrCodeE FdPdFusion::FaceRegister(const Json::Value &info, Json::Value &out) {
+    ErrCodeE e = ErrCodeE::Success;
+    //人脸提取特征数据
+    for (int i = 0; i < (int) info.size(); i++) {
+        Json::Value faceInfo;
+        std::string buf;
+        faceInfo["id"] = info[i]["id"].asInt();
+        //是使用jpg图片提取
+        if(info[i]["isImg"].asBool()){
+             //e = getFeature(info[i]["path"].asString(),buf);
+            emxlogi("register[%d],id=%d,path=%s\n", i,info[i]["id"].asInt(),info[i]["path"].asString().c_str());
+        }else{
+             //e = getSourceFeature(buf);
+              emxlogi("register[%d],id=%d,path=null\n", i,info[i]["id"].asInt());
+        }
+        if(e ==  ErrCodeE::Success){
+            std::string feature;
+            Base64::Encode(buf, feature);
+            faceInfo["feature"] = feature;
+            out.append(faceInfo);
+        }
+    }
+    return e;
+}
+
+ErrCodeE FdPdFusion::FaceUnregister(const Json::Value &id) {
+    for (int i = 0; i < (int) id.size(); i++) {
+         int idNum = id[i].asInt();
+        emxlogi("unregister[%d],id=%d\n", i,idNum);
+        //删除对应id人脸库
+        // faceDelete(idNum);
+    }
+    return ErrCodeE::Success;
+}
+
+ErrCodeE FdPdFusion::FaceSyncLibrary(const Json::Value &library) {
+    //同步特征数据
+    for (int i = 0; i < (int) library.size(); i++) {
+        int idNum = library[i]["id"].asInt();
+        std::string feature = library[i]["feature"].asString();
+        //添加人脸库
+        std::string buf;
+        Base64::Decode(feature,buf);
+        emxlogi("lirary[%d] idNum=%d\n", i,idNum);
+        // addLibrary(idNum,buf);
+    }
+    return ErrCodeE::Success;
+}
+
+ErrCodeE FdPdFusion::Ctrl(const Json::Value &in, Json::Value &out) {
+    ErrCodeE e = ErrCodeE::OperationNotSupport;
+    if (in.isMember("faceRegister")) { e = FaceRegister(in["faceRegister"], out); }
+    if (in.isMember("faceUnregister")) { e = FaceUnregister(in["faceUnregister"]); }
+    if (in.isMember("syncLibrary")) { e = FaceSyncLibrary(in["syncLibrary"]); }
+    return e;
+}

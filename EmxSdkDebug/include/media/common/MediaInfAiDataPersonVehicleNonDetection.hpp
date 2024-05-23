@@ -41,16 +41,20 @@ namespace Emx {
 
         void Free() {
             if (array) {
+                for (int i = 0; i < num; i++) {
+                    if ((array[i].pic.size > 0) && array[i].pic.img) {
+                        free(array[i].pic.img);
+                        array[i].pic.img = nullptr;
+                        array[i].pic.size = 0;
+                    }
+                }
+                if ((fullPic.size > 0) && fullPic.img) {
+                    free(fullPic.img);
+                    fullPic.img = nullptr;
+                }
                 free(array);
                 array = nullptr;
             }
-        }
-
-        void ReleaseImg() {
-            for (int i = 0; i < num; i++) {
-                if (array[i].pic.img) { free(array[i].pic.img); }
-            }
-            if (fullPic.img) { free(fullPic.img); }
         }
 
         int GetSerializeSize() override {
@@ -91,7 +95,7 @@ namespace Emx {
                 if (fullPic.img) { memcpy(fullPic.img, buffer + off, fullPic.size); }
             }
             off += fullPic.size;
-            if (num * (int) sizeof(DataMsg) + off < size) {
+            if (num * (int) sizeof(DataMsg) + off <= size) {
                 Alloc(num);
                 memcpy(array, buffer + off, num * (int) sizeof(DataMsg));
                 for (int i = 0; i < num; i++) {

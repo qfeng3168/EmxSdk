@@ -22,6 +22,10 @@ namespace Emx {
         ErrCodeE GetParam(Param &param) override;
 
         ErrCodeE GetParamDefault(Param &param) override;
+
+        ErrCodeE SetTmpParam(const Param &param) override;
+
+        ErrCodeE GetRunningParam(Param &param) override;
     };
 }// namespace Emx
 #endif//EMX_MediaOSD_HPP
