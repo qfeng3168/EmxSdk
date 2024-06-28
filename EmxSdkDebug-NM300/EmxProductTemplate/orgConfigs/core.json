@@ -15,7 +15,7 @@
     }
   },
   "param": {
-    "normal": "/root/data/normal",
-    "backup": "/root/data/backup"
+    "normal": "/root/configs/normal",
+    "backup": "/root/configs/backup"
   }
 }

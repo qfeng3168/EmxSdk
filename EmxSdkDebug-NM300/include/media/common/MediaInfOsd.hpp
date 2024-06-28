@@ -13,7 +13,7 @@ namespace Emx {
 
     class MediaInfOsd {
     public:
-        static const int MaxTextSize = 256; //!<字符类型最大长度
+        static const int MaxTextSize = 512; //!<字符类型最大长度
         static const int RateBase = 10000; //!<偏移量比率基准
         static const int MaxOSDNum = 8; //!<最大通道数
 

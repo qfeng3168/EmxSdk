@@ -37,6 +37,7 @@ namespace Emx {
     protected:
         int m_pipe;
         RunModeE m_mode;
+        Param *m_pParam;
     };
 
 }

@@ -35,23 +35,23 @@ def verify_dependency(profile, version):
         AiPluginLibsJson.append(lib)
         abs_path = os.path.join(depend_path, lib)
         rel_path = os.path.relpath(abs_path, depend_path)
-        item = {}
-        item["file"] = rel_path
-        item["md5"] = utils.Md5.file(abs_path)
-        AiPluginMd5Json.append(item)
+        # item = {}
+        # item["file"] = rel_path
+        # item["md5"] = utils.Md5.file(abs_path)
+        # AiPluginMd5Json.append(item)
     AiPluginJson["libs"] = AiPluginLibsJson
 
-    for file in profile["runtime"]["file"]:
-        abs_path = os.path.join(depend_path, file)
-        rel_path = os.path.relpath(abs_path, depend_path)
-        item = {}
-        item["file"] = rel_path
-        item["md5"] = utils.Md5.file(abs_path)
-        AiPluginMd5Json.append(item)
+    # for file in profile["runtime"]["file"]:
+    #     abs_path = os.path.join(depend_path, file)
+    #     rel_path = os.path.relpath(abs_path, depend_path)
+    #     item = {}
+    #     item["file"] = rel_path
+    #     item["md5"] = utils.Md5.file(abs_path)
+    #     AiPluginMd5Json.append(item)
 
     AiPluginJson["files"] = AiPluginMd5Json
-    print_err("%s",os.getcwd() + "/output/EmxAiPlugin-Debug/version/AiPlugin.json")
-    with open(os.getcwd() + "/output/EmxAiPlugin-Debug/version/AiPlugin.json", "w+") as f:
+    AiPluginDir = os.getcwd() + "/output/EmxAiPlugin-Debug/"+profile+"/AiPlugin.json"
+    with open(AiPluginDir, "w+") as f:
         json.dump(AiPluginJson, f, indent=4)
 
 def build(install_dir, profile, version):

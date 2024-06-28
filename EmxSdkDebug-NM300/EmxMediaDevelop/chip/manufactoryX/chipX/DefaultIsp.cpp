@@ -14,6 +14,7 @@ ErrCodeE DefaultIsp::OnCreate() {
 //    auto &json = root[m_chn];
 //    m_pipe = json["pipe"].asInt();
     //! 初始化运行模式为白天
+    m_pParam = &m_param;
     SetRunMode(RunModeE::Day);
     return ErrCodeE::Success;
 }
@@ -25,6 +26,9 @@ void DefaultIsp::OnDestroy() {
 ErrCodeE DefaultIsp::OnParamChanged() {
     //! 当参数发生变化时需要进行配置
     //! m_param是当前参数，m_paramNew是新到来的参数
+    m_pParam = &m_paramNew;
+    //设置参数
+    m_pParam = &m_param;
     return ErrCodeE::Success;
 }
 
