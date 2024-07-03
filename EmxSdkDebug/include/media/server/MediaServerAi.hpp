@@ -7,9 +7,10 @@
 
 #include "MediaServerBase.hpp"
 #include "core/euv/EuvWork.hpp"
-#include "media/common/MediaRingBuffer.hpp"
+#include "media/common/MediaInfAi.hpp"
 #include "media/common/MediaInfAiData.hpp"
-
+#include "media/common/MediaRingBuffer.hpp"
+#include "media/server/EmxAiPlugin.h"
 namespace Emx {
     class MediaAiJob {
     public:
@@ -25,94 +26,98 @@ namespace Emx {
         EuvWork m_work;
     };
 
-    class MediaAiPlugin {
+    //!@brief 算法基类
+    //!@details 算法基类，所有算法类建议继承该类
+    class EmxAiPluginAlgBase {
     public:
-        MediaAiPlugin(int chn, const char *name) : m_chn(chn), m_name(name) {}
-
-        virtual ~MediaAiPlugin() {}
-
         /**
-         * @brief 插件创建
-         * @param param [in] 插件的参数
+         * @brief 算法构造函数
+         * @param chn [in] 算法所在通道
+         * @param name [in] 算法名称
          */
-        virtual void Create(Json::Value &param) {}
+        EmxAiPluginAlgBase(int chn, const char *name) : m_chn(chn), m_name(name) {}
+
+        virtual ~EmxAiPluginAlgBase() {}
 
         /**
-         * @brief 插件销毁
+         * @brief 算法创建
+         * @param param [in] 插件通道参数
+         */
+        virtual void Create(const char *workspace, Json::Value &param) {}
+
+        /**
+         * @brief 算法销毁
          */
         virtual void Destroy() {}
 
         /**
-         * @brief 插件参数改变
-         * @param paramNew [in] 新参数
+         * @brief 算法参数改变
+         * @param paramNew [in] 新插件通道参数
          * @return ErrCodeE
          */
-        virtual ErrCodeE ParamChange(Json::Value &paramNew) { return ErrCodeE::Success; }
+        virtual ErrCodeE SetParam(const Json::Value &paramNew) { return ErrCodeE::Success; }
 
         const char *GetName() { return m_name.c_str(); }
 
+        virtual ErrCodeE Ctrl(const Json::Value &in, Json::Value &out) {
+            return ErrCodeE::OperationNotSupport;
+        }
     protected:
         int m_chn;
         std::string m_name;
     };
 
-    class MediaServerAiChn : public MediaServerModuleChnBase {
+    class MediaServerAiChn : public MediaInfAi, public MediaServerModuleChnBase {
     public:
-        explicit MediaServerAiChn(int32_t chn) :
-                MediaServerModuleChnBase(MediaModE::Ai, chn) {}
+        explicit MediaServerAiChn(int32_t chn) : MediaServerModuleChnBase(MediaModE::Ai, chn) {}
 
         ~MediaServerAiChn() override = default;
 
-        /**
-         * @brief 创建一个Ai插件
-         * @param name [in] Ai插件名
-         * @return ErrCodeE
-         */
-        virtual MediaAiPlugin *MakePlugin(const char *name) = 0;
+        ErrCodeE SetParam(const Json::Value &param);
 
-        ErrCodeE OnCreate() override;
+        ErrCodeE GetParam(Json::Value &param);
 
-        void OnDestroy() override;
+        ErrCodeE GetParamDefault(Json::Value &param);
 
-        ErrCodeE OnParamChanged() override;
+        ErrCodeE GetParamRange(Json::Value &range) override;
 
-        ErrCodeE LoadParam() override;
-
-        ErrCodeE SaveParam() override;
-
-        ErrCodeE GetParamRange(Json::Value &range) override { return ErrCodeE::Success; }
-
-        void *GetParam() override { return nullptr; }
-
-        void *GetNewParam() override { return nullptr; }
-
-        int GetParamSize() override { return 0; }
-
-        void NewParamInCome(const char *data, int size) override {
-            EasyJson::Parse(data, size, m_paramNew);
-        }
-
-        void GetParamData(std::string &data) override {
-            EasyJson::Serialize(m_param, data);
-        }
-
-        bool ParamChanged() override { return true; }
-
-        void UpdateParam() override {}
-
-        void ReleaseNewParam() override { m_paramNew.clear(); }
+        ErrCodeE Ctrl(const Json::Value &in, Json::Value &out) override;
 
     protected:
-        Json::Value m_param;
-        Json::Value m_paramNew;
-        std::list<MediaAiPlugin *> m_pluginList;
+        ErrCodeE LoadParam(Json::Value &param);
+
+        ErrCodeE SaveParam(const Json::Value &param);
+
+    protected:
+        std::vector<EmxAiPluginAlgBase *> m_algs;
+
+    private:
+        ErrCodeE GetVersion(std::string &version) { return ErrCodeE::Success; }
+        void *GetParam() override { return nullptr; }
+        void *GetNewParam() override { return nullptr; }
+        void *GetRunningParam() override { return nullptr; }
+        int GetParamSize() override { return 0; }
+        ErrCodeE OnParamChanged() override { return ErrCodeE::Success; }
     };
 
     class MediaServerAi : public MediaServerModuleBase {
     public:
-        MediaServerAi() : MediaServerModuleBase(MediaModE::Ai, "ai") {}
+        MediaServerAi() : MediaServerModuleBase(MediaModE::Ai, "ai"), m_handle(nullptr), m_created(false) {}
+        void Create() override;
+        void Destroy() override;
+        ErrCodeE OnRecvReq(uint32_t method, int32_t chn, const char *data, int32_t size, std::string &out) override;
+
+    private:
+        ErrCodeE VerifyPlugin();
+
+        void CloseOpenedSo();
+
+    private:
+        void *m_handle;
+        std::vector<void *> m_depArray;
+        bool m_created;
     };
 
-}
+}// namespace Emx
 
-#endif //EMX_MediaServerAi_HPP
+#endif//EMX_MediaServerAi_HPP

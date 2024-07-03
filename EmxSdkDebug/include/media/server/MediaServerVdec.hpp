@@ -5,9 +5,9 @@
 #ifndef EMX_MediaServerVdec_HPP
 #define EMX_MediaServerVdec_HPP
 
-#include "media/common/MediaInfVdec.hpp"
-#include "MediaServerBase.hpp"
 #include "EmxCore.hpp"
+#include "MediaServerBase.hpp"
+#include "media/common/MediaInfVdec.hpp"
 #include "media/common/MediaRingBuffer.hpp"
 
 namespace Emx {
@@ -25,8 +25,12 @@ namespace Emx {
         void *GetParam() override { return &m_param; }
 
         void *GetNewParam() override { return &m_paramNew; }
+        
+        void *GetRunningParam() override { return &m_paramRunning; }
 
         int GetParamSize() override { return sizeof(Param); }
+
+        ErrCodeE GetParamDefaultData(std::string &data) override;
 
         ErrCodeE OnRecvReqChn(uint32_t method, const char *data, int32_t size, std::string &out) override;
 
@@ -50,9 +54,12 @@ namespace Emx {
     protected:
         Param m_param;
         Param m_paramNew;
+        Param m_paramRunning;
+
     public:
         MsgTopicSubscriberAsync m_sub;
         MediaRingBufferReader m_ring;
+
     private:
         int m_key;
         int m_ringBufSize;
@@ -62,8 +69,7 @@ namespace Emx {
     class MediaServerVdec : public MediaServerModuleBase {
     public:
         MediaServerVdec() : MediaServerModuleBase(MediaModE::Vdec, "vdec") {}
-
     };
-}
+}// namespace Emx
 
-#endif //EMX_MediaServerVdec_HPP
+#endif//EMX_MediaServerVdec_HPP

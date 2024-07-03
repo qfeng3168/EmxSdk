@@ -58,17 +58,25 @@ namespace Emx {
 
         virtual void *GetNewParam() = 0;
 
+        virtual void *GetRunningParam() = 0;
+
         virtual int GetParamSize() = 0;
+
+        virtual ErrCodeE GetParamDefaultData(std::string &data) { return ErrCodeE::Success; }
 
         virtual void NewParamInCome(const char *data, int size) { memcpy(GetNewParam(), data, GetParamSize()); }
 
         virtual bool ParamValid() { return true; }
+        
+        virtual void GetRunningParamData(std::string &data) { data.assign((const char *) GetRunningParam(), GetParamSize()); }
 
         virtual void GetParamData(std::string &data) { data.assign((const char *) GetParam(), GetParamSize()); }
 
-        virtual bool ParamChanged() { return memcmp(GetParam(), GetNewParam(), GetParamSize()) != 0; }
+        virtual bool ParamChanged() { return memcmp(GetRunningParam(), GetNewParam(), GetParamSize()) != 0; }
 
         virtual void UpdateParam() { memcpy(GetParam(), GetNewParam(), GetParamSize()); }
+
+        virtual void UpdateRunningParam() { memcpy(GetRunningParam(), GetNewParam(), GetParamSize()); }
 
         virtual void ReleaseNewParam() {}
 
@@ -97,25 +105,23 @@ namespace Emx {
 
         /**
          * @brief 模块构造函数，通过配置文件的通道数，创建模块的各个通道
-         * @param cfgName 配置文件名称，例如"aenc"/"isp"等
-         * @param make 创建此模块通道所需的工厂方法
          */
-        void Create();
+        virtual void Create();
 
         /**
          * @brief 模块析构函数，销毁各个通道
          */
-        void Destroy();
+        virtual void Destroy();
 
         virtual ErrCodeE OnRecvReq(uint32_t method, int32_t chn, const char *data, int32_t size, std::string &out);
 
-        int LoadChnNum();
+        virtual int LoadChnNum();
 
         MediaModE m_mod;
         std::string m_name;
         std::vector<MediaServerModuleChnBase *> m_array;
     };
 
-}
+}// namespace Emx
 
-#endif //EMX_MediaServerGlobalBase_HPP
+#endif//EMX_MediaServerGlobalBase_HPP

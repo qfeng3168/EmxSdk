@@ -50,7 +50,7 @@ namespace Emx {
         Shm m_shm;
         char *m_buffer;
         int32_t m_bufferSize;
-        int32_t m_off;
+        int32_t m_off = 0;
     };
 
     //!@brief 媒体环形共享缓冲区读类(注意：所有操作都是非线程安全的)

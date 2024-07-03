@@ -40,14 +40,16 @@ namespace Emx {
                     return MakeQrScanChn(chn);
                 case MediaModE::Osd:
                     return MakeOsdChn(chn);
-                case MediaModE::Ai:
-                    return MakeAiChn(chn);
+                // case MediaModE::Ai:
+                //     return MakeAiChn(chn);
                 case MediaModE::Vi:
                     return MakeViChn(chn);
                 case MediaModE::Vdec:
                     return MakeVdecChn(chn);
                 case MediaModE::Vo:
                     return MakeVoChn(chn);
+                case MediaModE::Draw:
+                    return MakeDrawChn(chn);
                 default:
                     return nullptr;
             }
@@ -69,16 +71,17 @@ namespace Emx {
 
         virtual MediaServerModuleChnBase *MakeOsdChn(int32_t chn) = 0;
 
-        virtual MediaServerModuleChnBase *MakeAiChn(int32_t chn) = 0;
+        // MediaServerModuleChnBase *MakeAiChn(int32_t chn);
 
         virtual MediaServerModuleChnBase *MakeViChn(int32_t chn) = 0;
 
         virtual MediaServerModuleChnBase *MakeVdecChn(int32_t chn) = 0;
 
         virtual MediaServerModuleChnBase *MakeVoChn(int32_t chn) = 0;
-
+       
+        virtual MediaServerModuleChnBase *MakeDrawChn(int32_t chn) = 0;
     };
-}
+}// namespace Emx
 
 
-#endif //EMX_MediaFactory_HPP
+#endif//EMX_MediaFactory_HPP

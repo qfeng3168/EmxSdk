@@ -11,7 +11,7 @@ namespace Emx {
     //!@brief 计算MD5
     class MD5 {
     public:
-        typedef unsigned int size_type; // must be 32bit
+        typedef unsigned int size_type;// must be 32bit
 
         //!初始化MD5上下文
         MD5();
@@ -44,11 +44,9 @@ namespace Emx {
     private:
         void init();
 
-        typedef unsigned char uint1; //  8bit
-        typedef unsigned int uint4;  // 32bit
-        enum {
-            blocksize = 64
-        }; // VC6 won't eat a const static int here
+        typedef unsigned char uint1;//  8bit
+        typedef unsigned int uint4; // 32bit
+        enum { blocksize = 64 };    // VC6 won't eat a const static int here
 
         void transform(const uint1 block[blocksize]);
 
@@ -57,10 +55,10 @@ namespace Emx {
         static void encode(uint1 output[], const uint4 input[], size_type len);
 
         bool finalized;
-        uint1 buffer[blocksize]; // bytes that didn't fit in last 64 byte chunk
-        uint4 count[2];   // 64bit counter for number of bits (lo, hi)
-        uint4 state[4];   // digest so far
-        uint1 digest[16]; // the result
+        uint1 buffer[blocksize];// bytes that didn't fit in last 64 byte chunk
+        uint4 count[2];         // 64bit counter for number of bits (lo, hi)
+        uint4 state[4];         // digest so far
+        uint1 digest[16];       // the result
 
         // low level logic operations
         static inline uint4 F(uint4 x, uint4 y, uint4 z);
@@ -81,7 +79,11 @@ namespace Emx {
 
         static inline void II(uint4 &a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac);
     };
+    class FileMd5 {
+    public:
+        static std::string Get(const char *path);
+    };
 
-}
+}// namespace Emx
 
-#endif //EMX_MD5_HPP
+#endif//EMX_MD5_HPP

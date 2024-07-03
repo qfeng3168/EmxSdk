@@ -5,9 +5,9 @@
 #ifndef EMX_MediaServerAenc_HPP
 #define EMX_MediaServerAenc_HPP
 
-#include "media/common/MediaInfAenc.hpp"
 #include "MediaServerBase.hpp"
 #include "core/euv/EuvWork.hpp"
+#include "media/common/MediaInfAenc.hpp"
 
 namespace Emx {
     class AudioEncoder;
@@ -25,8 +25,12 @@ namespace Emx {
         void *GetParam() override { return &m_param; }
 
         void *GetNewParam() override { return &m_paramNew; }
+        
+        void *GetRunningParam() override { return &m_paramRunning; }
 
         int GetParamSize() override { return sizeof(Param); }
+
+        ErrCodeE GetParamDefaultData(std::string &data) override;
 
         bool ParamValid() override;
 
@@ -61,7 +65,6 @@ namespace Emx {
         virtual void ReleaseOneFrame() = 0;
 
     private:
-
         virtual void OnStream(void *arg);
 
         virtual void OnStreamComplete(ErrCodeE e, void *arg);
@@ -73,17 +76,21 @@ namespace Emx {
     protected:
         Param m_param;
         Param m_paramNew;
+        Param m_paramRunning;
+
     private:
         EuvWork m_work;
         FrameData m_frame;
         ErrCodeE m_getFrameErrCode;
         AudioEncoder *m_encoder;
+        AudioCodecE m_codec;
+        bool m_codecChange;
     };
 
     class MediaServerAenc : public MediaServerModuleBase {
     public:
         MediaServerAenc() : MediaServerModuleBase(MediaModE::Aenc, "aenc") {}
     };
-}
+}// namespace Emx
 
-#endif //EMX_MediaServerAenc_HPP
+#endif//EMX_MediaServerAenc_HPP
