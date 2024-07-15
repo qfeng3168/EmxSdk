@@ -2,12 +2,19 @@
 include_directories(${CMAKE_SOURCE_DIR}/chip/${ChipManufactory}/${ChipSerial})
 # 这里包含插件所需要的算法
 set(EmxAiPluginSources ${EmxAiPluginSources}
-${CMAKE_SOURCE_DIR}/chip/${ChipManufactory}/${ChipSerial}/MotionDetection.cpp
-${CMAKE_SOURCE_DIR}/chip/${ChipManufactory}/${ChipSerial}/FdPdFusion.cpp
-${CMAKE_SOURCE_DIR}/chip/${ChipManufactory}/${ChipSerial}/PersonDetection.cpp
+    ${CMAKE_SOURCE_DIR}/chip/${ChipManufactory}/${ChipSerial}/MotionDetection.cpp
+    #客流统计
+    ${CMAKE_SOURCE_DIR}/chip/${ChipManufactory}/${ChipSerial}/PassengerFlowStatistics.cpp
+    #人形侦测
+    ${CMAKE_SOURCE_DIR}/chip/${ChipManufactory}/${ChipSerial}/PersonDetection.cpp
+    #越界入侵
+   # ${CMAKE_SOURCE_DIR}/chip/${ChipManufactory}/${ChipSerial}/CrossingInvasionComm.cpp
+    #人脸模块
+   ${CMAKE_SOURCE_DIR}/chip/${ChipManufactory}/${ChipSerial}/FaceAlgorithm.cpp
 )
 aux_source_directory(${CMAKE_SOURCE_DIR}/chip/${ChipManufactory}/${ChipSerial}/${AiPluginProfile} EmxAiPluginSources)
 include_directories(${CMAKE_SOURCE_DIR}/chip/${ChipManufactory}/${ChipSerial}/${AiPluginProfile})
+
 
 
 # 将最终需要链接的库文件添加到ChipLibs中并增加库文件路径

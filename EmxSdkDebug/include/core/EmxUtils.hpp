@@ -20,6 +20,6 @@
 #include "utils/Socket.hpp"
 #include "utils/Time.hpp"
 #include "utils/Singleton.hpp"
-
+#include "utils/SafetyQueue.hpp"
 #endif //EMX_EmxUtils_HPP
 

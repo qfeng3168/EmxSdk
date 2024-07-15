@@ -1,3 +1,8 @@
-[
-    { }
-]
+{
+    "explain":"以下控制算法模块使用开关",
+    "MotionDetection":true,
+    "PersonDetection":true,
+    "CrossingInvasionComm":true,
+    "PassengerFlowStatistics":false,
+    "FaceAlgorithm":false       
+}

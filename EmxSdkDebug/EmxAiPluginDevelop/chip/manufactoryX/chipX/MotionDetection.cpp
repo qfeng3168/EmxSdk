@@ -28,6 +28,10 @@ void MotionDetection::Create(const char *workspace, Json::Value &param) {
     m_threshold = json["threshold"].asInt();
     m_minArea = json["minArea"].asInt();
     m_ena = m_param["ena"].asBool();
+    if(m_param.isMember("threshold"))
+        m_threshold = m_param["threshold"].asInt();
+
+    emxlogi("ena=%d ,m_threshold=%d \n",m_ena,m_threshold);
     //! 开始Ai处理
     Start(m_param);
     m_created = true;
@@ -43,15 +47,19 @@ void MotionDetection::Destroy() {
 }
 
 ErrCodeE MotionDetection::SetParam(const Json::Value &paramNew) {
+    if (!paramNew[m_name].isObject()) {
+        return ErrCodeE::Success;
+    }
     m_param = paramNew[m_name];
-    //刷新参数或者设置启停
+	//刷新参数或者设置启停
     bool enable = m_param["ena"].asBool();
     if (m_param.isMember("threshold")) m_threshold = m_param["threshold"].asInt();
     if (enable != m_ena) {
         if (m_ena) {
             m_job.Destroy();
         } else {
-            m_count = m_interval - 1;
+            m_pause = false;
+            m_count = m_interval-1;
             m_job.Create(std::bind(&MotionDetection::OnGetFrame, this, ph_1),
                     std::bind(&MotionDetection::OnGetFrameComplete, this, ph_1));
         }
@@ -67,6 +75,7 @@ void MotionDetection::Start(const Json::Value &param) {
     //! ...
     //! 使用job获取线程池资源，其中OnGetFrame运行在线程池中，OnGetFrameComplete运行在EmxMediaServer的主loop中
     m_got = false;
+    m_pause = false;
     if (m_ena) {
         m_count = m_interval - 1;
         m_job.Create(std::bind(&MotionDetection::OnGetFrame, this, ph_1),
@@ -129,7 +138,7 @@ void MotionDetection::OnGetFrame(void *arg) {
 }
 
 void MotionDetection::OnGetFrameComplete(void *arg) {
-    //! 得到数据后只能在Complete push出去
+    //! 得到数据后这里才能push出去
     if (!m_got) return;
     MediaAiJob::PushAiData(&m_data);
     m_data.Free();

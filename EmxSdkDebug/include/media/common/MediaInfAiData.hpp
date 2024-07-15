@@ -38,16 +38,14 @@ namespace Emx {
         enum class TypeE : uint8_t {
             MotionDetection = 0, //!<移动侦测数据
             PersonDetection, //!<人形侦测数据
+            FaceDetection, //!<人脸检测数据
             Classify, //!<分类数据
             FaceRecognition, //!<人脸识别数据
             PersonRecognition, //!<人形识别数据
-            FaceSnap, //!<人脸抓拍数据
             TypeNum, //!<数据类型数量
             PassengerFlowStatistics, //!<客流统计数据
             CrossingDetection, //!<越界数据
             InvasionDetection, //!<区域入侵数据
-            StrangerRecognition, //!<陌生人识别
-            MaskDetection, //!<口罩检测
             PersonVehicleNonDetection, //!<人车非检测
             ElectricBicycleDetection, //!<电动车检测
             VehicleRecognition, //!<车辆识别

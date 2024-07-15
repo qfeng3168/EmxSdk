@@ -23,11 +23,15 @@ void PersonDetection::Create(const char *workspace, Json::Value &param) {
     auto &json = root[m_chn];
     m_vpssGrp = json["vpssGrp"].asInt();
     m_vpssChn = json["vpssChn"].asInt();
-    m_interval = json["interval"].asInt();
-    m_threshold = json["threshold"].asInt();
-    m_minArea = json["minArea"].asInt();
+    m_threshold = json["threshold"].asFloat();
+    m_modelId = json["modelId"].asInt();
 
+    m_modePath = SysEnv::GetDataDir();
+    m_modePath.append("/AiPlugin/");
+    m_modePath.append(json["modelPath"].asCString());
     m_ena = m_param["ena"].asBool();
+    emxlogd("m_modelId=%d,m_threshold=%f,m_modePath=%s,ena=%d\n", m_modelId,
+            m_threshold, m_modePath.c_str(),m_ena);
     //! 开始Ai处理
     Start(m_param);
     m_created = true;
@@ -43,6 +47,9 @@ void PersonDetection::Destroy() {
 }
 
 ErrCodeE PersonDetection::SetParam(const Json::Value &paramNew) {
+    if (!paramNew[m_name].isObject()) {
+        return ErrCodeE::Success;
+    }
     m_param = paramNew[m_name];
     bool enable = m_param["ena"].asBool();
     if (enable != m_ena) {
@@ -59,7 +66,6 @@ ErrCodeE PersonDetection::SetParam(const Json::Value &paramNew) {
 }
 
 void PersonDetection::Start(const Json::Value &param) {
-    if (m_started) return;
     //! 初始化模型等操作
     //! ...
     //! 使用job获取线程池资源，其中OnGetFrame运行在线程池中，OnGetFrameComplete运行在EmxMediaServer的主loop中
@@ -67,20 +73,15 @@ void PersonDetection::Start(const Json::Value &param) {
     if (m_ena) {
         m_job.Create(std::bind(&PersonDetection::OnGetFrame, this, ph_1),
                 std::bind(&PersonDetection::OnGetFrameComplete, this, ph_1));
-				 m_started = true;
     }
     emxlogi("done\n");
 }
 
 void PersonDetection::Stop(const Json::Value &param) {
     //! 结束任务
-	if (m_ena) { m_job.Destroy(); }
-    if (m_started) {
-        m_started = false;
-        emxlogi("done\n");
-    }
+    if (m_ena) { m_job.Destroy(); }
+    emxlogi("done\n");
 }
-
 
 void PersonDetection::OnGetFrame(void *arg) {
     //! 这个函数会被循环调用，运行在线程池中，允许阻塞操作

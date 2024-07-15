@@ -6,9 +6,78 @@
 
 using namespace Emx;
 
+int test1() {
+    MediaVenc venc(0);
+    MediaOsd osd(0);
+    MediaVenc::Param param;
+
+    venc.GetParam(param);
+    emxlogd("src width:%d, height:%d\n", param.width, param.height);
+    if (param.width == 2880 && param.height == 1620) {
+        param.width = 1920;
+        param.height = 1080;
+    } else if (param.width == 1920 && param.height == 1080) {
+        param.width = 2880;
+        param.height = 1620;
+    }
+    emxlogd("dst width:%d, height:%d\n", param.width, param.height);
+    venc.SetParam(param);
+
+    MediaOsd::Param defOsdPms = {};
+    if (osd.GetParam(defOsdPms) != ErrCodeE::Success) { emxloge("get osd info failed!\n"); }
+
+    int fontsize = 0;
+    if (param.height == 1080) {
+        fontsize = 48;
+    } else {
+        fontsize = 70;
+    }
+    emxlogi("fontsize:%d\n", fontsize);
+    for (auto &item: defOsdPms.array) {
+        if (item->type == MediaOsd::TypeE::Time || item->type == MediaOsd::TypeE::Text) { item->text.size = fontsize; }
+    }
+    if (osd.SetParam(defOsdPms) != ErrCodeE::Success) { emxloge("set osd info failed!\n"); }
+    return 0;
+}
+int test2() {
+    MediaVenc venc(1);
+    MediaOsd osd(1);
+    MediaVenc::Param param;
+
+    venc.GetParam(param);
+    emxlogd("src width:%d, height:%d\n", param.width, param.height);
+    if (param.width == 1280 && param.height == 720) {
+        param.width = 960;
+        param.height = 540;
+    } else if (param.width == 960 && param.height == 540) {
+        param.width = 1280;
+        param.height = 720;
+    }
+    emxlogd("dst width:%d, height:%d\n", param.width, param.height);
+    venc.SetParam(param);
+
+    MediaOsd::Param defOsdPms = {};
+    if (osd.GetParam(defOsdPms) != ErrCodeE::Success) { emxloge("get osd info failed!\n"); }
+
+    int fontsize = 0;
+    if (param.height == 540) {
+        fontsize = 20;
+    } else {
+        fontsize = 32;
+    }
+    emxlogi("fontsize:%d\n", fontsize);
+    for (auto &item: defOsdPms.array) {
+        if (item->type == MediaOsd::TypeE::Time || item->type == MediaOsd::TypeE::Text) { item->text.size = fontsize; }
+    }
+    if (osd.SetParam(defOsdPms) != ErrCodeE::Success) { emxloge("set osd info failed!\n"); }
+    return 0;
+}
 // OSD配置示例
-int main(int argc,char**argv) {
+int main(int argc, char **argv) {
     int code = atoi(argv[1]);
+    test1();
+    test2();
+    return 0;
     emxlogd("code:%d\n", code);
     for (int i = 0; i < 2; i++) {
         // 用于存放参数数据

@@ -21,15 +21,32 @@ namespace Emx {
 
     public:
         struct DataMsg {
-            MediaInfAiPic pic;
-            int32_t id;        //!<人脸库id
-            uint8_t quality;   //!<人脸质量[0~100]
-            uint8_t sharpness; //!<人脸清晰度[0~100]
-            uint8_t similarity;//!<人脸相似度[0~100]
-            uint8_t expression;//!<人脸表情,预留
-            int32_t ipd;       //!<人脸瞳距
-            Rect rect;         //!<当前人脸位置信息
-            int imgOff;        //!<私有数据，记录内存偏移
+            MediaInfAiPic pic;//抠图数据
+            uint64_t id;      //!<当前抓拍的人脸id
+            uint8_t quality;  //!<当前人脸质量[0~100]
+            uint8_t sharpness;//!<当前人脸清晰度[0~100]
+            uint8_t age;      //!<年龄
+            uint8_t gender;   //!<性别 0=未知, 1=男性, 2=女性
+            uint8_t skin;     //!<肤色 0=未知, 1=白, 2=黑,3=黄
+            uint8_t glasses;  //!<眼镜 0=未知, 1=佩戴,2=未佩戴
+            uint8_t beard;    //!<胡须 0=未知, 1=有,2=没有
+            uint8_t hat;      //!<帽子 0=未知, 1=佩戴,2=未佩戴
+            uint8_t hairColor;//!<头发颜色 0=未知,1=黑,2=黄,3=红,4=棕,5=绿,6=蓝,7=紫,8=白,9=粉色
+            uint8_t hairStyle;//!<头发发型 0=未知,1=短发,2=长发,3=直发,4=卷发,5=马尾,6=辫子,7=盘发
+            uint8_t emotion; //!<情绪 0=未知,1=高兴,2=惊讶,3=恐惧,4=厌恶,5=难过,6=愤怒,7=平静
+            uint8_t liveness; //!<活体 0=未知,1=是,2=不是
+
+            int32_t ipd;      //!<人脸瞳距
+            uint64_t captureTime;//!<人脸抓拍到的毫秒时间戳
+            uint64_t startTime;  //!<人脸开始出现时间的毫秒时间戳
+            uint64_t endTime;    //!<人脸结束时间,毫秒时间戳
+            Rect rect;           //!<当前人脸位置信息
+            uint32_t isMask;     //!<是否佩戴口罩
+            uint32_t maskColor;  //!<口罩颜色
+            uint32_t maskType;   //!<口罩类型
+            int32_t libId;       //!<人脸库id 如果有人脸识别就返回相似度最高的人脸库id
+            int32_t similarity;  //!<人脸和人脸库id相似度 [0~100]
+            int imgOff;          //!<私有数据，记录内存偏移
         };
 
         void Alloc(int n) {

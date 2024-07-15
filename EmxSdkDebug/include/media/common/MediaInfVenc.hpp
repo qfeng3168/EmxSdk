@@ -31,6 +31,9 @@ namespace Emx {
             bool drawRect; //!<是否画框
             int32_t qualityLevel; //!<编码质量等级 挡位0~10 0=自适应
             bool smartCode; //!<智能编码开关
+            uint32_t bitRateStatic; //!<静态码率
+            uint32_t bitRateAverage; //!<平均码率
+            uint32_t bitRatePeak; //!<峰值码率
         };
 
         /**
