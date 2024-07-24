@@ -1,0 +1,38 @@
+[
+  {
+    "attr": {
+      "VoDev": 0,
+      "VoLayer": 0,
+      "VoChn": 0,
+      "u32BgColor": 65280,
+      "enIntfType": 8192,
+      "enIntfSync": 21,
+
+      "s32X": 0,
+      "s32Y": 0,
+      "u32Width": 240,
+      "u32Height": 320,
+
+      "u32DispFrmRt": 60,
+      "enPixFormat": 19,
+
+      "enRotation": 0,
+
+      "loopVpssGrp": 5,
+      "loopVpssChn": 0
+    },
+    "panel": {
+      "panelType":18,
+      "panelPower": {
+        "num": 428,
+        "active": 1,
+        "default": 0
+      },
+      "panelBacklight": {
+        "num": 448,
+        "active": 1,
+        "default": 0
+      }
+    }
+  }
+]

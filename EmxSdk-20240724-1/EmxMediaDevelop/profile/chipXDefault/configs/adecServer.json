@@ -1,0 +1,14 @@
+[
+  {
+    "spkAmpCtrl": {
+      "autoMute": true,
+      "gpioList": [
+        {
+          "num": 374,
+          "active": 1,
+          "default": 0
+        }
+      ]
+    }
+  }
+]
