@@ -1,0 +1,241 @@
+###################################################
+version: EmxSdk-20240728-1
+branch: master
+Publisher: tangfahong
+    1.修复rcaDetect不使用状态下初始化为基类指针
+    2.修复ircutofext keyreset led 通道越界
+###################################################
+version: EmxSdk-20240726-1
+branch: master
+Publisher: tangfahong
+    1.优化 Product.py 优化AiPlugin数据拷贝
+    2.优化osd创建多线程创建影响媒体层处理，现在修改为提前获取osd文字转为bitmap的分辨率，然后创建，后面在线程中转换bitmap并设置
+    3.优化osd转bitmap的字间距
+
+###################################################
+version: EmxSdk-20240724-1
+branch: master
+Publisher: tangfahong
+    1.调整BspIrCut1Wire模块不自行默认初始化，调整到系统启动进行初始化，保证默认初始化单一入口控制
+    2.bsp的Reset新增使用adc读取
+    3.bsp的ircut新增使用拓展模块控制
+    4.新增XS2201电机驱动控制
+    5.修改product脚本，新增字段EmxMediaConfigs，EmxMediaDrivers，以支持多样化媒体配置
+    6.增加静态码率和峰值码率的解析与设置
+    7.新增bsp音柱插入状态检测入口以及配置说明
+    8.bsp新增BspRcaDetect音柱插入状态检测接口
+    9.优化算法结构体，优化DemoDrawAi
+    10.修复二维码扫码中文支持异常问题
+###################################################
+version: EmxSdk-20240719-1
+branch: master
+Publisher: tangfahong
+    1.修复osd多线程使用freetype崩溃
+    2.修复osd频繁修改时异常奔溃
+###################################################
+version: EmxSdk-20240718-2
+branch: master
+Publisher: tangfahong
+    1.osd增加线程控制文字转位图操作，优化对其他线程阻塞影响
+    2.LED新增直接使用寄存器的方式控制
+    3.新增清微ADC读取方式
+    4.视频编码参数新增静态码率和峰值码率
+    5.更新UpdateServer::StreamingDownload日志打印等级
+    6.更改UpdateServer::StreamingDownload中，数据接收存放日志打印等级，避免升级时由于频繁打印造成升级耗时增加
+    7.优化ai人脸部分结构和参数
+    8.增大osd的buf大小，满足多行文字叠加
+    9.优化pwm实际system有值时才会执行
+    10.更新EmxAiPlugin对接手册.md
+    11.优化EmxAiPlugin 的demo，根据cv181x实际处理做出解释
+    12.调整sdcard拔插卡事件监听日志等级
+    13.修复流程升级跳坏快处理bug
+    14.update模块全量升级和流式升级方式支持跳坏快处理。
+    15.兼容支持通用flash和ssflash 读操作差异处理
+    16.优化osd文字显示最大缓存512
+    17.优化adec 停止播放时关闭功放
+    18.修复AiPlugin 得编译脚本报错
+    19.优化core.json 默认param路径为 /root/configs
+    20.修复DemoSafetyQueue外部释放节点内存
+    21.调整DemoSafetyQueue加数据拷贝模拟
+    22.添加安全队列工具对深拷贝数据的管理兼容
+    23.添加多线程环境处理生产者-消费者模型的安全队列类工具以及参考demo
+    24.添加全量下载升级方式下，全量擦除整块分区
+###################################################
+version: EmxSdk-20240527-1
+branch: master
+Publisher: tangfahong
+    1.增加RK rv1106 arm-rockchip830-linux-uclibcgnueabihf 支持
+
+###################################################
+version: EmxSdk-20240521-4
+branch: master
+Publisher: tangfahong
+    1.增加T41 uclibc 支持
+
+###################################################
+version: EmxSdk-20240521-2
+branch: master
+Publisher: hening
+    1.修改demo配置，增加T41 glibc 编译
+    2.UpdateServer配置文件新增updateBeforeShell、updateAfterShell字段，用于在升级前后，按照配置的shell指令执行，解决类似daemon这种脚本不能获取到升级状态的问题
+    3.升级处理超时时间依赖配置进行管理
+    4.优化cpu较高播放音频文件时延迟较高（超过500ms），导致自动静音触发静音，从而播放音频没有声音；现在将自动静音修改为1500ms
+    5.增加 GetRunningParam 接口获取当前实际使用param，增加对应 m_paramRunning 变量
+    6.Draw 与Osd模块改动较多，主要是优化param拷贝问题，使用深拷贝实现
+    7.修复二维码扫描模块扫码崩溃问题
+    8.独立单例类测试demo
+    9.提交单例模板类定义实现，提供模块减少单例模式频繁定义使用。
+    10.osd模块ParamText增加换行处理 wrapLine，lineSpace
+    11.QrScan模块m_started初始化，保证各编译链下变量初始化正常，服务模块正常启动
+    12.ringBuffer初始化m_off变量，保证各编译链下变量初始化值正常
+    
+###################################################
+version: EmxSdk-20240430-1
+branch: master
+Publisher: hening
+    1.增加DemoViHideSet 测试工具，参数传递1开启遮挡，0关闭遮挡
+    2.Vi Param 增加hide 参数，媒体的Vi模块接收到OnParamChanged 调用时需要判断hide参数进行遮挡操作
+    3.增加 SetTmpParam 操作，实现修改param但是不保存param，EmxSdk处理,媒体不用关心这个
+    4.同步2.0ssdcard最新节点代码
+    5.增加DemoViHideSet 测试工具，参数传递1开启遮挡，0关闭遮挡
+    6.Vi Param 增加hide 参数，媒体的Vi模块接收到OnParamChanged 调用时需要判断hide参数进行遮挡操作
+    7.增加 SetTmpParam 操作，实现修改param但是不保存param，EmxSdk处理,媒体不用关心这个
+    8.同步2.0ssdcard最新节点代码
+    9.修改所有ai Data带截图的释放接口，全部由sdk来释放
+    10.回退Ai VerifyPlugin逻辑
+    11.优化DemoAi 接收ai参数打印
+    12.增加DemoVdecStream ,实现解码264 265文件
+    13.优化MedaiServerVdec 模块，解决通讯问题
+    14.modules 增加BspBasePwm 模块,需要使用pwm控制外设都可以使用此类实现,目前红外灯和白光灯已经兼容gpio和pwm
+    15.删除针对Cvitek的pwm控制
+    16.修复AIInf带图片属性的结构没传图片解析异常问题
+    17.调整算法预留开关校验逻辑
+    18.修改人脸测试程序
+    19.调整ai配置成功打印等级
+    20.demo增加人脸注册测试程序，DemoAiFaceRegister.cpp
+    21.MediaAi增加Ctrl接口，用于下发信息，目前用于下发人脸注册接口
+    22.更新 EMxAiPlugin对接手册.md
+    23.EmxAiPlugin chiX在FdPdFusion中增加人脸注册调试接口
+    24.DemoAi添加调试打印信息
+    25.修复Ai数据订阅监听异常挂死的问题
+    26.补充MediaAi对外需求算法头文件包含&修改ai模版build脚本utf8编码
+    27.Merge branch 'split_mediaAi' into develop
+    28.优化ai参数结构体
+    29.增加AiPlugin对接手册
+    30.修复ai param设置接口按照chn处理
+    31.media 模块对应移除AI相关内容
+    32.优化softLink.py
+    33.AiData 增加区域入侵和越界数据结构
+    34.同步develop，优化ai接口
+    35.调整智能编码开关
+    36.同步了develop分支代码，修改了ai模块参数
+    37.adec中断接口添加是否完全中断参数选项
+    38.优化softLink.py脚本运行失败问题
+    39.pwm控制白光灯逻辑优化，增加active判断
+    40.支持venc rcmode smart模式配置选择
+    41.更改所有开发目录中的softlink.py,不再逐一软链接EmxSdk,Emx3dr等目录,这些文件需要统一放入名为Public的文件夹中softlink.py只连接Public目录
+    42.EmxAiPluginGetVersion()的调用应改为g_EmxAiPluginGetVersion()否则EmxMediaDevelop无法编译通过
+    43.优化demo中的draw实现和调用
+    44.优化draw接口,优化osd保存和加载星期数据异常
+    45.拆分EmxMedia中的Ai部分为单独的AiPlugin
+    46.修复osd-image存储公共的param缺失问题
+    47.同步2.0 aduio编码器构造调整, 支持aac1024采样点缓存送编码。支持adec播放.al音频文件
+    48.添加对编解码器创建的校验
+    49.defaultFactory 增加Draw调用
+    50.增加serverDraw模块
+    51.更新 《Emx芯片对接手册.md》更新osd和draw信息
+    52.AI插件需要MediaServerModuleBase中的接口变为可重写接口
+    53.优化MediaServer启动时序
+    54.增加读取文件MD5接口
+    55.调整EuvWork未Run的场景下，Destroy复位m_isWorking状态
+    56.调整osd销毁传入全量region参数信息
+    57.同步update-2.0最新代码节点
+    58.修复osd region和text&image id未关联上的问题
+    59.修复RegionCreateAll传入item元素未完全push_back
+    60.补充MediaServerOsdChn类的RegionDestroyAll虚函数实现
+    61.按照之前修改更新chipX中的DefaultOsd
+    62.Osd RegionInfo中增加这个region的type，清微对于不同的osd类型的region有特殊处理
+    63.考虑清微芯片的特殊性，修改OSD模块与芯片间的调用接口，将每个region逐个处理改为一次性处理，增加Pause和Resume接口用于Venc模块启停Osd通道
+    64.GetParamDefaultData变为非纯虚函数，防止某些没有参数配置的模块无需实现从而无法编译通过
+    65.将MediaModulesAll的头文件放到SDK对外的头文件目录，使得芯片chip层可访问其他模块
+    66.增加Aenc模块aec参数的解析和加载
+    67.媒体所有模块增加默认参数获取接口
+    68.aenc增加回声消除配置
+    69.rc模式中增加智能编码模式
+
+###################################################
+
+version: EmxSdk-20240313-1
+branch: master
+Publisher: hening
+    1.增加清微arm-none-linux-gnueabihf支持
+###################################################
+version: EmxSdk-20240308-2
+branch: master
+Publisher: xiaoxiong
+    1.EmxMediaDevelop的默认chipXDefault中增加vo和vdec相关纯虚函数的默认实现
+###################################################
+version: EmxSdk-20240301-4
+branch: master
+Publisher: xiaoxiong
+    1.增加arm-sigmastar-linux-uclibcgnueabihf支持
+    2.去除media profile中参数配置里的range字段，scene中的range字段增加多通道，同步修改MediaServerXXX中ParamValid中的range多通道支持
+    3.卡刷升级时设备检测到卡刷升级标志位后不再自动重启 
+    4.SD卡热插拔时设备根据是否插入卡升级标志位决定是否进入升级流程，避免误操作 
+    5.卡刷升级后检测到卡刷标志位，设备根据配置信息进行LED闪烁
+    6.修复卡刷升级后自动重启问题 
+    7.修复卡刷重复升级问题
+    8.修复打印数据异常导致程序崩溃问题。
+    9.param文件写数据加局部同步保护。
+    10.shm 类优化共享内存接口
+    11.优化ringbuffer create方法
+    12.增加vdec vo 模块实现
+    13.优化 OutlineOsd ，减少font打印
+    14.修复StopQR无效
+    15.调整获取base64编码所需空间大小除去预留‘\0’
+    16.调整update模块灯控由bsp管控
+    17.product脚本执行chmod和exec操作的时候判断一下路径是否存在
+    18.增加TimeZone2时区配置方式
+    19.调整bsp whiteLight模块配置字段校验
+    20.增加EuvSignal的Stop实现，上个版本忘记实现
+    21.调整bsp子模块配置字段检验
+    22.修改ai.json配置，增加人形人脸协同配置
+    23.修复AI回调没有注册成功的问题
+    24.chmod_dir和exec_dir变为递归形式
+    25.对firmware的configs目录进行chmod_dir，防止其中存放的某些脚本无法执行
+    26.EuvUdp增加停止接收的函数接口
+    27.增加uv的signal用于监听信号
+    28.调整媒体库链接顺序，先链接EmxMediaServerLib以防main函数不对（晶视链接多个main函数不会报错，只会链接最开始的那个main函数）
+    29.修复DevTools-param错误
+    30.修改产品编译脚本的一些错误
+    31.code/media/server/component/osd/OutlineOsd.cpp 增加判断字符大小为0的处理
+    32.code/media/server/MediaServerOsd.cpp 优化osd显示bug
+    33.修改osd.json默认设置
+    34.code/media/include/media/common/mediaInfOsd.hpp 修改偏移量比率基准为10000,时间格式设置使用formatString，星期显示格式weekFormat，废弃 format
+    35.code/media/include/media/server/MediaServerOsd.hpp 修改GetTime 参数定义
+    36.code/media/server/component/osd/OutlineOsd.cpp
+    37.调整音频部分参数
+    38.code/media/server/MediaSererOsd.cpp 优化osd字体库加载失败
+    39.code/media/server/MediaServerSnap.cpp 优化图像抓拍migcid上传失败
+    40.code/media/server/MediaServerVenc.cpp 优化Publish时topic指定失败导致不能拉流问题
+###################################################
+version: EmxSdk-20231223-1
+branch: develop
+Publisher: xiaoxiong
+    MOD: code/media/server/MediaServerBase.cpp 修改媒体操作返回-14异常 tangfahong Today 16:42
+    MOD: 支持自动化生成shadow&passwd&group登录账号组管理信息文件 hening Today 10:43
+    MOD: 更新模板启动脚本加载 hening Yesterday 11:43
+    MOD: 更新custom.py自定义模板 hening Yesterday 11:40
+    MOD: 新增自定义脚本资源提供应用差异化资源依赖打包 hening 2023/12/21 11:21
+    MOD: 补充创建app drivers拷贝目标文件夹 hening 2023/12/20 14:15
+    MOD: 补充copy_tree工具接口以适配应用org资源目标拷贝 hening 2023/12/20 11:23
+    MOD: 修改configs:EmxCommon.cmake ,增加riscv64-unknown-linux-musl 编译参数和链接参数，方便其他模块编译引用 tangfahong 2023/12/17 15:48
+    MOD: Key构造调整Bsp::GpioLike*传入 hening 2023/12/13 17:40
+    MOD: 合并old-emx2.0 git最新节点 update模块代码 hening 2023/12/11 17:42
+    FIX:修改MediaServer::m_ctx未初始化赋值引起的崩溃 xiao xiong 2023/12/10 12:08
+    ADD:增加riscv64-unknown-linux-musl编译链的特殊处理 xiao xiong 2023/12/10 11:27
+###################################################
+version: EmxSdk-20231107-4
+branch: master
+Publisher: xiaoxiong
+    初始版本
