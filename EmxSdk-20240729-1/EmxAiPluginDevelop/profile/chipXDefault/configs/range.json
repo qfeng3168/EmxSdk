@@ -1,0 +1,7 @@
+[
+    {
+        "MotionDetection": { "ena": [ true, false ] },
+        "PersonDetection": { "ena": [ true, false ] },
+        "FdPdFusion": { "ena": [ true, false ] }
+    }
+]
