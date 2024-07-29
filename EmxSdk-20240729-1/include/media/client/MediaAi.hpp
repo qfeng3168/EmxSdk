@@ -17,6 +17,8 @@
 #include "media/common/MediaInfAiDataPersonVehicleNonDetection.hpp"
 #include "media/common/MediaInfAiDataVehicleRecognition.hpp"
 #include "media/common/MediaInfAiDataFaceDetection.hpp"
+#include "media/common/MediaInfAiDataOffDutyDetection.hpp"
+#include "media/common/MediaInfAiDataRegionalPeopleStatistics.hpp"
 #include "media/common/MediaInfAi.hpp"
 #include "media/common/MediaRingBuffer.hpp"
 
