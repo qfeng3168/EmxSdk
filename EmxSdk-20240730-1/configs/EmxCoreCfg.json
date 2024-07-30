@@ -1,0 +1,33 @@
+{
+  "depend": [
+    {
+      "name": "jsoncpp",
+      "version": "1.9.3",
+      "include": [ ],
+      "bin": [ ],
+      "shared": [
+        "libjsoncpp.so",
+        "libjsoncpp.so.1.9.3",
+        "libjsoncpp.so.24"
+      ]
+    },
+    {
+      "name": "libuv",
+      "version": "1.44.2",
+      "include": [ ],
+      "bin": [ ],
+      "shared": [
+        "libuv.so",
+        "libuv.so.1",
+        "libuv.so.1.0.0"
+      ]
+    },
+    {
+      "name": "tzdb",
+      "version": "2023",
+      "include": [ ],
+      "bin": [ "zic" ],
+      "shared": [ ]
+    }
+  ]
+}
