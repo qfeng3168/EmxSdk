@@ -1,0 +1,34 @@
+[
+  {
+    "codec": 1,
+    "width": 2304,
+    "height": 1296,
+    "fps": 15,
+    "bitRate": 1480,
+    "bitRateStatic":1000,
+    "bitRatePeak":2500,
+    "rcMode": 2,
+    "iFrameInv": 4,
+    "flip": false,
+    "mirror": false,
+    "drawRect": false,
+    "qualityLevel": 0,
+    "smartCode": false
+  },
+  {
+    "codec": 0,
+    "width": 640,
+    "height": 360,
+    "fps": 15,
+    "bitRate": 285,
+    "bitRateStatic":285,
+    "bitRatePeak":285,
+    "rcMode": 2,
+    "iFrameInv": 4,
+    "flip": false,
+    "mirror": false,
+    "drawRect": false,
+    "qualityLevel": 0,
+    "smartCode": false
+  }
+]

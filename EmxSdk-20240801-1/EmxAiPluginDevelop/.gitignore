@@ -1,0 +1,12 @@
+/.idea/
+/.vscode/
+/*build*/
+__pycache__
+/output/
+/scripts/debug.py
+/EmxMedia
+/EmxRes
+/Emx3dr
+/EmxSdk
+/EmxAiPlugin
+/Public

@@ -1,0 +1,725 @@
+<!DOCTYPE html><html><head>
+      <title>EmxPsp开发手册</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////home/tangfahong/.vscode-server/extensions/shd101wyy.markdown-preview-enhanced-0.8.13/crossnote/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<h1 id="0版本信息">0.版本信息 </h1>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th><div style="width: 80pt">发布日期</div></th>
+<th><div style="width: 80pt">作者</div></th>
+<th>修改说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v1.0</td>
+<td>2023年11月6日</td>
+<td>xiaoxiong</td>
+<td>初版发布</td>
+</tr>
+</tbody>
+</table>
+<h1 id="介绍">介绍 </h1>
+<p>  PSP(Product-Support-Package)由Emx开发人员进行制作，为应用开发提供底层配置支持，其包含的内容有</p>
+<pre data-role="codeBlock" data-info="shell" class="language-shell shell"><code>├── configs
+├── param
+└── psp.json
+</code></pre><p>  其中的<code>configs</code>和<code>param</code>是EmxSdk中一部分模块的配置和参数，<code>psp.json</code>是psp的配置文件。Emx开发人员将psp制作完毕后交付给应用开发人员进行应用开发<br>
+  当产品执行构建脚本<code>product.json</code>的时候，会默认的将<code>configs</code>和<code>param</code>目录拷贝到firmware目录，并处理psp.json中的配置信息</p>
+<h1 id="制作系统镜像文件">制作系统镜像文件 </h1>
+<blockquote>
+<p><strong>boot</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>kernel</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>rootfs</strong></p>
+</blockquote>
+<h1 id="psp的修改">psp的修改 </h1>
+<p>  按照如下步骤对psp进行修改后交付应用开发人员进行应用开发</p>
+<h2 id="修改pspjson">修改psp.json </h2>
+<p>  <code>psp.json</code>对产品的底层信息进行描述，包括所使用的编译链，EmxMedia以及分区等信息</p>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
+  <span class="token property">"Cross"</span><span class="token operator">:</span> <span class="token string">"x86_64"</span><span class="token punctuation">,</span>
+  <span class="token property">"CrossPath"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+  <span class="token property">"EmxMediaVersion"</span><span class="token operator">:</span> <span class="token string">"EmxMedia-Debug"</span><span class="token punctuation">,</span>
+  <span class="token property">"EmxMediaProfile"</span><span class="token operator">:</span> <span class="token string">"chipXDefault"</span><span class="token punctuation">,</span>
+  <span class="token property">"partition"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"flashImgSize"</span><span class="token operator">:</span> <span class="token string">"16M"</span><span class="token punctuation">,</span>
+    <span class="token property">"partitionTable"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span><span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"boot"</span><span class="token punctuation">,</span> <span class="token property">"file"</span><span class="token operator">:</span> <span class="token string">"boot.bin"</span><span class="token punctuation">,</span> <span class="token property">"size"</span><span class="token operator">:</span> <span class="token string">"384K"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span><span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"env"</span><span class="token punctuation">,</span> <span class="token property">"size"</span><span class="token operator">:</span> <span class="token string">"128K"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span><span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"kernel"</span><span class="token punctuation">,</span> <span class="token property">"file"</span><span class="token operator">:</span> <span class="token string">"kernel.bin"</span><span class="token punctuation">,</span> <span class="token property">"size"</span><span class="token operator">:</span> <span class="token string">"2432K"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span><span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"rootfs"</span><span class="token punctuation">,</span> <span class="token property">"file"</span><span class="token operator">:</span> <span class="token string">"rootfs.bin"</span><span class="token punctuation">,</span> <span class="token property">"size"</span><span class="token operator">:</span> <span class="token string">"1M"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span><span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"firmware"</span><span class="token punctuation">,</span> <span class="token property">"file"</span><span class="token operator">:</span> <span class="token string">"firmware.bin"</span><span class="token punctuation">,</span> <span class="token property">"size"</span><span class="token operator">:</span> <span class="token string">"9408K"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span><span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"spare"</span><span class="token punctuation">,</span> <span class="token property">"file"</span><span class="token operator">:</span> <span class="token string">"spare.bin"</span><span class="token punctuation">,</span> <span class="token property">"size"</span><span class="token operator">:</span> <span class="token string">"2560K"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span><span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"data"</span><span class="token punctuation">,</span> <span class="token property">"size"</span><span class="token operator">:</span> <span class="token string">"448K"</span><span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"EmxResToProduct"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"src"</span><span class="token operator">:</span> <span class="token string">"imgs/boot/boot-cv1821-gun-pub.bin"</span><span class="token punctuation">,</span>
+      <span class="token property">"dst"</span><span class="token operator">:</span> <span class="token string">"imgs/boot.bin"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"src"</span><span class="token operator">:</span> <span class="token string">"imgs/kernel/kernel-cv1821-default.bin"</span><span class="token punctuation">,</span>
+      <span class="token property">"dst"</span><span class="token operator">:</span> <span class="token string">"imgs/kernel.bin"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"src"</span><span class="token operator">:</span> <span class="token string">"imgs/rootfs/rootfs-cv1821-default.bin"</span><span class="token punctuation">,</span>
+      <span class="token property">"dst"</span><span class="token operator">:</span> <span class="token string">"imgs/rootfs.bin"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"src"</span><span class="token operator">:</span> <span class="token string">"imgs/scripts/mkImg-16MB-spare-default.py"</span><span class="token punctuation">,</span>
+      <span class="token property">"dst"</span><span class="token operator">:</span> <span class="token string">"imgs/mkImg.py"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre><ul>
+<li><code>Cross</code>：定义了产品使用的交叉编译链</li>
+<li><code>CrossPath</code>：定义了产品使用的交叉编译链所在的绝对路径，一般不需要填写，当编译过程无法找到编译链时填写</li>
+<li><code>EmxMediaVersion</code>：产品需要使用的EmxMedia的版本</li>
+<li><code>EmxMediaProfile</code>：产品需要使用的EmxMedia的profile</li>
+<li><code>partition</code>：flash的分区信息，<code>flashImgSize</code>代表打包整个flash的时候，最终生成flash.bin文件的大小，<code>partitionTable</code>分区表，其中<code>name</code>字段是分区名，"file"字段是对应的bin文件名，当这个字段不存在时代表不需要烧入镜像文件，<code>size</code>分区大小</li>
+<li><code>EmxResToProduct</code>：应用更新产品的时候将资源文件中需要使用的文件映射到产品目录，例子中将EmxRes中产品需要用到的imgs文件和脚本映射到了产品imgs目录</li>
+</ul>
+<h2 id="修改boot配置">修改boot配置 </h2>
+<p>  <code>configs</code>下的boot配置文件夹对应于boot模块，是应用层读写uboot环境变量所需要的配置文件.<br>
+  <code>default</code>文件是uboot的默认环境变量，当uboot配置完成后烧录到设备中启动，然后输入pri指令即可获取到uboot的默认环境变量，将其内容拷贝至<code>default</code>文件中即可。<br>
+  <code>env.cfg</code>文件是uboot环境变量的分区信息，需要结合uboot中的定义进行修改，uboot的env分区为了进行备份，需要划分为至少两个flash块，有两种划分方式，一种是将env分区映射到一个mtd设备上，然后定义两个相互备份的flash块的大小和偏移，例如下面的方式，env分区挂载到/dev/mtd1设备上，划分为两个64KB的区域，推荐这种方式</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code># MTD device name	Device offset	Env. size	Flash sector size	Number of sectors
+/dev/mtd1		0x0000		0x10000		0x10000
+/dev/mtd1		0x10000	  0x10000		0x10000
+</code></pre><p>另一种方式是将env的两个分区挂载到两个设备上，例如下面的方式，将两个64KB的分区挂载到两个不同的设备上</p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code># MTD device name	Device offset	Env. size	Flash sector size	Number of sectors
+/dev/mtd1		0x0000		0x10000		0x10000
+/dev/mtd2		0x0000	  0x10000		0x10000
+</code></pre><h2 id="修改media配置">修改media配置 </h2>
+<p>  默认的psp中只包含了EmxSdk中的配置文件，psp开发人员需要确认所需的EmxMedia版本和profile，并将EmxMedia配置文件整合进来。首先拷贝EmxMedia/某个/profile中的configs下的所有内容到psp/confgis/media/scene/default目录下，然后结合经验对psp/confgis/media和psp/param/media进行修改</p>
+<h2 id="修改bspjson">修改bsp.json </h2>
+<p>  bsp模块提供应用程序操作设备外围接口功能。bsp模块依赖的配置文件是bsp.json，这个配置文件通常由Emx开发人员预先根据硬件板配置好，配置内容如下：</p>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
+  <span class="token property">"led"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspLed"</span><span class="token punctuation">,</span>
+    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">402</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"keyReset"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspKeyReset"</span><span class="token punctuation">,</span>
+    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">510</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  ...
+<span class="token punctuation">}</span>
+</code></pre><p>其中类似<code>led</code>和<code>keyReset</code>为预定义的外围接口类型，外围接口的定义大多数情况下是针对GPIO的操作，这类接口具有相类似的描述结构。</p>
+<blockquote>
+<p><code>channels</code></p>
+</blockquote>
+<p><code>channels</code>描述这个接口需要的gpio通道，有可能一个外围接口需要多个gpio来操作，例如双线控制的IRCUT。</p>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">402</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>dir</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">gpio的输入输出方向，0：输入，1：输出</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>active</b></font></td>
+<td style="text-align:left">bool</td>
+<td style="text-align:left">有效的极性，true：高有效，false：低有效</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>default</b></font></td>
+<td style="text-align:left">bool</td>
+<td style="text-align:left">默认的有效状态，true：默认有效，false：默认无效</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>num</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">这个gpio在/sys/class/gpio下的序号</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>defaultChnIdx</code></p>
+</blockquote>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+</code></pre><p>这个字段指示，当外部操作这个接口，但不指明操作接口具体的那个gpio通道时，内部默认选择的通道号，这个通道号就是gpio的<code>channels</code>数组的索引下标</p>
+<blockquote>
+<p><code>class</code></p>
+</blockquote>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspKeyReset"</span>
+</code></pre><p>每个外围接口可能在设备内部有不同的实现方式，<code>class</code>字段指明这个接口选择哪种实现方式，不同的实现方式，后面具体的描述字段可能会不同</p>
+<h5 id="led">led </h5>
+<p>  用于控制设备的指示灯，有如下实现</p>
+<ul>
+<li>BspLed</li>
+</ul>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>  <span class="token property">"led"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspLed"</span><span class="token punctuation">,</span>
+    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">402</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+</code></pre><h5 id="updateindicator">updateIndicator </h5>
+<p>  用于控制设备升级过程中的指示灯，有如下实现</p>
+<ul>
+<li>BspUpdateIndicator</li>
+</ul>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>  <span class="token property">"updateIndicator"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspUpdateIndicator"</span><span class="token punctuation">,</span>
+    <span class="token property">"invMs"</span><span class="token operator">:</span> <span class="token number">300</span><span class="token punctuation">,</span>
+    <span class="token property">"allChannels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">402</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"channelsCycleIdx"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token number">-1</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>invMs</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">led闪烁间隔</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>allChannels</b></font></td>
+<td style="text-align:left">obj array</td>
+<td style="text-align:left">led所使用的gpio数组</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>channelsCycleIdx</b></font></td>
+<td style="text-align:left">int array</td>
+<td style="text-align:left">led的一个闪烁周期需要哪些gpio通道参与，-1表示所有通道关闭</td>
+</tr>
+</tbody>
+</table>
+<h5 id="adc">adc </h5>
+<p>  用于adc采样</p>
+<ul>
+<li>BspAdcCvitek<br>
+  晶视芯片的adc实现</li>
+</ul>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>  <span class="token property">"adc"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspAdcCvitek"</span><span class="token punctuation">,</span>
+    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"chnNum"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token property">"reference"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token property">"adcValueAtMaxLuma"</span><span class="token operator">:</span> <span class="token number">4096</span><span class="token punctuation">,</span>
+        <span class="token property">"adcValueAtMinLuma"</span><span class="token operator">:</span> <span class="token number">0</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>channels.chnNum</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">adc内部通道号</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>channels.reference</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">adc参考通道</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>channels.adcValueAtMaxLuma</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">当环境亮度最高的时候adc的采样值</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>channels.adcValueAtMinLuma</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">当环境亮度最低的时候adc的采样值</td>
+</tr>
+</tbody>
+</table>
+<h5 id="ircut">irCut </h5>
+<p>  用于控制IRCUT切换</p>
+<ul>
+<li>BspIrCut1Wire<br>
+  单线gpio控制的IRCUT实现</li>
+</ul>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>  <span class="token property">"irCut1Wire"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">418</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+</code></pre><ul>
+<li>BspIrCut2Wire<br>
+  双线gpio控制的IRCUT实现</li>
+</ul>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>  <span class="token property">"irCut"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspIrCut2Wire"</span><span class="token punctuation">,</span>
+    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"delayMs"</span><span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span>
+        <span class="token property">"wire0"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+          <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+          <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+          <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">398</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"wire1"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+          <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+          <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+          <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">403</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>delayMs</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">双线脉冲延时</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>wireX.dir</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">第X线gpio的输入输出方向，默认1：输出</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>wireX.active</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">第X线gpio的有效极性，true：高有效，false：低有效</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>wireX.default</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">第X线gpio的默认有效状态，true：默认有效，false：默认无效</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>wireX.num</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">第X线gpio在/sys/class/gpio下的序号</td>
+</tr>
+</tbody>
+</table>
+<h5 id="irlight">irLight </h5>
+<p>  用于控制红外灯</p>
+<ul>
+<li>BspIrLight</li>
+</ul>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>  <span class="token property">"irLight"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspIrLight"</span><span class="token punctuation">,</span>
+    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">381</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+</code></pre><h5 id="whitelight">whiteLight </h5>
+<p>  用于控制白光灯</p>
+<ul>
+<li>BspWhiteLightCvitek<br>
+  晶视芯片实现</li>
+</ul>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>  <span class="token property">"whiteLight"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspWhiteLightCvitek"</span><span class="token punctuation">,</span>
+    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"chipNum"</span><span class="token operator">:</span> <span class="token number">8</span><span class="token punctuation">,</span>
+        <span class="token property">"pwmNum"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token property">"period"</span><span class="token operator">:</span> <span class="token number">50000</span><span class="token punctuation">,</span>
+        <span class="token property">"dutyMin"</span><span class="token operator">:</span> <span class="token number">500</span><span class="token punctuation">,</span>
+        <span class="token property">"dutyMax"</span><span class="token operator">:</span> <span class="token number">50000</span><span class="token punctuation">,</span>
+        <span class="token property">"system"</span><span class="token operator">:</span> <span class="token string">"devmem 0x30010a4 32 4"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:left">channels Key</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>chipNum</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">pwm的芯片号</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>pwmNum</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">pwm号</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>period</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">pwm周期</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>dutyMin</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">pwm最小脉宽</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>dutyMax</b></font></td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">pwm最大脉宽</td>
+</tr>
+<tr>
+<td style="text-align:left"><font color="#663300"><b>system</b></font></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">需要的自定义命令</td>
+</tr>
+</tbody>
+</table>
+<h5 id="keyreset">keyReset </h5>
+<p>  用于检测复位按键</p>
+<ul>
+<li>BspKeyReset</li>
+</ul>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>  <span class="token property">"keyReset"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspKeyReset"</span><span class="token punctuation">,</span>
+    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">510</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+</code></pre><h5 id="keycall">keyCall </h5>
+<p>  用于检测一键喊话按键</p>
+<ul>
+<li>BspKeyCall</li>
+</ul>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>  <span class="token property">"keyCall"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspKeyCall"</span><span class="token punctuation">,</span>
+    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">0</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+</code></pre><h5 id="spk">spk </h5>
+<p>  用于控制喇叭功放的使能</p>
+<ul>
+<li>BspSpk</li>
+</ul>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>  <span class="token property">"spk"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspSpk"</span><span class="token punctuation">,</span>
+    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">495</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+</code></pre><h5 id="rca">rca </h5>
+<p>  用于控制外接音柱的使能</p>
+<ul>
+<li>BspRca</li>
+</ul>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>  <span class="token property">"rca"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspRca"</span><span class="token punctuation">,</span>
+    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">495</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+</code></pre><h5 id="wifi">wifi </h5>
+<p>  用于控制wifi模块的使能</p>
+<ul>
+<li>BspWifi</li>
+</ul>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>  <span class="token property">"wifi"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspWifi"</span><span class="token punctuation">,</span>
+    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">0</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+</code></pre><h5 id="mobile">mobile </h5>
+<p>  用于控制LTE/4G/5G模块的使能</p>
+<ul>
+<li>BspMobile</li>
+</ul>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code>  <span class="token property">"mobile"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"class"</span><span class="token operator">:</span> <span class="token string">"BspMobile"</span><span class="token punctuation">,</span>
+    <span class="token property">"defaultChnIdx"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">"channels"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"dir"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"default"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">454</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+</code></pre><h2 id="修改ptz">修改ptz </h2>
+<p>  ptz模块用于应用控制云台，ptz目录下的ptz.json指示使用哪种类型的ptz驱动</p>
+<h5 id="motorgpiojson">motorGpio.json </h5>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
+  <span class="token property">"timeDivision"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">"map"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">"chn"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">"speed"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"min"</span><span class="token operator">:</span> <span class="token number">500</span><span class="token punctuation">,</span> <span class="token property">"max"</span><span class="token operator">:</span> <span class="token number">900</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">"chn"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">"speed"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"min"</span><span class="token operator">:</span> <span class="token number">500</span><span class="token punctuation">,</span> <span class="token property">"max"</span><span class="token operator">:</span> <span class="token number">900</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"chn"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"unlimited"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token property">"locationSignal"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span><span class="token property">"pinNum"</span><span class="token operator">:</span> <span class="token number">-1</span><span class="token punctuation">,</span> <span class="token property">"active"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token property">"step"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"pinEna"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">-1</span><span class="token punctuation">,</span> <span class="token property">"active"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"stepMax"</span><span class="token operator">:</span> <span class="token number">4096</span><span class="token punctuation">,</span>
+      <span class="token property">"stepDef"</span><span class="token operator">:</span> <span class="token number">2048</span><span class="token punctuation">,</span>
+      <span class="token property">"speedDef"</span><span class="token operator">:</span> <span class="token number">800</span><span class="token punctuation">,</span>
+      <span class="token property">"pinNum"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">401</span><span class="token punctuation">,</span> <span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">399</span><span class="token punctuation">,</span> <span class="token number">398</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"stepOrder"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"unlimited"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      <span class="token property">"locationSignal"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"pinEna"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">"num"</span><span class="token operator">:</span> <span class="token number">-1</span><span class="token punctuation">,</span> <span class="token property">"active"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"stepMax"</span><span class="token operator">:</span> <span class="token number">4096</span><span class="token punctuation">,</span>
+      <span class="token property">"stepDef"</span><span class="token operator">:</span> <span class="token number">2048</span><span class="token punctuation">,</span>
+      <span class="token property">"speedDef"</span><span class="token operator">:</span> <span class="token number">800</span><span class="token punctuation">,</span>
+      <span class="token property">"pinNum"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">509</span><span class="token punctuation">,</span> <span class="token number">508</span><span class="token punctuation">,</span> <span class="token number">498</span><span class="token punctuation">,</span> <span class="token number">499</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"stepOrder"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre><h2 id="修改sdcardjson">修改sdcard.json </h2>
+<p>  参考《Emx应用开发手册》7.5</p>
+<h2 id="修改sdcardupdatejson">修改sdcardUpdate.json </h2>
+<p>  参考《Emx应用开发手册》7.8</p>
+<h2 id="修改updatejson">修改update.json </h2>
+<p>  参考《Emx应用开发手册》7.6</p>
+
+      </div>
+      <div class="md-sidebar-toc">
+<div class="md-toc">
+<div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#0版本信息" class="md-toc-link">
+            <p>0.版本信息</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#介绍" class="md-toc-link">
+            <p>介绍</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:18px">
+          <a href="#制作系统镜像文件" class="md-toc-link">
+            <p>制作系统镜像文件</p>
+
+          </a></div><details style="padding:0;;padding-left:0px;" open="">
+        <summary class="md-toc-link-wrapper">
+          <a href="#psp的修改" class="md-toc-link"><p>psp的修改</p>
+</a>
+          </summary>
+        <div>
+          <div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#修改pspjson" class="md-toc-link">
+            <p>修改psp.json</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#修改boot配置" class="md-toc-link">
+            <p>修改boot配置</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#修改media配置" class="md-toc-link">
+            <p>修改media配置</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#修改bspjson" class="md-toc-link">
+            <p>修改bsp.json</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#修改ptz" class="md-toc-link">
+            <p>修改ptz</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#修改sdcardjson" class="md-toc-link">
+            <p>修改sdcard.json</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#修改sdcardupdatejson" class="md-toc-link">
+            <p>修改sdcardUpdate.json</p>
+
+          </a></div><div class="md-toc-link-wrapper" style="padding:0;;display:list-item;list-style:square;margin-left:42px">
+          <a href="#修改updatejson" class="md-toc-link">
+            <p>修改update.json</p>
+
+          </a></div>
+        </div>
+      </details>
+    
+</div>
+</div>
+      <a id="sidebar-toc-btn">≡</a>
+    
+    
+    
+    
+    
+    
+<script>
+document.body.setAttribute('html-show-sidebar-toc', true)
+var sidebarTOCBtn = document.getElementById('sidebar-toc-btn')
+sidebarTOCBtn.addEventListener('click', function(event) {
+  event.stopPropagation()
+  if (document.body.hasAttribute('html-show-sidebar-toc')) {
+    document.body.removeAttribute('html-show-sidebar-toc')
+  } else {
+    document.body.setAttribute('html-show-sidebar-toc', true)
+  }
+})
+</script>
+      
+  
+    </body></html>
