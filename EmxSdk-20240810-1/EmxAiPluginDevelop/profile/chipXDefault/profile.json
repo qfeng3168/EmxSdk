@@ -1,0 +1,25 @@
+{
+  "EmxSdkVersion": "EmxSdkDebug",
+  "ChipManufactory": "manufactoryX",
+  "ChipSerial": "chipX",
+  "ChipSdkVersion": "0.0.0.0",
+  "ChipAiVersion": "default_0.0.1",
+  "Cross": "x86_64",
+  "CrossPath": "",
+  "comment0": "runtime中保存的是插件运行过程中需要的所有二进制文件,运行前会对其md5进行校验",
+  "comment1": "runtime中所有文件需存放在Emx3dr/chip/manufactoryX/chipX/ai/default_0.0.1目录中",
+  "runtime": {
+    "comment0": "由于所有的so会被dlopen动态加载进内存,数组的顺序必须符合依赖顺序",
+    "lib": [
+      "depend.base.so",
+      "depend.middle.so",
+      "depend.interface.so"
+    ],
+    "comment1": "插件依赖的其他文件,例如驱动,模型等",
+    "file": [
+      "personDetectV1.model",
+      "somethingelse.dat",
+      "driverX.ko"
+    ]
+  }
+}
