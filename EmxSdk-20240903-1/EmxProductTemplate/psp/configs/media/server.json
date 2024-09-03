@@ -1,0 +1,4 @@
+{
+  "ringBufferSizeKB": 1024,
+  "threadPoolSize": 6
+}
