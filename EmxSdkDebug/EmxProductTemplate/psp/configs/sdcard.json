@@ -3,6 +3,9 @@
     "mountPoint": "/mnt/sdcard",
     "devPart": "mmcblk0p1",
     "devPartBak": "mmcblk0",
-    "devMajor": "mmcblk0"
+    "devMajor comment": "如果devMajor字段写null时,就不会对此卡重新分区,直接格式化,一般是emmc填null",
+    "devMajor": "mmcblk0",
+    "forceMount": false,
+    "forceMerge": false
   }
 ]

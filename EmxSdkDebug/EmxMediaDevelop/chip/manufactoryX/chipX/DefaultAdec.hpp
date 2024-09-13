@@ -31,6 +31,7 @@ namespace Emx {
 
         void SendToAo(const int16_t *pcm, int32_t pktNum) override;
 
+        void PadSilentPcm() override;
     protected:
 
         virtual ErrCodeE CreateAdec();

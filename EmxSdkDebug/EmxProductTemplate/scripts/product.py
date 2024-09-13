@@ -81,9 +81,14 @@ def build_ai_plugin(env):
                                     env.psp["EmxAiPluginVersion"], env.psp["EmxAiPluginProfile"])
     utils.copy(f"{profile_dir}/libEmxAiPlugin.so",
                f"{env.firmware}/media/AiPlugin")
-    with open(f"{profile_dir}/profile.json") as f:
-        profile = json.load(f)
-        f.close()
+    if os.path.exists(env.top + "/psp/AiPlugin/profile.json"):
+        with open(env.top + "/psp/AiPlugin/profile.json") as f:
+            profile = json.load(f)
+            f.close()
+    else:
+        with open(f"{profile_dir}/profile.json") as f:
+            profile = json.load(f)
+            f.close()
     AiPluginJson = {}
     AiPluginJson["profile"] = env.psp["EmxAiPluginProfile"]
     AiPluginJson["version"] = env.psp["EmxAiPluginVersion"]
@@ -104,6 +109,8 @@ def build_ai_plugin(env):
     AiPluginMd5Json = []
     for root, dirs, files in os.walk(AiPluginDir):
         for file in files:
+            if file == "config.json":
+                continue
             abs_path = os.path.join(root, file)
             rel_path = os.path.relpath(abs_path, AiPluginDir)
             item = {}
@@ -119,7 +126,12 @@ def build_media(env):
     utils.try_mkdir(env.firmware + "/media")
     profile = env.EmxMedia + \
         "/{}/{}".format(env.psp["EmxMediaVersion"], env.psp["EmxMediaProfile"])
-    with open(profile + "/configs.json") as f:
+    EmxMediaConfigs = ''
+    if(len(env.psp.get('EmxMediaConfigs', [])) !=0):
+        EmxMediaConfigs = profile + "/{}".format(env.psp["EmxMediaConfigs"])
+    else:
+        EmxMediaConfigs = profile + "/configs.json"
+    with open(EmxMediaConfigs) as f:
         configs = json.load(f)
         f.close()
     if configs["EmxSdkVersion"] != env.sdk_version:
@@ -136,8 +148,13 @@ def build_media(env):
     exec_dir(env.cross, media_lib)
 
     media_drivers = env.firmware + "/media/drivers"
+    EmxMediaDrivers = ''
+    if(len(env.psp.get('EmxMediaDrivers', [])) !=0):
+        EmxMediaDrivers = chip_sdk + "/{}".format(env.psp["EmxMediaDrivers"])
+    else:
+        EmxMediaDrivers = chip_sdk + "/drivers"  
     utils.try_mkdir(media_drivers)
-    copy_file_list(chip_sdk + "/drivers", media_drivers,
+    copy_file_list(EmxMediaDrivers, media_drivers,
                    configs["runtime"]["drivers"])
 
     media_bin = env.firmware + "/media/bin"

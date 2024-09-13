@@ -68,6 +68,7 @@ namespace Emx {
         Vdec = 12,
         Vo = 13,
         Draw = 14,
+        Aov = 15,
     };
 }
 #endif //EMX_MEDIATYPEDEF_HPP

@@ -137,6 +137,13 @@ namespace Emx {
 
         std::shared_ptr<Rca> rca;
 
+        class RcaDetect : public GpioLike {
+        public:
+            RcaDetect() : GpioLike() {}
+        };
+
+        std::shared_ptr<RcaDetect> rcaDetect;
+
         class Wifi : public GpioLike {
         public:
             Wifi() : GpioLike() {}

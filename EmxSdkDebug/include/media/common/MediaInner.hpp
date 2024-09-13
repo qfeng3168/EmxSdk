@@ -53,6 +53,8 @@ namespace Emx {
         Create = 1,
         Destroy,
         SwitchScene,
+        SwitchSceneTemp,
+        GetScene,     
         Butt,
     };
 
@@ -118,6 +120,10 @@ namespace Emx {
     enum class MediaAiMethodE : uint32_t {
         GetVersion = (uint32_t) MediaParamMethodE::Butt,
         Ctrl,
+    };
+
+    enum class MediaOsdMethodE : uint32_t {
+        SetOsdContent = (uint32_t) MediaParamMethodE::Butt
     };
 }// namespace Emx
 

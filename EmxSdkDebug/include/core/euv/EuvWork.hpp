@@ -14,13 +14,9 @@ namespace Emx {
      */
     class EuvWork {
     public:
-        EuvWork() :
-                m_loop(nullptr),
-                m_work(nullptr),
-                m_arg(nullptr),
-                m_runCb(nullptr),
-                m_afterCb(nullptr),
-                m_isWorking(false) {}
+        EuvWork()
+            : m_loop(nullptr), m_work(nullptr), m_arg(nullptr), m_runCb(nullptr), m_afterCb(nullptr),
+              m_isWorking(false) {}
 
 
         /*!
@@ -45,10 +41,8 @@ namespace Emx {
          * @param afterCb [in] 任务结束后的回调函数
          * @return ErrCodeE
          */
-        ErrCodeE Create(EuvLoop *loop,
-                        void *arg = nullptr,
-                        RunWorkCallBack runCb = nullptr,
-                        AfterWorkCallBack afterCb = nullptr);
+        ErrCodeE Create(EuvLoop *loop, void *arg = nullptr, RunWorkCallBack runCb = nullptr,
+                AfterWorkCallBack afterCb = nullptr);
 
         /**!
          * @brief 销毁work，如果任务未执行则立刻返回，如果任务在执行中则以阻塞方式等待任务执行完毕
@@ -67,15 +61,25 @@ namespace Emx {
          * @note 注意每个EuvWork在执行此调用之后都需要等待afterCb被调用或者Destroy-Create被调用之后才能Run新的任务
          * @note 如果Create创建时已经指定了参数，那么可以使用创建时的参数或是修改某些参数，nullptr表示不修改参数
          */
-        ErrCodeE Run(void *arg = nullptr,
-                     RunWorkCallBack runCb = nullptr,
-                     AfterWorkCallBack afterCb = nullptr);
+        ErrCodeE Run(void *arg = nullptr, RunWorkCallBack runCb = nullptr, AfterWorkCallBack afterCb = nullptr);
 
         /*!
          * @brief 获取work是否正在运行
          * @return 是否正在运行
          */
         bool IsWorking() { return m_isWorking; }
+
+        /*!
+         * @brief 配置当前进程线程池大小
+         * @param num [in] 线程池大小，当前最大1024，默认为4
+         */
+        static void SetWorkNum(int num);
+
+        /*!
+         * @brief 获取当前进程线程池大小
+         * @return 当前线程池大小
+         */
+        static int GetWorkNum();
 
     private:
         static void OnDestroy(uv_work_t *req, int status);
@@ -89,6 +93,6 @@ namespace Emx {
         bool m_isWorking;
     };
 
-}
+}// namespace Emx
 
-#endif //EMX_EuvWork_HPP
+#endif//EMX_EuvWork_HPP

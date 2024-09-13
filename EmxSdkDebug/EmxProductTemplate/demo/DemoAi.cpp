@@ -67,7 +67,7 @@ private:
                 }
                 return;
             }
-            case MediaInfAiData::TypeE::FaceSnap:
+            case MediaInfAiData::TypeE::FaceRecognition:
                 break;
             default:
                 break;

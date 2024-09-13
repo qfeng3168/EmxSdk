@@ -8,19 +8,22 @@
 #include "media/client/MediaParamCBase.hpp"
 #include "media/common/MediaInfAiDataCrossingDetection.hpp"
 #include "media/common/MediaInfAiDataFaceRecognition.hpp"
-#include "media/common/MediaInfAiDataFaceSnap.hpp"
 #include "media/common/MediaInfAiData.hpp"
 #include "media/common/MediaInfAiDataInvasionDetection.hpp"
 #include "media/common/MediaInfAiDataLicensePlateRecognition.hpp"
-#include "media/common/MediaInfAiDataMaskDetection.hpp"
 #include "media/common/MediaInfAiDataMotionDetection.hpp"
 #include "media/common/MediaInfAiDataPassengerFlowStatistics.hpp"
 #include "media/common/MediaInfAiDataPersonDetection.hpp"
 #include "media/common/MediaInfAiDataPersonVehicleNonDetection.hpp"
-#include "media/common/MediaInfAiDataStrangerRecognition.hpp"
 #include "media/common/MediaInfAiDataVehicleRecognition.hpp"
+#include "media/common/MediaInfAiDataFaceDetection.hpp"
+#include "media/common/MediaInfAiDataOffDutyDetection.hpp"
+#include "media/common/MediaInfAiDataRegionalPeopleStatistics.hpp"
+#include "media/common/MediaInfAiDataBabyCryDetection.hpp"
+#include "media/common/MediaInfAiDataPtzTargetTrack.hpp"
 #include "media/common/MediaInfAi.hpp"
 #include "media/common/MediaRingBuffer.hpp"
+
 
 namespace Emx {
     //!@brief AI

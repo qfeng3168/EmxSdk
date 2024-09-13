@@ -2,6 +2,8 @@
   {
     "spkAmpCtrl": {
       "autoMute": true,
+      "silentTimeMs":500,
+      "delayPlayMs":0,
       "gpioList": [
         {
           "num": 495,

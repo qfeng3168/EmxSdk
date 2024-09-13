@@ -104,3 +104,17 @@ void DefaultAdec::DestroyAdec() {
     //! 销毁通道
 //    ChipAdecDestroyChn(m_aoChn);
 }
+
+void DefaultAdec::PadSilentPcm() {
+    auto pcm = malloc(m_frameSize * 2);
+    if (!pcm) {
+        emxloge("malloc pcm %d size failed\n", m_frameSize * 2);
+        return;
+    }
+    memset(pcm, 0, m_frameSize * 2);
+    //pad silent pcm
+    int cnt = m_silentTimeMs * m_aioSampleRate / 1000 / m_frameSize;
+    emxlogt("chn %d pad %d ms (cnt=%d) silent pcm\n", m_chn, m_silentTimeMs, cnt);
+    while (cnt--) { SendToAo((const int16_t *) pcm, m_frameSize); }
+    free(pcm);
+}

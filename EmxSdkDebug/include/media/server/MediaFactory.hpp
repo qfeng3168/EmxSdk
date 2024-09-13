@@ -50,6 +50,8 @@ namespace Emx {
                     return MakeVoChn(chn);
                 case MediaModE::Draw:
                     return MakeDrawChn(chn);
+                case MediaModE::Aov:
+                    return MakeAovChn(chn);
                 default:
                     return nullptr;
             }
@@ -80,6 +82,8 @@ namespace Emx {
         virtual MediaServerModuleChnBase *MakeVoChn(int32_t chn) = 0;
        
         virtual MediaServerModuleChnBase *MakeDrawChn(int32_t chn) = 0;
+       
+        virtual MediaServerModuleChnBase *MakeAovChn(int32_t chn) ;
     };
 }// namespace Emx
 

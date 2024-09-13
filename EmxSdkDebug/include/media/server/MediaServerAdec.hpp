@@ -56,6 +56,11 @@ namespace Emx {
          */
         virtual void ClearAoBuffer() {}
 
+        /**
+         * @brief 填充静音数据
+         */
+        virtual void PadSilentPcm();
+
     protected:
         void OnGetMsg(uint32_t topic, const char *data, int32_t size);
 
@@ -67,13 +72,12 @@ namespace Emx {
 
         void SpkEna(bool ena);
 
-        void PadSilentPcm();
-
     protected:
         Param m_param;
         Param m_paramNew;
         Param m_paramRunning;
-
+        uint32_t m_silentTimeMs = 500;  //!< 推送静音数据时间 ms
+        uint32_t m_delayPlayMs = 0;//!< 打开功放后延时播放音频时间 ms
     private:
         EuvLoop m_loopAdec;
         MsgTopicSubscriberAsync m_sub;

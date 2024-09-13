@@ -1,6 +1,7 @@
 [
   {
     "mirror": false,
-    "flip": false
+    "flip": false,
+    "hide": false
   }
 ]

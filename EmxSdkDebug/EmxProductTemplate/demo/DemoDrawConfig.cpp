@@ -6,7 +6,7 @@
 #include "media/client/MediaDraw.hpp"
 using namespace Emx;
 
-static void TestDraw(int show) {
+ void TestDraw(int show) {
 
     for (int i = 0; i < 2; i++) {
         MediaInfDraw::Param drawDefPms = {};
@@ -28,13 +28,26 @@ static void TestDraw(int show) {
             {
                 std::shared_ptr<MediaInfDraw::ParamItem> item = std::make_shared<MediaInfDraw::ParamItem>();
                 item->ena = true;
-                item->color = 0xff0000ff;
+                item->color = 0x00ff00ff;
                 item->thickness = 2;
                 item->type = MediaInfDraw::TypeE::Line;
                 item->line.sp.x = 0;
                 item->line.sp.y = 0;
                 item->line.ep.x = 10000;
                 item->line.ep.y = 10000;
+                drawDefPms.array.emplace_back(item);
+            }
+            {
+                std::shared_ptr<MediaInfDraw::ParamItem> item = std::make_shared<MediaInfDraw::ParamItem>();
+                item->ena = true;
+                item->color = 0x0000ffff;
+                item->thickness = 0;
+                item->type = MediaInfDraw::TypeE::Rect;
+                item->rect.fill = 1;
+                item->rect.x = 1000;
+                item->rect.y = 1000;
+                item->rect.width = 1000;
+                item->rect.height = 1000;
                 drawDefPms.array.emplace_back(item);
             }
         }
@@ -49,6 +62,10 @@ static void TestDraw(int show) {
 
 // OSD配置示例
 int main(int argc ,char **argv) {
+    if (argc < 2) {
+        emxloge("Input param failed!eg:%s 1or0 \n",argv[0]);
+        return -1;
+    }
     TestDraw(atoi(argv[1]));
     return 0;
 }

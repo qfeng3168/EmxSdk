@@ -29,6 +29,7 @@ media_insertko.sh
 cd /root
 ####################run deamon####################
 cp ${EMX_CONFIGS_DIR}/zoneinfo/GMT-8 /tmp/localtime
+init_ai_resources.sh
 #allstart.sh
 #daemon.sh&
 

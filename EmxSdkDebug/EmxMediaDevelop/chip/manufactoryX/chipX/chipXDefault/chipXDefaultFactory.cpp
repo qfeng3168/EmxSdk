@@ -15,6 +15,7 @@
 #include "DefaultVenc.hpp"
 #include "DefaultVi.hpp"
 #include "DefaultVo.hpp"
+#include "DefaultAov.hpp"
 
 
 using namespace Emx;
@@ -44,3 +45,5 @@ MediaServerModuleChnBase *chipXDefaultFactory::MakeVdecChn(int32_t chn) { return
 MediaServerModuleChnBase *chipXDefaultFactory::MakeVoChn(int32_t chn) { return new DefaultVo(chn); }
 
 MediaServerModuleChnBase *chipXDefaultFactory::MakeDrawChn(int32_t chn) { return new DefaultDraw(chn); }
+
+MediaServerModuleChnBase *chipXDefaultFactory::MakeAovChn(int32_t chn) { return new DefaultAov(chn); }

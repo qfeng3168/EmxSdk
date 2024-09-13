@@ -1,23 +1,14 @@
 {
   "modeComment": "spare/doubleSystem",
-  "mode": "spare",
+  "mode": "doubleSystem",
   "flashTypeComment": "spiNor/spiNand/emmc",
-  "flashType": "spiNor",
+  "flashType": "spiNand",
   "dev": "/dev/mtd",
   "firstPart": 0,
   "rebootAfterComplete": true,
-  "rebootDelayS": 3,
+  "rebootDelayS": 5,
   "updateWay comment": "升级方式: 0 全量下载至内存后再进行烧写; 1 边下载边进行烧写; 2 全量下载到文件后再进行烧写",
-  "updateWay": 0,
-  "blockSize": 131072,
-  "indicatorType": 1,
-  "indicatorConfig": {
-    "blinkMs": 1000,
-    "gpio": {
-      "dir": 1,
-      "active": true,
-      "default": false,
-      "num": 381
-    }
-  }
+  "updateWay": 1,
+  "BlockSize": 131072,
+  "updateTimeout": 30000
 }

@@ -21,8 +21,12 @@ namespace Emx {
 
     public:
         struct DataMsg {
-            MediaInfAiPic pic;//!<目标抠图，根据配置参数决定是否有截图
-            uint64_t id;      //!<目标id
+            MediaInfAiPic pic;//!<车辆抠图，根据配置参数决定是否有截图
+            MediaInfAiPic platePic;//!<车牌抠图，根据配置参数决定是否有截图
+            uint64_t id;      //!<目标车辆id
+            uint64_t plateId;      //!<目标车牌id
+            Rect rect; //!<当前车辆位置信息
+            Rect plateRect; //!<当前车牌位置信息
             /*目标类型*/
             enum class TypeE : uint32_t {
                 LightCar,  //!<小型车
@@ -47,9 +51,7 @@ namespace Emx {
                 Green  //!<绿色
             } plateColor;
             int plateLine;             //!<车牌行数，一般是1，个别车是2行
-            uint8_t plateNumber[2][16];//!<车牌号码，一行占用一个下标，统一UTF-8编码
-
-            Rect rect; //!<当前目标位置信息
+            uint8_t plateNumber[2][32];//!<车牌号码，一行占用一个下标，统一UTF-8编码
             int imgOff;//!<私有数据，记录内存偏移
         };
 
@@ -57,6 +59,7 @@ namespace Emx {
             Free();
             array = (DataMsg *) malloc(n * (int) sizeof(DataMsg));
             if (array) { memset((void *) array, 0, n * sizeof(DataMsg)); }
+            memset(&fullPic, 0, sizeof(MediaInfAiPic));
         }
 
         void Free() {
@@ -67,6 +70,12 @@ namespace Emx {
                         array[i].pic.img = nullptr;
                         array[i].pic.size = 0;
                     }
+                    if ((array[i].platePic.size > 0) && array[i].platePic.img) {
+                        free(array[i].platePic.img);
+                        array[i].platePic.img = nullptr;
+                        array[i].platePic.size = 0;
+                    }
+                    
                 }
                 if ((fullPic.size > 0) && fullPic.img) {
                     free(fullPic.img);
@@ -81,7 +90,10 @@ namespace Emx {
             int totalImgSize = 0;
             totalImgSize += sizeof(MediaInfAiPic);
             totalImgSize += fullPic.size;
-            for (int i = 0; i < num; i++) { totalImgSize += array[i].pic.size; }
+            for (int i = 0; i < num; i++) { 
+                totalImgSize += array[i].pic.size;
+                totalImgSize += array[i].platePic.size;
+            }
             return (int) sizeof(num) + num * (int) sizeof(DataMsg) + totalImgSize;
         }
 
@@ -91,15 +103,23 @@ namespace Emx {
             off += (int) sizeof(num);
             memcpy(buffer + off, &fullPic, sizeof(MediaInfAiPic));
             int fullImgOff = off + (int) sizeof(MediaInfAiPic);
-            memcpy(buffer + fullImgOff, fullPic.img, fullPic.size);
+            if (fullPic.img && fullPic.size > 0) {
+                memcpy(buffer + fullImgOff, fullPic.img, fullPic.size);
+            }
             off += (fullPic.size + sizeof(MediaInfAiPic));
 
             int imgOff = off + num * (int) sizeof(DataMsg);
             for (int i = 0; i < num; i++) {
-                memcpy(buffer + imgOff, array[i].pic.img, array[i].pic.size);
                 array[i].imgOff = imgOff;
-                memcpy(buffer + off, array + i, (int) sizeof(DataMsg));
+                if (array[i].pic.img && array[i].pic.size > 0) {
+                    memcpy(buffer + imgOff, array[i].pic.img, array[i].pic.size);
+                }
                 imgOff += array[i].pic.size;
+                if (array[i].platePic.img && array[i].platePic.size > 0) {
+                    memcpy(buffer + imgOff, array[i].platePic.img, array[i].platePic.size);
+                }
+                imgOff += array[i].platePic.size;
+                memcpy(buffer + off, array + i, (int) sizeof(DataMsg));
                 off += (int) sizeof(DataMsg);
             }
         }
@@ -108,6 +128,7 @@ namespace Emx {
             int off = 0;
             memcpy(&num, buffer + off, sizeof(num));
             off += sizeof(num);
+            Alloc(num);
             memcpy(&fullPic, buffer + off, (int) sizeof(MediaInfAiPic));
             off += (int) sizeof(MediaInfAiPic);
             if (fullPic.size > 0) {
@@ -116,12 +137,17 @@ namespace Emx {
             }
             off += fullPic.size;
             if (num * (int) sizeof(DataMsg) + off <= size) {
-                Alloc(num);
                 memcpy(array, buffer + off, num * (int) sizeof(DataMsg));
                 for (int i = 0; i < num; i++) {
+                    int imgOff = array[i].imgOff;
                     if (array[i].pic.size) {
                         array[i].pic.img = (uint8_t *) malloc(array[i].pic.size);
-                        if (array[i].pic.img) memcpy(array[i].pic.img, buffer + array[i].imgOff, array[i].pic.size);
+                        if (array[i].pic.img) memcpy(array[i].pic.img, buffer + imgOff, array[i].pic.size);
+                        imgOff += array[i].pic.size;
+                    }
+                    if (array[i].platePic.size) {
+                        array[i].platePic.img = (uint8_t *) malloc(array[i].platePic.size);
+                        if (array[i].platePic.img) memcpy(array[i].platePic.img, buffer + imgOff, array[i].platePic.size);
                     }
                 }
             }

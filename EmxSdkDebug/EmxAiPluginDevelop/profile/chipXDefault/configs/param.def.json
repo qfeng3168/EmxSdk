@@ -9,7 +9,7 @@
             "ena": true
         },
         "InvasionDetection": {
-            "ena": true,
+            "ena": false,
             "invasionType": 7,
             "captureBackImg": false,
             "captureRectImg": false,
@@ -46,7 +46,7 @@
                 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
         },
         "CrossingDetection": {
-            "ena": true,
+            "ena": false,
             "crossType": 7,
             "captureBackImg": false,
             "captureRectImg": false,
@@ -68,12 +68,17 @@
             "lineY2": 5000,
             "direction": 0
         },
-        "FaceSnap": {
+	"FaceDetection": {
+            "ena": true,
+	    "minWidth": 40,
+	    "minHeight": 40	
+        },
+        "FaceRecognition": {
             "ena": false,
-            "threshold": 60,
+            "threshold": 50,
             "snapMode":0,
             "snapTime":10,
-            "snapQuality":70,
+            "snapQuality":20,
             "snapClarity":70,
             "snapAngle":60,
             "captureBackImg": true,
@@ -82,34 +87,10 @@
             "aeEna":true,
             "aeThreshold":60,
             "minWidth":80,
-            "minHeight":80          
-        },
-        "MaskDetection": {
-            "ena": false,
-            "threshold": 60,
-            "captureBackImg": true,
-            "captureRectImg": true,
-            "captureQuality": 70,
-            "minWidth":80,
-            "minHeight":80
-        },
-        "FaceRecognition": {
-            "ena": false,
-            "captureBackImg": true,
-            "captureRectImg": true,
-            "captureQuality": 70,
-            "minWidth":80,
             "minHeight":80,
-            "similarity":70
-        },
-        "StrangerRecognition": {
-            "ena": false,
-            "captureBackImg": true,
-            "captureRectImg": true,
-            "captureQuality": 70,
-            "minWidth":80,
-            "minHeight":80,
-            "similarity":70
+            "maskEna":true,
+            "maskThreshold": 60,
+            "recognitionEna":true
         },
         "LicensePlateRecognition": {
             "ena": false,

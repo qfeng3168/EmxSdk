@@ -10,6 +10,7 @@
 #include "media/common/MediaInfOsd.hpp"
 #include "media/common/MediaRegion.hpp"
 #include <list>
+#include <thread>
 
 class OutlineOsd;
 
@@ -30,6 +31,10 @@ namespace Emx {
         void *GetNewParam() override { return &m_paramNew; }
 
         void *GetRunningParam() override { return &m_paramRunning; }
+
+        ErrCodeE SetOsdContent(OsdContent *pInfo) override { return ErrCodeE::Success; }
+
+        ErrCodeE OnRecvReqChn(uint32_t method, const char *data, int32_t size, std::string &out) override;
 
         int GetParamSize() override { return -1; }
 
@@ -114,6 +119,12 @@ namespace Emx {
 
         void DestroyAll();
 
+        void PreproccessAll();
+
+        void ResourceFreeAll();
+
+        void ThreadWrite();
+
         OutlineOsd *CreateOutline(int fontSize, const char *font);
 
         void DestroyOutline(OutlineOsd *outline);
@@ -146,6 +157,7 @@ namespace Emx {
             OutlineOsd *outline;
             ParamItem *item;
             RegionInfo *region;
+            int index;//!< Param array 下标
         };
 
         std::list<OsdItem> m_osdTime;
@@ -155,6 +167,10 @@ namespace Emx {
 
         EuvTimer m_timer;
         time_t m_timeRecord;
+        bool m_threadRunning = false;
+        bool m_paramFlush = false;
+        bool m_craeteFlag = false;
+        std::thread m_thread;
 
     private:
         /**
@@ -163,8 +179,9 @@ namespace Emx {
          * @param paramText [in]被分割字符串对象
          * @param region [out]返回需要使用的宽高
          * @param outline [in]字体创建句柄
+         * @return 返回字数
          */
-        void TextWrapLineSize(ParamText &paramText, RegionInfo &region, OutlineOsd *outline);
+        int TextWrapLineSize(ParamText &paramText, RegionInfo &region, OutlineOsd *outline);
         /**
          * @brief 带换行字符串切割，返回bitmap
          * 根据指定字符串来分割原始字符串，并直接创建位图

@@ -1,3 +1,14 @@
-[
-    { }
-]
+{
+    "explain":"若是开启人脸模块,人形就不要打开了,人脸里面会上报人形信息",
+	"MotionDetection":true,
+	"PersonDetection": true,
+	"InvasionDetection":true,
+	"CrossingDetection":true,
+	"PassengerFlowStatistics":false,
+	"RegionalPeopleStatistics":false,
+	"OffDutyDetection":false,
+	"FaceDetection":false,
+	"FaceRecognition":false,
+	"PersonVehicleNonDetection":false,
+	"VehicleRecognition":false
+}

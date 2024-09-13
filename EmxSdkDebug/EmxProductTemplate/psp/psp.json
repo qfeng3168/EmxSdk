@@ -5,6 +5,7 @@
   "EmxMediaProfile": "chipXDefault",
   "EmxAiPluginVersion": "EmxAiPlugin-Debug",
   "EmxAiPluginProfile": "chipXDefault",
+  "EmxMediaDrivers" : "drivers",
   "partition": {
     "flashImgSize": "16M",
     "partitionTable": [

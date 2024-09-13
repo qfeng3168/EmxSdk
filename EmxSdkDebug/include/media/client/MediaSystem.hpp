@@ -29,6 +29,20 @@ namespace Emx {
          * @return ErrCodeE
          */
         static ErrCodeE SwitchScene(const char *scene);
+
+        /**
+         * @brief 临时切换场景
+         * @param scene 场景名
+         * @return ErrCodeE
+         */
+        static ErrCodeE SwitchSceneTemp(const char *scene);
+
+        /**
+         * @brief 获取当前场景
+         * @param scene 场景名
+         * @return ErrCodeE
+         */
+        static ErrCodeE GetScene(std::string &scene);
     };
 
 }

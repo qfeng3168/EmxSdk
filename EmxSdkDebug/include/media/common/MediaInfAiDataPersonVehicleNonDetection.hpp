@@ -37,6 +37,7 @@ namespace Emx {
             Free();
             array = (DataMsg *) malloc(n * (int) sizeof(DataMsg));
             if (array) { memset((void *) array, 0, n * sizeof(DataMsg)); }
+            memset(&fullPic, 0, sizeof(MediaInfAiPic));
         }
 
         void Free() {
@@ -71,12 +72,16 @@ namespace Emx {
             off += (int) sizeof(num);
             memcpy(buffer + off, &fullPic, sizeof(MediaInfAiPic));
             int fullImgOff = off + (int) sizeof(MediaInfAiPic);
-            memcpy(buffer + fullImgOff, fullPic.img, fullPic.size);
+            if (fullPic.img && fullPic.size > 0) {
+                memcpy(buffer + fullImgOff, fullPic.img, fullPic.size);
+            }
             off += (fullPic.size + sizeof(MediaInfAiPic));
 
             int imgOff = off + num * (int) sizeof(DataMsg);
             for (int i = 0; i < num; i++) {
-                memcpy(buffer + imgOff, array[i].pic.img, array[i].pic.size);
+                if (array[i].pic.img && array[i].pic.size > 0) {
+                    memcpy(buffer + imgOff, array[i].pic.img, array[i].pic.size);
+                }
                 array[i].imgOff = imgOff;
                 memcpy(buffer + off, array + i, (int) sizeof(DataMsg));
                 imgOff += array[i].pic.size;
@@ -88,6 +93,7 @@ namespace Emx {
             int off = 0;
             memcpy(&num, buffer + off, sizeof(num));
             off += sizeof(num);
+            Alloc(num);
             memcpy(&fullPic, buffer + off, (int) sizeof(MediaInfAiPic));
             off += (int) sizeof(MediaInfAiPic);
             if (fullPic.size > 0) {
@@ -96,7 +102,6 @@ namespace Emx {
             }
             off += fullPic.size;
             if (num * (int) sizeof(DataMsg) + off <= size) {
-                Alloc(num);
                 memcpy(array, buffer + off, num * (int) sizeof(DataMsg));
                 for (int i = 0; i < num; i++) {
                     if (array[i].pic.size) {

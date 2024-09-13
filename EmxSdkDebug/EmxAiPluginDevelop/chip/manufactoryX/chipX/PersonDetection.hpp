@@ -13,7 +13,7 @@ namespace Emx {
 
     class PersonDetection : public EmxAiPluginAlgBase {
     public:
-        PersonDetection(int chn) : EmxAiPluginAlgBase(chn, "PersonDetection"), m_created(false), m_started(false) {}
+        PersonDetection(int chn) : EmxAiPluginAlgBase(chn, "PersonDetection"), m_created(false){}
 
         virtual ~PersonDetection() {}
 
@@ -32,17 +32,15 @@ namespace Emx {
 
         void OnGetFrameComplete(void *arg);
 
-    private:
+    private: 
         bool m_created;
-        bool m_started;
         int m_vpssGrp;
         int m_vpssChn;
-		std::string m_modePath;
-        int m_interval;
-        int m_threshold;
-        int m_minArea;
+        int m_modelId;
+        std::string m_modePath;
+        float m_threshold;
         bool m_got;
-		bool m_ena;
+        bool m_ena;
         Json::Value m_param;
         MediaAiJob m_job;
         MediaInfAiDataPersonDetection m_data;
