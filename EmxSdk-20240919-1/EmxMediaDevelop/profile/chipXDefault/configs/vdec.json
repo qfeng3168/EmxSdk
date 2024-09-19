@@ -1,0 +1,14 @@
+[
+  {
+    "attr": {
+      "VdecChn": 0,
+      "sendVoLayer": 0,
+      "sendVoChn": 0,
+      "enMode": 1,
+      "u32FrameBufCnt": 4,
+      "enPixelFormat": 19,
+      "u32DisplayFrameNum": 2,
+      "vbPool": 6
+    }
+  }
+]
