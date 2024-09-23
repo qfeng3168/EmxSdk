@@ -80,10 +80,10 @@ namespace Emx {
         virtual MediaServerModuleChnBase *MakeVdecChn(int32_t chn) = 0;
 
         virtual MediaServerModuleChnBase *MakeVoChn(int32_t chn) = 0;
-       
+
         virtual MediaServerModuleChnBase *MakeDrawChn(int32_t chn) = 0;
-       
-        virtual MediaServerModuleChnBase *MakeAovChn(int32_t chn) ;
+
+        virtual MediaServerModuleChnBase *MakeAovChn(int32_t chn);
     };
 }// namespace Emx
 

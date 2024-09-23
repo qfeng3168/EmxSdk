@@ -45,6 +45,6 @@ namespace Emx {
         static ErrCodeE GetScene(std::string &scene);
     };
 
-}
+}// namespace Emx
 
-#endif //EMX_MediaSystem_HPP
+#endif//EMX_MediaSystem_HPP

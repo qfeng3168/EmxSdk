@@ -54,7 +54,7 @@ namespace Emx {
         Destroy,
         SwitchScene,
         SwitchSceneTemp,
-        GetScene,     
+        GetScene,
         Butt,
     };
 
@@ -122,9 +122,7 @@ namespace Emx {
         Ctrl,
     };
 
-    enum class MediaOsdMethodE : uint32_t {
-        SetOsdContent = (uint32_t) MediaParamMethodE::Butt
-    };
+    enum class MediaOsdMethodE : uint32_t { SetOsdContent = (uint32_t) MediaParamMethodE::Butt };
 }// namespace Emx
 
 #endif//EMX_MediaInner_HPP

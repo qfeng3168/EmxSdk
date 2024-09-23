@@ -51,8 +51,15 @@ namespace Emx {
             int size;              //!<字体大小
             int thickness;         //!<边框大小
             char font[64];         //!<字体文件名(字体文件均放置在configs/media/font目录下)
-            char formatString[128];//!<时间显示格式
-            char weekFormat[7][16];//!<星期显示格式
+            char formatString[128];//!<时间显示格式，eg:Zy-m-d H:M:S
+                                   //!< 第一字节表示中英文显示：Z=中文，E=英文
+                                   //!< y:年 m:月 d:日 w:星期
+                                   //!< H:24小时制小时 h:24小时制小时
+                                   //!< P:12小时制PM或AM显示 p:12小时制pm或am显示
+                                   //!< M:分钟 S:秒 %:转义符
+                                   //!< 其他非上述字符显示为原字符
+            char weekFormat[7][16];//!< 星期显示格式,下标0到6从星期日到星期六
+                    //!<eg:["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
         };
 
         //!@brief 文字类型OSD持久化参数
@@ -88,7 +95,7 @@ namespace Emx {
 
         //!@brief 时间或文字类型OSD显示内容
         struct OsdContent {
-            int index;    //!<初始设置array下标
+            int index;                //!<初始设置array下标
             char content[MaxTextSize];//!< text内容或time 格式
         };
 

@@ -13,8 +13,7 @@ namespace Emx {
     class MediaAov : public MediaInfAov, public MediaParamCBase<MediaInfAov::Param> {
     public:
         explicit MediaAov(int32_t chn) : MediaParamCBase(MediaModE::Aov, chn) {}
-
     };
-}
+}// namespace Emx
 
-#endif //EMX_MediaAov_HPP
+#endif//EMX_MediaAov_HPP
