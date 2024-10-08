@@ -45,6 +45,7 @@
 
 #define MEDIA_TOPIC_VDEC (MEDIA_SERVER_MSG_ID + 0xb00)
 #define MEDIA_TOPIC_VDEC_FRAME (MEDIA_TOPIC_VDEC + 0x20)
+#define MEDIA_TOPIC_VDEC_RAW_FRAME (MEDIA_TOPIC_VDEC + 0x40)
 
 namespace Emx {
     ////////////////RPC///////////////////

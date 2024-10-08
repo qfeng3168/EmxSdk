@@ -62,7 +62,7 @@ int main(int argc,char **argv) {
     }
     if(argc > 2){
         if(strstr(argv[2],"fps")){
-            loopNum = 1;
+            loopNum = atoi(argv[3]);
         }
     }
     if (vdec.SetParam(param) != ErrCodeE::Success) {
@@ -125,6 +125,10 @@ int main(int argc,char **argv) {
             ddd = fff;
             printf("Real-time frame rate=%d\n",realFps);
             realFps = 0;
+        }
+        if(loopNum > 0){
+            int usleepNum = 1000000/loopNum;
+            usleep(usleepNum);
         }
     }
 

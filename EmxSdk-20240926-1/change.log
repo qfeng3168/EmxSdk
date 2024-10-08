@@ -6,6 +6,7 @@ Publisher: tangfahong
     2.优化Aov调用无效问题
     3.修复双线IRCut控制异常问题-BspIrCut2Wire
     4.优化升级模块进度打印
+    5.修复使用画线后osd显示跳秒
 
 ###################################################
 version: EmxSdk-20240919-1

@@ -13,6 +13,7 @@ public:
     SaveAsyncStream() {
         m_fpVenc = nullptr;
         m_fpAenc = nullptr;
+        m_fpVdec = nullptr;
     }
 
     void Create(EuvLoop &loop, char *buffer, int size) {
@@ -20,11 +21,13 @@ public:
         MediaStream::Channel channel;
         channel.Add(Emx::MediaFrame::TypeE::Venc, 0); // 加入视频编码通道0
         channel.Add(Emx::MediaFrame::TypeE::Aenc, 0); // 加入音频编码通道0
+        channel.Add(Emx::MediaFrame::TypeE::Vdec, 0); // 加入音频编码通道0
         // 注册当获取到媒体帧时候的回调
         m_stream.Start(loop, buffer, size, channel, std::bind(&SaveAsyncStream::OnRecvFrame, this, ph_1, ph_2));
         // 创建两个文件用来保存音频和视频的裸数据
         m_fpVenc = fopen("video.raw", "wb+");
         m_fpAenc = fopen("audio.raw", "wb+");
+        m_fpVdec = fopen("vdec.raw", "wb+");
     }
 
     void Destroy() {
@@ -39,6 +42,10 @@ public:
             fclose(m_fpAenc);
             m_fpAenc = nullptr;
         }
+        if (m_fpVdec) {
+            fclose(m_fpVdec);
+            m_fpVdec = nullptr;
+        }
     }
 
 private:
@@ -46,7 +53,7 @@ private:
     void OnRecvFrame(ErrCodeE e, MediaFrame &frame) {
         // 如果获取失败则返回
         if (e != Emx::ErrCodeE::Success) {
-            emxlogw("recv stream failed\n");
+            emxlogw("recv stream failed,type=%d,size=%d\n",frame.type,frame.size);
             return;
         }
 
@@ -54,6 +61,9 @@ private:
         if (frame.type == Emx::MediaFrame::TypeE::Venc) {
             // 收到视频帧
             fwrite(frame.data, 1, frame.size, m_fpVenc);
+        } else if (frame.type == Emx::MediaFrame::TypeE::Vdec) {
+            // 收到视频帧
+            fwrite(frame.data, 1, frame.size, m_fpVdec);
         } else {
             // 收到音频帧
             fwrite(frame.data, 1, frame.size, m_fpAenc);
@@ -63,6 +73,7 @@ private:
 private:
     MediaStreamAsync m_stream; // 定义一个异步音视频流的监听句柄
     FILE *m_fpVenc; // 定义file指针用来存储编码后的视频裸流
+    FILE *m_fpVdec; // 定义file指针用来存储解码后的视频裸流
     FILE *m_fpAenc; // 定义file指针用来存储编码后的音频裸流
 };
 
