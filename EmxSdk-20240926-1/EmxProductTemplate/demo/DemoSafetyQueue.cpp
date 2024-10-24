@@ -13,7 +13,7 @@ DataItem* CloneCb(const DataItem* data) {
     }
     DataItem* cloned = new DataItem();
     cloned->size = data->size;
-    cloned->data = (uint8_t*)malloc(cloned->size);
+    cloned->data = (uint8_t*)EP_MALLOC(cloned->size);
     if (cloned->data != nullptr) {
         memcpy(cloned->data, data->data, cloned->size);
     }
@@ -35,7 +35,7 @@ SafetyQueue<DataItem*> g_queue(10, CloneCb, FreeCb);
 void Produce() {
     DataItem *data = new DataItem();
     data->size = 52;
-    data->data = (uint8_t*)malloc(data->size);
+    data->data = (uint8_t*)EP_MALLOC(data->size);
     emxlogi("put data[%p, %d]\n", data->data, data->size);
     g_queue.Put(data);
 }

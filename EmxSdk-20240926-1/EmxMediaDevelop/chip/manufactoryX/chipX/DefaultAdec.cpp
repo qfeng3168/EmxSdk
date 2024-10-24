@@ -106,7 +106,7 @@ void DefaultAdec::DestroyAdec() {
 }
 
 void DefaultAdec::PadSilentPcm() {
-    auto pcm = malloc(m_frameSize * 2);
+    auto pcm = EP_MALLOC(m_frameSize * 2);
     if (!pcm) {
         emxloge("malloc pcm %d size failed\n", m_frameSize * 2);
         return;

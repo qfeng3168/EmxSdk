@@ -194,7 +194,7 @@ int FaceAlgorithm::FaceManage(void *pstFrame) {
         if ((fullImgindex >= 0) && (m_faceRecognition.captureBackImg)) {
             if (pFaceCptInfo->data[fullImgindex].image.full_img &&
                     pFaceCptInfo->data[fullImgindex].image.full_length > 0) {
-                m_dataRecognition.fullPic.img = (uint8_t *) malloc(pFaceCptInfo->data[fullImgindex].image.full_length);
+                m_dataRecognition.fullPic.img = (uint8_t *) EP_MALLOC(pFaceCptInfo->data[fullImgindex].image.full_length);
                 if (m_dataRecognition.fullPic.img) {
                     memcpy(m_dataRecognition.fullPic.img, pFaceCptInfo->data[fullImgindex].image.full_img,
                             pFaceCptInfo->data[fullImgindex].image.full_length);

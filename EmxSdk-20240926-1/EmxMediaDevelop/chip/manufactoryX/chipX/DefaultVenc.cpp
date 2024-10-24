@@ -71,7 +71,7 @@ ErrCodeE DefaultVenc::GetOneFrame(FrameData &frame) {
 //    }
 //
     //! 注意这里的m_stream需要保证持续有效，最好做成成员变量，以便在ReleaseOneFrame中释放
-//    m_stream.pstPack = (VENC_PACK_S *) malloc(sizeof(VENC_PACK_S) * stStat.u32CurPacks);
+//    m_stream.pstPack = (VENC_PACK_S *) EP_MALLOC(sizeof(VENC_PACK_S) * stStat.u32CurPacks);
 //    if (nullptr == m_stream.pstPack) {
 //        emxloge("chn %d malloc stream pack failed!\n", m_chn);
 //        return ErrCodeE::Failure;

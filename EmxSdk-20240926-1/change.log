@@ -7,6 +7,7 @@ Publisher: tangfahong
     3.修复双线IRCut控制异常问题-BspIrCut2Wire
     4.优化升级模块进度打印
     5.修复使用画线后osd显示跳秒
+    6.malloc替换为aligned_alloc,分配内存时64字节对齐
 
 ###################################################
 version: EmxSdk-20240919-1

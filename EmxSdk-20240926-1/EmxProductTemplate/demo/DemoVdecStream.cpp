@@ -75,7 +75,7 @@ int main(int argc,char **argv) {
     int s32Ret = 0; 
     int bufSize = 4147200;
     int s32UsedBytes = 0;
-    char * pu8Buf = (char *)malloc(bufSize);
+    char * pu8Buf = (char *)EP_MALLOC(bufSize);
     if (pu8Buf == NULL) {
 		printf("%d in send stream thread!\n", bufSize);
 		return -1;

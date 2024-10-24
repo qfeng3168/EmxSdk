@@ -7,6 +7,7 @@
 
 #include "media/common/MediaRegion.hpp"
 #include "media/common/MediaTypedef.hpp"
+#include "EmxCore.hpp"
 namespace Emx {
 
     struct MediaInfAiPic {

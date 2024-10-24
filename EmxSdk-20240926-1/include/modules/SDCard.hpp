@@ -30,6 +30,7 @@ namespace Emx {
         struct Info {
             static const int MaxDevSize = 32;//!<设备名称最大长度
             StatE stat;//!<SD卡状态
+            bool rw;//!<SD卡是否可读写
             FileSystemE fileSystem;//!<文件系统类型
             uint32_t total;//!<总大小MB
             uint32_t free;//!<空闲大小MB

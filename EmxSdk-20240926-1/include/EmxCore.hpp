@@ -12,6 +12,10 @@
 #include "core/EmxUV.hpp"
 #include "core/EmxMsg.hpp"
 #include "core/EmxParam.hpp"
-
+#ifdef __mips__
+#define EP_MALLOC(size) malloc(size);
+#else
+#define EP_MALLOC(size) aligned_alloc(64,size);
+#endif
 #endif //EMX_EmxCore_HPP
 

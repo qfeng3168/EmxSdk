@@ -20,7 +20,7 @@ namespace Emx {
     public:
         void Alloc(int n) {
             Free();
-            array = (Rect *) malloc(n * (int) sizeof(Rect));
+            array = (Rect *) EP_MALLOC(n * (int) sizeof(Rect));
             if (array) { memset((void *) array, 0, n * sizeof(Rect)); }
         }
 

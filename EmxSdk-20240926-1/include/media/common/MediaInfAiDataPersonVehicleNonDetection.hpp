@@ -8,6 +8,7 @@
 #include "MediaInfAiData.hpp"
 #include "MediaRegion.hpp"
 #include <cstring>
+#include "EmxCore.hpp"
 
 namespace Emx {
 
@@ -35,7 +36,7 @@ namespace Emx {
 
         void Alloc(int n) {
             Free();
-            array = (DataMsg *) malloc(n * (int) sizeof(DataMsg));
+            array = (DataMsg *) EP_MALLOC(n * (int) sizeof(DataMsg));
             if (array) { memset((void *) array, 0, n * sizeof(DataMsg)); }
             memset(&fullPic, 0, sizeof(MediaInfAiPic));
         }
@@ -97,7 +98,7 @@ namespace Emx {
             memcpy(&fullPic, buffer + off, (int) sizeof(MediaInfAiPic));
             off += (int) sizeof(MediaInfAiPic);
             if (fullPic.size > 0) {
-                fullPic.img = (uint8_t *) malloc(fullPic.size);
+                fullPic.img = (uint8_t *) EP_MALLOC(fullPic.size);
                 if (fullPic.img) { memcpy(fullPic.img, buffer + off, fullPic.size); }
             }
             off += fullPic.size;
@@ -105,7 +106,7 @@ namespace Emx {
                 memcpy(array, buffer + off, num * (int) sizeof(DataMsg));
                 for (int i = 0; i < num; i++) {
                     if (array[i].pic.size) {
-                        array[i].pic.img = (uint8_t *) malloc(array[i].pic.size);
+                        array[i].pic.img = (uint8_t *) EP_MALLOC(array[i].pic.size);
                         if (array[i].pic.img) memcpy(array[i].pic.img, buffer + array[i].imgOff, array[i].pic.size);
                     }
                 }
