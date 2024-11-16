@@ -71,6 +71,12 @@ namespace Emx {
         void PlayFileDone(ErrCodeE e, void *arg);
 
         void SpkEna(bool ena);
+        /**
+         * @brief 发送PCM数据到芯片音频输出
+         * @param pcm [in] 16bit pcm原始数据指针
+         * @param pktNum [in] pcm采样数，注意不是数据字节数
+         */
+        void SendToChipAo(const int16_t *pcm, int32_t pktNum);
 
     protected:
         Param m_param;
@@ -95,6 +101,7 @@ namespace Emx {
         EuvTimer m_muteTimer;
         int m_muteCnt;
         bool m_muting;
+        int m_playCnt;
     };
 
     class MediaServerAdec : public MediaServerModuleBase {
