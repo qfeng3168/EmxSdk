@@ -102,6 +102,7 @@ namespace Emx {
         int m_muteCnt;
         bool m_muting;
         int m_playCnt;
+        int16_t m_padSilentBuf[320];
     };
 
     class MediaServerAdec : public MediaServerModuleBase {

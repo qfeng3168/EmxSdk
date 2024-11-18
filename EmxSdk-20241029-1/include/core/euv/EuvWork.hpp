@@ -91,6 +91,7 @@ namespace Emx {
         RunWorkCallBack m_runCb;
         AfterWorkCallBack m_afterCb;
         bool m_isWorking;
+        bool m_isRunning;
     };
 
 }// namespace Emx
