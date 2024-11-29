@@ -8,6 +8,7 @@ Publisher: tangfahong
     4.新增SD卡可读写状态参数
     5.内存分配更改为64对齐方式,mips暂时不支持
     6.修改搬移内存内数据调用方式,memcpy改为memmove
+    7.修复在执行Complete的过程work又run起来了
 
 ###################################################
 version: EmxSdk-20240926-1
