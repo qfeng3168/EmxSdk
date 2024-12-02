@@ -12,11 +12,10 @@ namespace Emx {
     //!@brief 用于MsgRpc通信的数据类型定义
     class MsgRpc {
     public:
-
         //!@brief RPC客户端类型
         enum class ClientTypeE : uint8_t {
-            Req = 0, //!<请求端
-            Resp //!<响应端
+            Req = 0,//!<请求端
+            Resp    //!<响应端
         };
 
         //!@brief RPC请求的数据协议头
@@ -48,16 +47,13 @@ namespace Emx {
          * @param timeoutMs [in] 请求超时时间，默认5s
          * @return ErrCodeE 请求端/响应端/请求转发端返回的错误码
          */
-        static ErrCodeE Request(uint32_t dstClientId,
-                                uint32_t module, uint32_t method, int32_t chn,
-                                const char *req = nullptr, int32_t size = 0,
-                                std::string *resp = nullptr, int32_t timeoutMs = 5000);
+        static ErrCodeE Request(uint32_t dstClientId, uint32_t module, uint32_t method, int32_t chn,
+                const char *req = nullptr, int32_t size = 0, std::string *resp = nullptr, int32_t timeoutMs = 10000);
     };
 
     //!@brief 异步非阻塞RPC请求
     class MsgRpcReqAsync : public EuvPipeClientBase {
     public:
-
         //!@brief 连接状态回调
         using Callback = std::function<void()>;
 
@@ -71,18 +67,17 @@ namespace Emx {
          * @param data [in] 接收到的响应数据
          * @param size [in] 接收到的响应数据大小
          */
-        using RecvRespCallback = std::function<void(Emx::ErrCodeE e, uint32_t clientId,
-                                                    uint32_t module, uint32_t method, int32_t chn,
-                                                    const char *data, int32_t size)>;
+        using RecvRespCallback = std::function<void(Emx::ErrCodeE e, uint32_t clientId, uint32_t module,
+                uint32_t method, int32_t chn, const char *data, int32_t size)>;
 
         //!@brief 启动异步请求时携带的配置参数
         struct Config {
-            EuvLoop *loop; //!<需要绑定的loop
+            EuvLoop *loop;//!<需要绑定的loop
             char *buffer; //!<需要提供一个buffer来接收数据
             int32_t size; //!<buffer的大小
-            Callback OnConnected; //!<注册一个当与MsgRpcServer成功建立连接后的回调，连接成功后才能发送请求
-            Callback OnDisConnected; //!<注册一个当与MsgRpcServer断开连接后的回调
-            RecvRespCallback OnRecvResp; //!<注册一个用于接收响应消息的回调
+            Callback OnConnected;//!<注册一个当与MsgRpcServer成功建立连接后的回调，连接成功后才能发送请求
+            Callback OnDisConnected;    //!<注册一个当与MsgRpcServer断开连接后的回调
+            RecvRespCallback OnRecvResp;//!<注册一个用于接收响应消息的回调
         };
 
         MsgRpcReqAsync() : EuvPipeClientBase(), m_header({}) {
@@ -110,14 +105,17 @@ namespace Emx {
          * @param size [in] 请求携带数据大小，默认携带数据为0
          * @return ErrCodeE 请求端/响应端/请求转发端返回的错误码
          */
-        ErrCodeE Request(uint32_t dstClientId, uint32_t module, uint32_t method, int32_t chn,
-                         const char *req = nullptr, int32_t size = 0);
+        ErrCodeE Request(uint32_t dstClientId, uint32_t module, uint32_t method, int32_t chn, const char *req = nullptr,
+                int32_t size = 0);
 
     protected:
+        void OnConnect() override {
+            if (m_cbOnConnected) m_cbOnConnected();
+        }
 
-        void OnConnect() override { if (m_cbOnConnected)m_cbOnConnected(); }
-
-        void OnDisConnect() override { if (m_cbOnDisConnected)m_cbOnDisConnected(); }
+        void OnDisConnect() override {
+            if (m_cbOnDisConnected) m_cbOnDisConnected();
+        }
 
         void OnRecv(const char *data, int32_t size) override;
 
@@ -134,7 +132,6 @@ namespace Emx {
     //!@brief 异步非阻塞响应端
     class MsgRpcRep : public EuvPipeClientBase {
     public:
-
         //!@brief 连接状态回调
         using Callback = std::function<void()>;
         /*!
@@ -146,18 +143,17 @@ namespace Emx {
          * @param size [in] 请求携带的数据大小
          * @param out [out] 返回的数据
          */
-        using RecvReqCallback = std::function<ErrCodeE(uint32_t module, uint32_t method, int32_t chn,
-                                                       const char *data, int32_t size,
-                                                       std::string &out)>;
+        using RecvReqCallback = std::function<ErrCodeE(uint32_t module, uint32_t method, int32_t chn, const char *data,
+                int32_t size, std::string &out)>;
         //!@brief 启动异步响应监听时携带的配置参数
         struct Config {
-            EuvLoop *loop; //!<需要绑定的loop
-            uint32_t clientId; //!<此响应端的ClientID
-            char *buffer; //!<需要提供一个buffer来接收数据
-            int32_t size; //!<buffer的大小
-            Callback OnConnected; //!<注册一个当与MsgRpcServer成功建立连接后的回调
-            Callback OnDisConnected; //!<注册一个当与MsgRpcServer断开连接后的回调
-            RecvReqCallback OnRecvReq; //!<注册一个用于接收请求消息的回调
+            EuvLoop *loop;            //!<需要绑定的loop
+            uint32_t clientId;        //!<此响应端的ClientID
+            char *buffer;             //!<需要提供一个buffer来接收数据
+            int32_t size;             //!<buffer的大小
+            Callback OnConnected;     //!<注册一个当与MsgRpcServer成功建立连接后的回调
+            Callback OnDisConnected;  //!<注册一个当与MsgRpcServer断开连接后的回调
+            RecvReqCallback OnRecvReq;//!<注册一个用于接收请求消息的回调
         };
 
         MsgRpcRep() : EuvPipeClientBase() {
@@ -177,10 +173,13 @@ namespace Emx {
         void DestroyMsgRpcRep() { Destroy(); }
 
     protected:
+        void OnConnect() override {
+            if (m_cbConnected) m_cbConnected();
+        }
 
-        void OnConnect() override { if (m_cbConnected)m_cbConnected(); }
-
-        void OnDisConnect() override { if (m_cbDisConnected)m_cbDisConnected(); }
+        void OnDisConnect() override {
+            if (m_cbDisConnected) m_cbDisConnected();
+        }
 
         void OnRecv(const char *data, int32_t size) override;
 
@@ -194,5 +193,5 @@ namespace Emx {
         RecvReqCallback m_cbRecvReq;
         uint32_t m_clientId;
     };
-}
-#endif //EMX_MSGRPC_HPP
+}// namespace Emx
+#endif//EMX_MSGRPC_HPP

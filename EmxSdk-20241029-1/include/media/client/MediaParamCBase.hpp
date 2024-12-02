@@ -31,6 +31,7 @@ namespace Emx {
     template<class Param>
     class MediaParamCBase {
     public:
+        static const int paramTimeOut = 10000;
         explicit MediaParamCBase(MediaModE model, int32_t chn) : m_modelId((uint32_t) model), m_chn(chn) {}
 
         virtual ~MediaParamCBase() = default;
@@ -41,7 +42,7 @@ namespace Emx {
          * @return ErrCodeE
          */
         virtual ErrCodeE SetParam(const Param &param) {
-            return MediaParamCBaseImpl::SetParam(m_modelId, m_chn, &param, sizeof(param), 2000);
+            return MediaParamCBaseImpl::SetParam(m_modelId, m_chn, &param, sizeof(param), paramTimeOut);
         }
         /**
          * @brief 设置临时参数
@@ -49,7 +50,7 @@ namespace Emx {
          * @return ErrCodeE
          */
         virtual ErrCodeE SetTmpParam(const Param &param) {
-            return MediaParamCBaseImpl::SetTmpParam(m_modelId, m_chn, &param, sizeof(param), 2000);
+            return MediaParamCBaseImpl::SetTmpParam(m_modelId, m_chn, &param, sizeof(param), paramTimeOut);
         }
         /**
          * @brief 获取参数
@@ -57,7 +58,7 @@ namespace Emx {
          * @return ErrCodeE
          */
         virtual ErrCodeE GetParam(Param &param) {
-            return MediaParamCBaseImpl::GetParam(m_modelId, m_chn, &param, sizeof(param), 2000);
+            return MediaParamCBaseImpl::GetParam(m_modelId, m_chn, &param, sizeof(param), paramTimeOut);
         }
 
         /**
@@ -66,7 +67,7 @@ namespace Emx {
          * @return ErrCodeE
          */
         virtual ErrCodeE GetRunningParam(Param &param) {
-            return MediaParamCBaseImpl::GetRunningParam(m_modelId, m_chn, &param, sizeof(param), 2000);
+            return MediaParamCBaseImpl::GetRunningParam(m_modelId, m_chn, &param, sizeof(param), paramTimeOut);
         }
 
         /**
@@ -75,7 +76,7 @@ namespace Emx {
          * @return ErrCodeE
          */
         virtual ErrCodeE GetParamDefault(Param &param) {
-            return MediaParamCBaseImpl::GetParamDefault(m_modelId, m_chn, &param, sizeof(param), 2000);
+            return MediaParamCBaseImpl::GetParamDefault(m_modelId, m_chn, &param, sizeof(param), paramTimeOut);
         }
 
         /**
@@ -84,7 +85,7 @@ namespace Emx {
          * @return ErrCodeE
          */
         virtual ErrCodeE GetParamRange(Json::Value &range) {
-            return MediaParamCBaseImpl::GetParamRange(m_modelId, m_chn, range, 2000);
+            return MediaParamCBaseImpl::GetParamRange(m_modelId, m_chn, range, paramTimeOut);
         }
 
         /**
@@ -92,7 +93,7 @@ namespace Emx {
          * @param num [out] 通道数量
          * @return ErrCode
          */
-        virtual ErrCodeE GetTotalChnNum(int &num) { return MediaParamCBaseImpl::GetTotalChnNum(m_modelId, num, 2000); }
+        virtual ErrCodeE GetTotalChnNum(int &num) { return MediaParamCBaseImpl::GetTotalChnNum(m_modelId, num, paramTimeOut); }
 
         /**
          * @brief 获取通道号
