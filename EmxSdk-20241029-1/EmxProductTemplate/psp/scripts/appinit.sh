@@ -21,7 +21,7 @@ mkdir /tmp/webserver
 sdmnt.sh
 ####################network####################
 net.sh
-telnetd
+create_resolv.sh
 ####################insert module####################
 p=${PWD}
 app_insertko.sh
