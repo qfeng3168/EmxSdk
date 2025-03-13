@@ -55,6 +55,7 @@ namespace Emx {
             BabyCryDetection,         //!<婴儿啼哭检测
             PtzTargetTrack,           //!<云台追踪目标
             KeywordSpotting,          //!<语义分析，关键字检测
+            FlameSmokeDetection,      //!<火焰烟雾检测
         };
         //!@brief AI数据头
         struct Header {

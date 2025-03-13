@@ -90,7 +90,7 @@ namespace Emx {
 
     protected:
         std::vector<EmxAiPluginAlgBase *> m_algs;
-
+        
     private:
         ErrCodeE GetVersion(std::string &version) { return ErrCodeE::Success; }
         void *GetParam() override { return nullptr; }
@@ -98,6 +98,9 @@ namespace Emx {
         void *GetRunningParam() override { return nullptr; }
         int GetParamSize() override { return 0; }
         ErrCodeE OnParamChanged() override { return ErrCodeE::Success; }
+        ErrCodeE paramPathCheck();
+    private:
+        int m_private = 0;
     };
 
     class MediaServerAi : public MediaServerModuleBase {
