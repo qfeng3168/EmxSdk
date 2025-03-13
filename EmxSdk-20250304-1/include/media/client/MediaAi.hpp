@@ -21,6 +21,9 @@
 #include "media/common/MediaInfAiDataRegionalPeopleStatistics.hpp"
 #include "media/common/MediaInfAiDataBabyCryDetection.hpp"
 #include "media/common/MediaInfAiDataPtzTargetTrack.hpp"
+#include "media/common/MediaInfAiDataClassify.hpp"
+#include "media/common/MediaInfAiDataKeywordSpotting.hpp"
+#include "media/common/MediaInfAiDataFlameSmokeDetection.hpp"
 #include "media/common/MediaInfAi.hpp"
 #include "media/common/MediaRingBuffer.hpp"
 
