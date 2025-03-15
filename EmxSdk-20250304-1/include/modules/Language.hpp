@@ -1,12 +1,12 @@
-#ifndef EMX_LanguageVer_HPP
-#define EMX_LanguageVer_HPP
+#ifndef EMX_Language_HPP
+#define EMX_Language_HPP
 
 #include "EmxCore.hpp"
 
 namespace Emx {
 
     //!@brief 提供设备语言版本配置和获取
-    class LanguageVer {
+    class Language {
     public:
         //!@brief 语言类型定义
         enum class Type : int32_t {
@@ -30,10 +30,12 @@ namespace Emx {
             Thai,           //!< 泰文
             Polish,         //!< 波兰文
             Indonesian,     //!< 印尼文
-            Greek           //!< 希腊文
+            Greek,          //!< 希腊文
+            Siberian,       //!< 西伯利亚文
+            End,            //!< 标记语种枚举结尾（新增语种定义请在之前添加定义）
         };
     public:
-        LanguageVer() {
+        Language() {
             m_type = Type::Unknown;
         }
 
@@ -44,14 +46,14 @@ namespace Emx {
         ErrCodeE Load();
 
         /**
-         * @brief 获取语音类型
-         * @return 语言类型
+         * @brief 获取语种类型
+         * @return 语种类型
          */
         Type Get() { return m_type; }
 
         /**
-         * @brief 设置SN
-         * @param sn [in] SN
+         * @brief 设置语种类型
+         * @param type [in] 语种类型
          * @return ErrCodeE
          */
         ErrCodeE Set(const Type &type);
@@ -62,4 +64,4 @@ namespace Emx {
 
 }
 
-#endif //EMX_LanguageVer_HPP
+#endif //EMX_Language_HPP
