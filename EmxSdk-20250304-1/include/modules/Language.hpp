@@ -31,8 +31,8 @@ namespace Emx {
             Polish,         //!< 波兰文
             Indonesian,     //!< 印尼文
             Greek,          //!< 希腊文
-            Siberian,       //!< 西伯利亚文
-            End,            //!< 标记语种枚举结尾（新增语种定义请在之前添加定义）
+            Hebrew,         //!< 希伯来文
+            Butt,           //!< 标记语种枚举结尾（新增语种定义请在之前添加定义）
         };
     public:
         Language() {
