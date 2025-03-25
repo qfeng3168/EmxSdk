@@ -169,6 +169,8 @@ namespace Emx {
             virtual bool Get(int chn) { return false; }
 
             virtual int GetChnsNum() const { return 0; }
+            
+            virtual ErrCodeE SetLuma(int luma, int chn) { return ErrCodeE::OperationNotSupport; }
         };
 
         std::shared_ptr<Led> led;
