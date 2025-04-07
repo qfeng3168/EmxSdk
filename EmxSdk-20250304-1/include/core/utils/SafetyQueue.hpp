@@ -51,7 +51,7 @@ class SafetyQueue {
             if (clonedData == nullptr) {
                 return;
             }
-            m_queue.emplace_back(std::move(m_clonedCb(data)));
+            m_queue.emplace_back(std::move(clonedData));
 
             while ((int)m_queue.size() > m_total) {
                 if (m_freedCb != nullptr) {
