@@ -11,6 +11,7 @@
 #include <mutex>
 #include <condition_variable>
 #include <functional>
+#include <atomic>
 
 template<typename T>
 class SafetyQueue {
@@ -32,7 +33,7 @@ class SafetyQueue {
         SafetyQueue(int total = 3, 
             OnCloned clonedCb = nullptr, 
             OnFreed freedCb = nullptr) 
-            : m_total(total), m_clonedCb(clonedCb), m_freedCb(freedCb) {
+            : m_total(total), m_clonedCb(clonedCb), m_freedCb(freedCb), m_exit(false) {
         }
         
         ~SafetyQueue() {
@@ -78,11 +79,18 @@ class SafetyQueue {
         T Get() {
             std::unique_lock<std::mutex> locker(m_mtx);
             while (m_queue.empty()) {
-                // 队列为空的时候，线程阻塞等待队列非空状态唤醒。
+                // 队列为空的时候，线程阻塞等待队列非空状态唤醒。只有当原子位复位才退出等待
+                if (m_exit) {
+                    return nullptr;
+                }
                 std::shared_ptr<bool> is_empty = std::make_shared<bool>(true);
                 std::shared_ptr<std::condition_variable> cv = std::make_shared<std::condition_variable>();
                 m_waitQueue.emplace_back(std::make_pair(is_empty, cv));
-                cv->wait(locker, [is_empty]() { return !(*is_empty); });
+                cv->wait(locker, [is_empty, this]() { return !(*is_empty) || m_exit; });
+            }
+            // 处理stop退出场景，队列被清空的场景
+            if (m_exit && m_queue.empty()) {
+                return nullptr;
             }
             T data = std::move(m_queue.front());
             m_queue.pop_front();
@@ -116,6 +124,21 @@ class SafetyQueue {
         }
 
         /*!
+         * @brief 优雅安全退出Get操作线程等待阻塞 
+         * @return void
+         */
+        void Stop() {
+            std::unique_lock<std::mutex> locker(m_mtx);
+            m_exit = true;
+        
+            for (auto& wait : m_waitQueue) {
+                *(wait.first) = false;
+                wait.second->notify_one();
+            }
+            m_waitQueue.clear();
+        }
+
+        /*!
          * @brief 设置队列长度上限，默认为3 
          * @param total [in] 配置队列长度
          * @return void
@@ -132,6 +155,7 @@ class SafetyQueue {
         std::list<std::pair<std::shared_ptr<bool>, std::shared_ptr<std::condition_variable>>> m_waitQueue;
         OnCloned m_clonedCb;
         OnFreed m_freedCb;
+        std::atomic<bool> m_exit;
 };
 
 #endif // EMX_SAFETYQUEUE_HPP
