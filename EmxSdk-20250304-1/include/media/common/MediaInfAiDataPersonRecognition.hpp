@@ -50,6 +50,7 @@ namespace Emx {
             } behaviorType;
             KeyPoint keyPoints[32];//!<人体关键点
             int keyPointNums;      //!<人体关键点数量
+            int imgOff;//!<私有数据，记录内存偏移
         };
 
         void Alloc(int n) {
