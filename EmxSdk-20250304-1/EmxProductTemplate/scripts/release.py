@@ -49,12 +49,9 @@ firmware_version += "_" + env.product["devInfo"]["outer"]["version"]
 output = env.top + "/output/" + firmware_version
 os.system("mkdir -p " + output)
 
-# 将devInfo.json写入到output固件发布目录
-with open(output + "/devInfo.json", 'w+') as f:
-    json.dump(dev_info, f, indent=2, ensure_ascii=False)
-f.close()
 
 # 打包rom
+md5list=json.loads("[]")
 for rom in env.product["rom"]:
     dst_rom_file = output + "/" + firmware_version + "_" + rom["name"] + ".bin"
     utils.rom(env.product["cipher"]["key"],
@@ -66,7 +63,15 @@ for rom in env.product["rom"]:
               rom["imgs"],
               rom["pre_script"],
               rom["post_script"])
+    md5list.append(utils.Md5.file(dst_rom_file))
+dev_info_with_md5 = dev_info
+dev_info_with_md5["md5"] = md5list
+# 将devInfo.json写入到output固件发布目录
+with open(output + "/devInfo.json", 'w+') as f:
+    json.dump(dev_info_with_md5, f, indent=2, ensure_ascii=False)
+f.close()
 
 # 打包用于烧片的裸flash文件
 utils.flash(env.imgs, env.psp["partition"], output +
             "/" + firmware_version + "_RawFlash.bin")
+
