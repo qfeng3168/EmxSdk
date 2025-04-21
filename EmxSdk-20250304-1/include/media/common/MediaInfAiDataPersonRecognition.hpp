@@ -42,15 +42,23 @@ namespace Emx {
             uint32_t bottomsColor;//!<下装rgb颜色
             /*人的行为类型*/
             enum class BehaviorTypeE : uint32_t {
-                Standing, //!<站立
-                squatting,//!<蹲着
-                lying,    //!<躺着
-                running,  //!<跑
-                walking   //!<慢走
+                Standing,  //!<站立
+                Squatting, //!<蹲着
+                LieDown,   //!<躺倒/跌倒
+                Running,   //!<跑
+                Walk,      //!<慢走
+                Bend,      //!<弯腰
+                CrossArms, //!<交叉双臂
+                Wave1,     //!<挥单手
+                Wave2,     //!<挥双手
+                Loitering, //!<徘徊
+                Fighting,  //!<打架斗殴
+                PhoneUsage,//!<玩手机
+                Butt
             } behaviorType;
             KeyPoint keyPoints[32];//!<人体关键点
             int keyPointNums;      //!<人体关键点数量
-            int imgOff;//!<私有数据，记录内存偏移
+            int imgOff;            //!<私有数据，记录内存偏移
         };
 
         void Alloc(int n) {
