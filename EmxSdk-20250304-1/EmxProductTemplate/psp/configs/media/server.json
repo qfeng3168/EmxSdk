@@ -1,4 +1,5 @@
 {
   "ringBufferSizeKB": 1024,
-  "threadPoolSize": 8
+  "threadPoolSize": 8,
+  "beatTimeMs": 5000
 }

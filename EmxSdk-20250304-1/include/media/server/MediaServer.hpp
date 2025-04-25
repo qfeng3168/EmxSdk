@@ -44,6 +44,7 @@ namespace Emx {
         MediaServerCtx *m_ctx;
         MsgRpcRep m_resp;
         OnCreated m_cb;
+        EuvTimer m_timer;
     };
 }// namespace Emx
 
