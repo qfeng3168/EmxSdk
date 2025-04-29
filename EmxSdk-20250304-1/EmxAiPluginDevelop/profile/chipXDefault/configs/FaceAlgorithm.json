@@ -3,10 +3,16 @@
         "vpssGrp": 3,
         "vpssChn": 0,
         "vbId":6,
-        "snapModelPath": "scrfd_500m_bnkps_432_768.cvimodel",
-        "recognitionModelPath": "pipnet_mbv3_64_v5_cv181x_2.cvimodel",
+        "maskSupport":true,
+        "recognitionSupport":true,
+        "faceLibMax":1000,
+        "faceModelPath": "scrfd_500m_bnkps_432_768.cvimodel",
+        "snapModelPath": "pipnet_mbv3_64_v5_cv181x_2.cvimodel",
+        "recognitionModelPath": "cviface-v5-s.cvimodel",
         "personModelPath": "mobiledetv2-pedestrian-d1-ls.cvimodel",
         "maskModelPath": "mask_classifier.cvimodel",
-        "thresholdPerson": 0.5
+        "thresholdPerson": 0.5,
+        "thresholdFace": 0.5,
+        "thresholdRecognition": 0.7
     }
 ]

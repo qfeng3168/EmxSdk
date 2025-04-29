@@ -50,7 +50,10 @@ namespace Emx {
                 Black, //!<黑色
                 Green  //!<绿色
             } plateColor;
-            int plateLine;             //!<车牌行数，一般是1，个别车是2行
+            uint8_t plateScore; //!<车牌识别置信度0~100，值越大越准确
+            uint8_t score; //!<车辆置信度0~100,值越大越准确
+            uint8_t attrScore; //!<车辆属性置信度0~100,值越大越准确
+            uint8_t plateLine;             //!<车牌行数，一般是1，个别车是2行
             uint8_t plateNumber[2][32];//!<车牌号码，一行占用一个下标，统一UTF-8编码
             int imgOff;//!<私有数据，记录内存偏移
         };

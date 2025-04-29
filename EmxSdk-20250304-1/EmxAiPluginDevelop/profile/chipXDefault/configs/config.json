@@ -1,8 +1,15 @@
-{
-    "explain":"以下控制算法模块使用开关",
-    "MotionDetection":true,
-    "PersonDetection":true,
-    "CrossingInvasionComm":true,
-    "PassengerFlowStatistics":false,
-    "FaceAlgorithm":false       
-}
+[{
+	"MotionDetection":true,
+	"PersonDetection": true,
+	"InvasionDetection":false,
+	"CrossingDetection":false,
+	"PassengerFlowStatistics":false,
+	"RegionalPeopleStatistics":false,
+	"OffDutyDetection":false,
+	"FaceDetection":false,
+	"FaceRecognition":false,
+	"PersonVehicleNonDetection":false,
+	"VehicleRecognition":false,
+	"BabyCryDetection":false,
+	"PtzTargetTrack":false
+}]
