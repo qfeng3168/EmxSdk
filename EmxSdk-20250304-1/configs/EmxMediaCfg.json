@@ -16,7 +16,7 @@
     },
     {
       "name": "freetype",
-      "version": "2.4.10",
+      "version": "2.13.3",
       "include": ["freetype2"],
       "bin": [],
       "shared": []
