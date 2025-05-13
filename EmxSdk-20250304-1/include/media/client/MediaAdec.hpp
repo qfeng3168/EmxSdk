@@ -7,7 +7,7 @@
 
 #include "media/common/MediaInfAdec.hpp"
 #include "MediaParamCBase.hpp"
-
+#include "core/EmxUtils.hpp"
 namespace Emx {
     //!@brief 音频编码
     class MediaAdec : public MediaInfAdec, public MediaParamCBase<MediaInfAdec::Param> {
@@ -70,6 +70,55 @@ namespace Emx {
          */
         static ErrCodeE PlayCtrlQuit(int32_t chn, bool fullInterrupt = true, int32_t timeoutMs = 1000);
     };
-}
+    //!@brief 音频流解码异步接口,均为异步操作
+    class MediaAdecStreamAsync {
+    public:
+        /**
+         * @brief 创建异步音频解码流。
+         * 
+         * 该方法绑定到指定的事件循环，创建异步视频解码流。
+         * @param loop 要绑定的事件循环对象。
+         * @param buffSize 音频缓存区buffer大小，单位为字节。音频单包的最大值
+         * @return 操作结果，成功返回 ErrCodeE::Success，失败返回相应错误码。
+         */
+        ErrCodeE Create(EuvLoop &loop, uint32_t buffSize);
 
-#endif //EMX_MEDIAADEC_HPP
+        /**
+         * @brief 发送音频帧到媒体服务进行解码播放，这里发送的音频帧的编码格式需要与MediaClientAenc中配置的解码格式一致
+         * @param chn [in] 目的通道号
+         * @param frame [in] 与音频帧信息
+         * @return ErrCode
+         */
+        ErrCodeE PushFrame(int32_t chn, MediaAdec::Frame &frame);
+        /**
+         * @brief 发送Pcm音频帧到媒体服务直接播放
+         * @param chn [in] 目的通道号
+         * @param frame [in] 音频帧信息
+         * @return ErrCode
+         */
+        ErrCodeE PushRawPcm(int32_t chn, MediaAdec::Frame &frame);
+
+        /**
+         * @brief 销毁异步音频解码流。
+         */
+        void Destroy();
+
+    private:
+        /**
+         * @brief 发送音频帧到媒体服务进行解码播放，这里发送的音频帧的编码格式需要与MediaClientAenc中配置的解码格式一致
+         * @param topic [in] 目的订阅号
+         * @param frame [in] 与音频帧信息
+         * @return ErrCode
+         */
+        ErrCodeE PushData(uint32_t topic, MediaAdec::Frame &frame);
+
+    private:
+        MsgTopicPublisherAsync m_pub;//!< 异步消息主题发布器
+        int m_chn;                   //!< 解码通道号
+        uint8_t *m_buffer;           //!< 缓冲区
+        uint32_t m_bufferSize;       //!< 缓冲区大小
+        uint32_t m_userSize;         //!< 用户数据缓冲区大小
+    };
+}// namespace Emx
+
+#endif//EMX_MEDIAADEC_HPP
