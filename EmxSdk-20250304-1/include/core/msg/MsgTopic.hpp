@@ -137,6 +137,36 @@ namespace Emx {
     };
 
     /*!
+     * @brief 同步阻塞发布消息，分离socket的创建和销毁，用于需要同步频繁发布消息的场景
+     */
+    class MsgTopicPublisherSync2 {
+    public:
+        /*!
+         * @brief 创建发布连接
+         * @return ErrCodeE
+         */
+        ErrCodeE Create(int32_t timeoutMs = 3000);
+
+        /*!
+         * @brief 销毁发布连接
+         */
+        void Destroy();
+
+        /*!
+         * @brief 发送同步阻塞消息，比较耗时耗资源，尽量使用MsgTopicPublisherAsync异步请求
+         * @param topic [in] 消息的topic
+         * @param data [in] topic携带的数据
+         * @param size [in] topic携带数据的大小
+         * @param timeoutMs [in] 超时时间，默认1s
+         * @return ErrCodeE
+         */
+        ErrCodeE Publish(uint32_t topic, const char *data, int32_t size, int32_t timeoutMs = 3000);
+    private:
+        SocketUnStream m_sock;
+        char m_name[EMX_MAX_PATH_SIZE];
+    };
+
+    /*!
      * @brief 用于Topic的异步订阅
      */
     class MsgTopicSubscriberAsync : public EuvPipeClientBase {
