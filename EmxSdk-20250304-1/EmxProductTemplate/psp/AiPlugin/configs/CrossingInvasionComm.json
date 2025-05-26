@@ -1,8 +1,8 @@
 [
     {
-        "vpssGrp": 4,
-        "vpssChn": 0,
-        "vbId": -1,
+        "vpssGrp": 0,
+        "vpssChn": 2,
+        "vbId":4,
         "modelPath": "yolov8n_384_640_person_vehicle.cvimodel",
         "threshold": 0.7
     }

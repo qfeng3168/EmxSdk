@@ -1,9 +1,9 @@
 {
+  "legacy": false,
   "log": {
-    "output": false,
     "shared": {
       "async": false,
-      "level": 5
+      "level": 4
     },
     "normal": {
       "maxSizeKB": 128,
@@ -16,6 +16,7 @@
   },
   "param": {
     "normal": "/root/configs/normal",
-    "backup": "/root/configs/backup"
+    "backup": "/root/configs/backup",
+    "default": "/root/firmware/app/param"
   }
 }

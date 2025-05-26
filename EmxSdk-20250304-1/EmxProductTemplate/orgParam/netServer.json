@@ -1,0 +1,79 @@
+{
+  "main": "wifi",
+  "internetCheck": {
+    "intervalS": 864000,
+    "addr": {
+      "v4": [],
+      "v6": []
+    }
+  },
+  "dns": {
+    "manual": false,
+    "server": [],
+    "append": [
+      "223.5.5.5",
+      "223.6.6.6",
+      "2400:3200:baba::1",
+      "2400:3200::1"
+    ]
+  },
+  "dev": [
+    {
+      "name": "wifi",
+      "supported": true,
+      "interface": "wlan0",
+      "ena": true,
+      "mac": "",
+      "dhcp": true,
+      "ip4": "192.168.111.100",
+      "netmask4": "255.255.255.0",
+      "gateway4": "192.168.111.1",
+      "ip6": "",
+      "netmask6": "",
+      "gateway6": "",
+      "mtu": 1500,
+      "data": {
+        "mode": 2,
+        "ap": {
+          "ssid": "xiongTest",
+          "psk": "12345678",
+          "ip4": "192.168.222.1"
+        },
+        "sta": {
+          "ssid": "EMX_RD_2",
+          "psk": "12345678@emx"
+        }
+      }
+    },
+    {
+      "name": "eth",
+      "supported": false,
+      "interface": "eth0",
+      "ena": true,
+      "mac": "",
+      "dhcp": true,
+      "ip4": "192.168.111.100",
+      "netmask4": "255.255.255.0",
+      "gateway4": "192.168.111.1",
+      "ip6": "",
+      "netmask6": "",
+      "gateway6": "",
+      "mtu": 1500
+    },
+    {
+      "name": "mobile",
+      "supported": false,
+      "interface": "eth1",
+      "ena": true,
+      "mac": "",
+      "dhcp": true,
+      "ip4": "192.168.111.100",
+      "netmask4": "255.255.255.0",
+      "gateway4": "192.168.111.1",
+      "ip6": "",
+      "netmask6": "",
+      "gateway6": "",
+      "mtu": 1500
+    }
+  ]
+}

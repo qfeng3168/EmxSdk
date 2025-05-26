@@ -557,3 +557,35 @@ def parse_rom_info(file, aes_key, aes_iv):
         rom_info_json = json.loads(rom_data[4:rom_info_json_size + 4])
         print_info("rom_info_json = {}".format(
             json.dumps(rom_info_json, indent=2, ensure_ascii=False)))
+
+
+def partition_nand(imgs_dir,partition,out):
+    csv_part = open(out + "_partition" + ".csv","w+")
+    bin_part = open(out + "_partition" + ".bin","wb+")
+    part_offset = 0
+    for part in partition["partitionTable"]:
+        name = part["name"]
+        if "file" in part:
+            file_size = os.stat(imgs_dir + "/" + part["file"]).st_size
+        else:
+            file_size = 131072;
+        
+        part_size = img_size_str2int(part["size"])
+        if (part_size==0):
+            continue
+
+        if file_size > part_size:
+            print_err("{} img size {} > part size {}".format(name, file_size, part_size))
+            exit(-1)
+        file_size =  int((file_size+131071)/131072)
+        part_size =  int(part_size/ 131072) - 1
+        print_info("{} img size {}  part size {}".format(name, file_size, part_size))
+        
+        csv_part.write("%d, %d, %d, 0xFFFFFFFF\n" %(part_offset,part_size + part_offset,file_size));   
+        bin_part.write(part_offset.to_bytes(4, 'little'))
+        bin_part.write((part_size + part_offset).to_bytes(4, 'little'))
+        bin_part.write(file_size.to_bytes(4, 'little'))
+        bin_part.write(0xFFFFFFFF.to_bytes(4, 'little'))
+        part_offset += part_size+1
+    csv_part.close()
+    bin_part.close()

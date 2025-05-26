@@ -1,5 +1,5 @@
 {
-  "EmxSdkVersion": "EmxSdk-20231107-5",
+  "EmxSdkVersion": "EmxSdk-20250304-1",
   "devInfo": {
     "inner": {
       "type": "EP_CT_M4C7S3W0P0",
@@ -7,10 +7,11 @@
     },
     "outer": {
       "type": "EP20-CT-Dev",
-      "version": "0.0.2"
+      "version": "0.0.2",
+      "pack_type": "EP20-CT-Dev"
     },
     "hardware": {
-      "type": "EpCv182xGunV1",
+      "type": "EpX86GunV1",
       "version": "v1.0"
     }
   },
@@ -21,17 +22,9 @@
   "user": [
     {
       "name": "root",
-      "password": "Function001@eapil",
+      "password": "123456",
       "uid": "0",
       "gid": "0",
-      "comment": "root",
-      "home_directory": "/root"
-    },
-    {
-      "name": "admin",
-      "password": "admin",
-      "uid": "1",
-      "gid": "1",
       "comment": "root",
       "home_directory": "/root"
     }
@@ -88,9 +81,12 @@
     }
   ],
   "custom": {
-    "3drDepend": [
-    ],
+    "3drDepend": [ ],
     "fileDepend": [
+      {
+        "src": "orgConfigs/other/app_load_ko",
+        "dst": "firmware/app/drivers/loadko"
+      }
     ]
   }
 }

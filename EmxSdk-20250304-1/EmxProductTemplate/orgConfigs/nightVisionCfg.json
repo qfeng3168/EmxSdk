@@ -1,0 +1,61 @@
+{
+  "type comment": "normal(常规摄像头)/P42Like(全景球)",
+  "type": "normal",
+  "postSwitchTimeMs comment": "切换后摇，切换后延迟postSwitchTimeMs通知其他模块切换完成",
+  "postSwitchTimeMs": 500,
+  "normal comment": "以下为type=normal情况下的配置,如果type!=normal可以不包含normal字段",
+  "normal": {
+    "debounceCount": 5,
+    "ispChn": 0,
+    "adcChn": -1,
+    "channel": [
+      {
+        "isp": 0,
+        "irCut": 0,
+        "whiteLight": 0,
+        "irLight": 0
+      }
+    ],
+    "day2ir": {
+      "usingHard": false,
+      "soft": {
+        "iso": [1930, 1930, 1930, 1930, 1930, 1930, 1930, 1930, 1930]
+      },
+      "hard": [10, 11, 12, 13, 14, 15, 16, 17, 18]
+    },
+    "ir2day": {
+      "usingHard": false,
+      "soft": {
+        "iso": [345, 345, 345, 345, 345, 345, 345, 345, 345],
+        "redGain": [800, 800, 800, 800, 800, 800, 800, 800, 800],
+        "blueGain": [1114, 1114, 1114, 1114, 1114, 1114, 1114, 1114, 1114]
+      },
+      "hard": [85, 86, 87, 88, 89, 90, 91, 92, 93]
+    },
+    "day2color": {
+      "usingHard": false,
+      "soft": {
+        "iso": [1900, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 2000]
+      },
+      "hard": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    "color2day": {
+      "usingHard": false,
+      "soft": {
+        "isoMin": [336, 337, 338, 339, 340, 341, 342, 343, 344],
+        "isoMax": [896, 897, 898, 899, 900, 901, 902, 903, 904]
+      },
+      "hard": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    }
+  },
+  "2irDelay": 1500,
+  "2dayDelay": 500,
+  "antiShock": {
+    "ir2day": {
+      "enable": true,
+      "unlockTime": 3600,
+      "oscillationInterval": 60,
+      "switchCount": 10
+    }
+  }
+}

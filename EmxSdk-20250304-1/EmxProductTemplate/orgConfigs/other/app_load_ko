@@ -1,0 +1,6 @@
+#!/bin/sh
+# insmod 8188fu.ko
+#insmod hgics.ko fw_file=txw80x_lmac.bin
+# insmod MotorGpio.ko
+
+exit $?
