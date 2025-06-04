@@ -13,6 +13,7 @@
 #include <functional>
 #include <atomic>
 
+namespace Emx {
 template<typename T>
 class SafetyQueue {
     public:
@@ -157,5 +158,6 @@ class SafetyQueue {
         OnFreed m_freedCb;
         std::atomic<bool> m_exit;
 };
+}
 
 #endif // EMX_SAFETYQUEUE_HPP
