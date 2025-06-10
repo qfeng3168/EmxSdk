@@ -1,0 +1,11 @@
+[
+    {
+        "vpssGrp": 3,
+        "vpssChn": 0,
+        "vbId":6,
+        "threshold":0.6,
+        "vehiclePath": "mobiledetv2-vehicle-d0-ls.cvimodel",
+        "plateModelPath": "wpodnet_v0_bf16.cvimodel",
+        "plateReModelPath": "lprnet_v1_cn_bf16.cvimodel"
+    }
+]

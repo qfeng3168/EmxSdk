@@ -1,0 +1,21 @@
+[
+    {
+        "MotionDetection": {
+            "ena": [ true, false ],
+            "threshold": [ 0, 100 ] },
+        "PersonDetection": { "ena": [ true, false ] },
+        "CrossingDetection": {
+            "ena": [ true, false ],
+            "crossType": [ 0, 7 ],
+            "lineX1": [ 0, 10000 ],
+            "lineY1": [ 0, 10000 ],
+            "lineX2": [ 0, 10000 ],
+            "lineY2": [ 0, 10000 ],
+            "direction": [ 0, 1 ] },
+        "InvasionDetection": {
+            "ena": [ true, false ],
+            "invasionType": [ 0, 7 ], 
+            "map": [ 0, 1 ] },
+        "PassengerFlowStatistics": { "ena": [ true, false ] }
+    }
+]
