@@ -65,6 +65,8 @@ namespace Emx {
          */
         virtual void ReleaseOneFrame() = 0;
 
+        virtual ErrCodeE OnOffCtrl(bool onOff);    
+
     private:
         virtual void OnStream(void *arg);
 

@@ -23,6 +23,9 @@ namespace Emx {
                           //!<-1:关闭定时器长期休眠
                           //!<0或者<-1：无效值
                           //!<其他：休眠时间
+            int TargetLostTimeOutFps;//!<目标丢失超时帧率，单位帧率，
+                                     //!<0或者<-1：无效值
+                                     //!<其他：目标丢失超时帧率
         };
         //!@brief aov状态类型
         enum class AovStatusTypeE : uint8_t {
@@ -36,6 +39,7 @@ namespace Emx {
         enum class AovPushTypeE : uint8_t {
             SleepReady = 0,//!<休眠准备
             HighFrameRate, //!<高帧率状态
+            LowFrameRate,  //!<低帧率状态
         };
 
         /**

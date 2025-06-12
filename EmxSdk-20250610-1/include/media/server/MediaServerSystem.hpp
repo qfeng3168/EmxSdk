@@ -47,7 +47,7 @@ namespace Emx {
          * }
          * @return ErrCodeE
          */
-        virtual ErrCodeE OnGetChipInfo(Json::Value &info) = 0;
+        virtual ErrCodeE OnGetChipInfo(Json::Value &info);
 
     protected:
         Param m_param;

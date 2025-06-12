@@ -33,6 +33,12 @@ namespace Emx {
 
         ErrCodeE OnRecvReqChn(uint32_t method, const char *data, int32_t size, std::string &out) override;
 
+        /**
+         * @brief 推送ai触发消息
+         * @param trigger [in] 是否触发
+         * @return ErrCodeE
+         */
+        virtual ErrCodeE PushAiTrigger(bool trigger);
     protected:
         /**
          * @brief 更新aov状态
