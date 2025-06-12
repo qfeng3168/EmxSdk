@@ -64,12 +64,12 @@ namespace Emx {
         Snap = 7,
         QrScan = 8,
         Osd = 9,
-        Ai = 10,
-        Vi = 11,
-        Vdec = 12,
-        Vo = 13,
-        Draw = 14,
-        Aov = 15,
+        Vi = 10,
+        Vdec = 11,
+        Vo = 12,
+        Draw = 13,
+        Aov = 14,
+        Ai = 15,
     };
 }// namespace Emx
 #endif//EMX_MEDIATYPEDEF_HPP
