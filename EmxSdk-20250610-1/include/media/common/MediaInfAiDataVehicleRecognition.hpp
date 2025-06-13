@@ -21,12 +21,12 @@ namespace Emx {
 
     public:
         struct DataMsg {
-            MediaInfAiPic pic;//!<车辆抠图，根据配置参数决定是否有截图
+            MediaInfAiPic pic;     //!<车辆抠图，根据配置参数决定是否有截图
             MediaInfAiPic platePic;//!<车牌抠图，根据配置参数决定是否有截图
-            uint64_t id;      //!<目标车辆id
+            uint64_t id;           //!<目标车辆id
             uint64_t plateId;      //!<目标车牌id
-            Rect rect; //!<当前车辆位置信息
-            Rect plateRect; //!<当前车牌位置信息
+            Rect rect;             //!<当前车辆位置信息
+            Rect plateRect;        //!<当前车牌位置信息
             /*目标类型*/
             enum class TypeE : uint32_t {
                 LightCar,  //!<小型车
@@ -50,11 +50,16 @@ namespace Emx {
                 Black, //!<黑色
                 Green  //!<绿色
             } plateColor;
-            uint8_t plateScore; //!<车牌识别置信度0~100，值越大越准确
-            uint8_t score; //!<车辆置信度0~100,值越大越准确
-            uint8_t attrScore; //!<车辆属性置信度0~100,值越大越准确
-            uint8_t plateLine;             //!<车牌行数，一般是1，个别车是2行
-            uint8_t plateNumber[2][32];//!<车牌号码，一行占用一个下标，统一UTF-8编码
+            uint8_t score;               //!<车辆置信度0~100,值越大越准确
+            uint8_t attrScore;           //!<车辆属性置信度0~100,值越大越准确
+            uint8_t plateScore;          //!<车牌识别置信度0~100，值越大越准确
+            uint8_t plateLine;           //!<车牌行数，一般是1，个别车是2行
+            uint8_t plateNumber[2][32];  //!<车牌号码，一行占用一个下标，统一UTF-8编码
+            float plateAngleH;           //!<车牌水平方向角度
+            float plateAngleV;           //!<车牌垂直方向角度
+            float plateArea;             //!<车牌面积
+            float plateKeyPointsDistance;//!<车牌关键点距离
+
             int imgOff;//!<私有数据，记录内存偏移
         };
 
@@ -78,7 +83,6 @@ namespace Emx {
                         array[i].platePic.img = nullptr;
                         array[i].platePic.size = 0;
                     }
-                    
                 }
                 if ((fullPic.size > 0) && fullPic.img) {
                     free(fullPic.img);
@@ -93,7 +97,7 @@ namespace Emx {
             int totalImgSize = 0;
             totalImgSize += sizeof(MediaInfAiPic);
             totalImgSize += fullPic.size;
-            for (int i = 0; i < num; i++) { 
+            for (int i = 0; i < num; i++) {
                 totalImgSize += array[i].pic.size;
                 totalImgSize += array[i].platePic.size;
             }
@@ -106,9 +110,7 @@ namespace Emx {
             off += (int) sizeof(num);
             memcpy(buffer + off, &fullPic, sizeof(MediaInfAiPic));
             int fullImgOff = off + (int) sizeof(MediaInfAiPic);
-            if (fullPic.img && fullPic.size > 0) {
-                memcpy(buffer + fullImgOff, fullPic.img, fullPic.size);
-            }
+            if (fullPic.img && fullPic.size > 0) { memcpy(buffer + fullImgOff, fullPic.img, fullPic.size); }
             off += (fullPic.size + sizeof(MediaInfAiPic));
 
             int imgOff = off + num * (int) sizeof(DataMsg);
@@ -150,7 +152,8 @@ namespace Emx {
                     }
                     if (array[i].platePic.size) {
                         array[i].platePic.img = (uint8_t *) EP_MALLOC(array[i].platePic.size);
-                        if (array[i].platePic.img) memcpy(array[i].platePic.img, buffer + imgOff, array[i].platePic.size);
+                        if (array[i].platePic.img)
+                            memcpy(array[i].platePic.img, buffer + imgOff, array[i].platePic.size);
                     }
                 }
             }
