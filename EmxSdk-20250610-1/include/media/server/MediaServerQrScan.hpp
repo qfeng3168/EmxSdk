@@ -91,6 +91,8 @@ namespace Emx {
         Param m_param;
         Param m_paramNew;
         Param m_paramRunning;
+
+        int m_scanDelayMs;    //!<扫描延时，降低cpu使用
     };
 
     class MediaServerQrScan : public MediaServerModuleBase {
