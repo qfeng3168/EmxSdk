@@ -19,6 +19,9 @@ Publisher: tangfahong
     15.aov增加param： TargetLostTimeOutFps 。控制人形侦测丢失超时时间，超时会回到低帧率模式。AovPushTypeE枚举增加LowFrameRate 低帧率状态；增加 PushAiTrigger 虚函数
     16.修改部分纯虚函数为虚函数，降低编译差异
     17.调整media启动顺序，将ai放到最后
+    18.优化MediaModulesAll::GetModule接口，正确返回null
+    19.增加ms32006电机驱动
+
 ###################################################
 version: EmxSdk-20250304-1
 branch: master
