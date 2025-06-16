@@ -1096,18 +1096,24 @@ Size <span class="token function">GetChnPicSize</span><span class="token punctua
 </code></pre><p>  aov需要像应用层推送aov状态，目前支持的推送类型有：</p>
 <pre data-role="codeBlock" data-info="c++" class="language-cpp c++"><code><span class="token comment">//!@brief aov推送类型</span>
 <span class="token keyword keyword-enum">enum</span> <span class="token keyword keyword-class">class</span> <span class="token class-name">AovPushTypeE</span> <span class="token operator">:</span> <span class="token base-clause"><span class="token keyword keyword-uint8_t">uint8_t</span></span> <span class="token punctuation">{</span>
-    SleepReady <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token comment">//!&lt;休眠准备</span>
-    WakeUpState<span class="token punctuation">,</span><span class="token comment">//!&lt;唤醒状态</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>  
+    SleepReady <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token comment">//!&lt;休眠准备</span>
+    HighFrameRate<span class="token punctuation">,</span> <span class="token comment">//!&lt;高帧率状态</span>
+    LowFrameRate<span class="token punctuation">,</span>  <span class="token comment">//!&lt;低帧率状态</span>
+    UartData<span class="token punctuation">,</span>      <span class="token comment">//!&lt;uart数据</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre><p>  使用推送接口：</p>
-<pre data-role="codeBlock" data-info="c++" class="language-cpp c++"><code><span class="token comment">/**
- * @brief 推送aov消息
- * 需要mediaServer调用
- * @param type [in] 推送类型
- * @return ErrCodeE
- */</span>
-<span class="token keyword keyword-virtual">virtual</span> ErrCodeE <span class="token function">PushMessage</span><span class="token punctuation">(</span>AovPushTypeE type<span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
+<pre data-role="codeBlock" data-info="c++" class="language-cpp c++"><code><span class="token comment">/* @brief 推送aov消息
+* 需要mediaServer调用
+* @param type [in] 推送类型
+* @param data [in] 数据
+* @param dataSize [in] 数据大小
+* @return ErrCodeE
+*/</span>
+ErrCodeE <span class="token function">PushMessage</span><span class="token punctuation">(</span>AovPushTypeE type<span class="token punctuation">,</span><span class="token keyword keyword-char">char</span> <span class="token operator">*</span>data <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">,</span><span class="token keyword keyword-int">int</span> dataSize <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+</code></pre><p> 调用接口时应该指定父类空间：<br>
+  MediaServerAovChn::PushMessage(AovPushTypeE::HighFrameRate);</p>
+
       </div>
       <div class="md-sidebar-toc">
 <div class="md-toc">

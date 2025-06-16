@@ -56,7 +56,7 @@ namespace Emx {
          * @param dataSize [in] 数据大小
          * @return ErrCodeE
          */
-        virtual ErrCodeE PushMessage(AovPushTypeE type,char *data,int dataSize);
+        virtual ErrCodeE PushMessage(AovPushTypeE type,char *data = NULL,int dataSize = 0);
 
     protected:
         Param m_param;
