@@ -52,9 +52,11 @@ namespace Emx {
          * @brief 推送aov消息
          * 需要mediaServer调用
          * @param type [in] 推送类型
+         * @param data [in] 数据
+         * @param dataSize [in] 数据大小
          * @return ErrCodeE
          */
-        virtual ErrCodeE PushMessage(AovPushTypeE type);
+        virtual ErrCodeE PushMessage(AovPushTypeE type,char *data,int dataSize);
 
     protected:
         Param m_param;

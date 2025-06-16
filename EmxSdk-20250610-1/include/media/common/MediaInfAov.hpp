@@ -40,8 +40,14 @@ namespace Emx {
             SleepReady = 0,//!<休眠准备
             HighFrameRate, //!<高帧率状态
             LowFrameRate,  //!<低帧率状态
+            UartData,      //!<uart数据
         };
 
+        struct AovPushFrame {
+            AovPushTypeE type; //!<aov推送类型
+            int32_t size; //!<数据大小
+            uint8_t data[128]; //!<数据
+        };
         /**
          * @brief 更新aov状态
          * @param type [in] 状态类型

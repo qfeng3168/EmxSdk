@@ -28,7 +28,7 @@ namespace Emx {
         MediaAovMessage() : m_started(false) {}
 
         //!@brief 异步Aov消息接收回调函数
-        using OnGetInfoCallback = std::function<void(MediaInfAov::AovPushTypeE &type)>;
+        using OnGetInfoCallback = std::function<void(MediaInfAov::AovPushFrame &frame)>;
 
         /**
          * @brief 开始接收Aov消息数据

@@ -13,19 +13,19 @@ namespace Emx {
     public:
         //!@brief ISP运行模式
         enum class RunModeE : uint8_t {
-            Day, //!<白天模式
-            Night, //!<夜晚模式
-            NightWithLight, //!<白光夜视模式
-            User,  //!<用户自定义模式，应对特殊需求;
-                    //!<如果有多种特殊场景模式，可以将此定义的文件A.bin做成软连接到可读写分区B.bin;
-                    //!<切换场景时就替换可读写分区的B.bin,然后在下发模式;
-            UnDef //!<未定义
+            Day,           //!<白天模式
+            Night,         //!<夜晚模式
+            NightWithLight,//!<白光夜视模式
+            User,          //!<用户自定义模式，应对特殊需求;
+                           //!<如果有多种特殊场景模式，可以将此定义的文件A.bin做成软连接到可读写分区B.bin;
+                           //!<切换场景时就替换可读写分区的B.bin,然后在下发模式;
+            UnDef          //!<未定义
         };
 
         //!@brief 操作模式
         enum class OptModeE : uint8_t {
             Auto, //!<自动模式
-            Manual //!<手动模式
+            Manual//!<手动模式
         };
 
         //!@brief 曝光增益
@@ -41,31 +41,34 @@ namespace Emx {
 
         //!@brief ISP持久化参数
         struct Param {
-            OptModeE expMode; //!<曝光模式
-            ExpGainE autoMaxExpGain; //!<最大自动曝光增益
-            uint8_t compensation; //!<曝光补偿
-            ExpGainE manualExpGain; //!<手动曝光增益
-            int32_t expTime; //!<曝光时间
-            uint8_t brightness; //!<亮度
-            uint8_t sharpness; //!<锐度
-            uint8_t hue; //!<色度
-            uint8_t contrast; //!<对比度
-            uint8_t saturation; //!<饱和度
-            uint8_t deNoise; //!<降噪程度
-            OptModeE wbMode; //!<白平衡模式
-            uint8_t redGain; //!<手动白平衡下的红色增益
-            uint8_t blueGain; //!<手动白平衡下的蓝色增益
-            uint8_t antiFlickerHz; //!<抗闪烁频率
-            bool forceAntiFlickerEna; //!<强制抗闪烁使能
+            OptModeE expMode;        //!<曝光模式
+            uint8_t autoMaxExpGain;  //!<最大自动曝光增益 0~255
+            uint8_t compensation;    //!<曝光补偿
+            uint8_t manualExpGain;   //!<手动曝光增益 0~255
+            int32_t autoMaxExpTime;  //!<自动最大曝光时间us
+            int32_t expTime;         //!<手动曝光时间us
+            int32_t aeTarget;        //!<目标亮度 0~255
+            int32_t aeSpeed;         //!<ae调节速度 0~255
+            uint8_t brightness;      //!<亮度 0~100
+            uint8_t sharpness;       //!<锐度 0~100
+            uint8_t hue;             //!<色度 0~100
+            uint8_t contrast;        //!<对比度 0~100
+            uint8_t saturation;      //!<饱和度 0~100
+            uint8_t deNoise;         //!<降噪程度 0~100
+            OptModeE wbMode;         //!<白平衡模式
+            uint8_t redGain;         //!<手动白平衡下的红色增益
+            uint8_t blueGain;        //!<手动白平衡下的蓝色增益
+            uint8_t antiFlickerHz;   //!<抗闪烁频率
+            bool forceAntiFlickerEna;//!<强制抗闪烁使能
         };
 
         //!@brief ISP信息
         struct Info {
-            int chn; //!<通道号
-            int iso; //!<感光度，环境越暗值越大
+            int chn;     //!<通道号
+            int iso;     //!<感光度，环境越暗值越大
             int redGain; //!<红色增益，环境越暗值越大
-            int blueGain; //!<蓝色增益，环境越暗值越大
-            int luma; //!<亮度，画面越暗值越小
+            int blueGain;//!<蓝色增益，环境越暗值越大
+            int luma;    //!<亮度，画面越暗值越小
         };
 
         /**
@@ -83,6 +86,6 @@ namespace Emx {
         virtual ErrCodeE GetRunMode(RunModeE &mode) = 0;
     };
 
-}
+}// namespace Emx
 
-#endif //EMX_MediaInfIsp_HPP
+#endif//EMX_MediaInfIsp_HPP

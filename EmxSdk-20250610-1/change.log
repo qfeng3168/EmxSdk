@@ -21,7 +21,9 @@ Publisher: tangfahong
     17.调整media启动顺序，将ai放到最后
     18.优化MediaModulesAll::GetModule接口，正确返回null
     19.增加ms32006电机驱动
-
+    20.修复aovPush 数据类型在client中不匹配问题,优化AovPush接口PushMessage，支持返回结构体数据
+    21.isp模块增加autoMaxExpTime自动最大曝光时间us，aeTarget目标亮度，aeSpeed调节速度，修改autoMaxExpGain和manualExpGain为uint8_t 类型范围0~255
+    22.增加LK8209L电机和ircut驱动
 ###################################################
 version: EmxSdk-20250304-1
 branch: master

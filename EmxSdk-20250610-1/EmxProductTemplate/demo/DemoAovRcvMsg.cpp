@@ -19,8 +19,8 @@ public:
     }
 
 private:
-    void ProcAovMsg(MediaInfAov::AovPushTypeE type) {
-        switch (type) {
+    void ProcAovMsg(MediaInfAov::AovPushFrame &frame) {
+        switch (frame.type) {
             case MediaInfAov::AovPushTypeE::SleepReady: {
                 // 休眠准备,将需要休眠处理的接口休眠掉
                 emxlogi("Receive a aov message: SleepReady \n");
