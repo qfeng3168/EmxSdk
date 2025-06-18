@@ -26,6 +26,7 @@ Publisher: tangfahong
     22.增加LK8209L电机和ircut驱动
     23.修复老版本不兼容isp ExpGainE 问题
     24.qrServer.json 增加scanDelayMs 变量控制检测延时，优化cpu占用过高问题，如果cpu高就增大scanDelayMs
+    25.增加EMX_SDK_VERSION_CODE 和EMX_SDK_VERSION_VERIFY 方便版本判断
 ###################################################
 version: EmxSdk-20250304-1
 branch: master

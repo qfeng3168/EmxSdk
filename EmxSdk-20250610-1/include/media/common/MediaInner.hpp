@@ -48,7 +48,7 @@
 #define MEDIA_TOPIC_VDEC_RAW_FRAME (MEDIA_TOPIC_VDEC + 0x40)
 //aov
 #define MEDIA_TOPIC_AOV (MEDIA_SERVER_MSG_ID + 0xc00)
-#define MEDIA_TOPIC_AOV_PUSH (MEDIA_SERVER_MSG_ID + 0x10)
+#define MEDIA_TOPIC_AOV_PUSH (MEDIA_TOPIC_AOV + 0x10)
 
 namespace Emx {
     ////////////////RPC///////////////////

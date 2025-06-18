@@ -52,6 +52,7 @@ private:
             emxlogw("recv stream failed,type=%d,size=%d\n", frame.type, frame.size);
             return;
         }
+        emxlogi("recv stream ,type=%d,size=%d\n", frame.type, frame.size);
 
         //这里只会收到m_stream.Start的时候在channel中Add的帧类型+通道的帧
         if (frame.type == Emx::MediaFrame::TypeE::Venc) {
