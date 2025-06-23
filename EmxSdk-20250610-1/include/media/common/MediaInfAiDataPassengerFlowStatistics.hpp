@@ -10,6 +10,9 @@
 #include <cstring>
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfAiDataPassengerFlowStatistics : public MediaInfAiData {
     public:
@@ -30,6 +33,7 @@ namespace Emx {
     public:
         DataMsg msg;
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfAiDataPassengerFlowStatistics_HPP

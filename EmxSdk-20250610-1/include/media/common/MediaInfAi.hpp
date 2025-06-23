@@ -7,6 +7,9 @@
 
 #include "media/common/MediaTypedef.hpp"
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
     class MediaInfAi {
     public:
         /**
@@ -23,6 +26,7 @@ namespace Emx {
          */
         virtual ErrCodeE Ctrl(const Json::Value &in, Json::Value &out) = 0;
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfAi_HPP

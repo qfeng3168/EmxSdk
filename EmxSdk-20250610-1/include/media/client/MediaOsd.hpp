@@ -11,6 +11,9 @@
 #include <list>
 
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
     //!@brief OSD
     class MediaOsd : public MediaInfOsd, public MediaParamCBase<MediaInfOsd::Param> {
     public:
@@ -28,5 +31,6 @@ namespace Emx {
 
         ErrCodeE SetOsdContent(OsdContent *pInfo) override;
     };
+    /** @}*/
 }// namespace Emx
 #endif//EMX_MediaOSD_HPP

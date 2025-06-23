@@ -9,6 +9,9 @@
 #include "MediaParamCBase.hpp"
 
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
     //!@brief 图像抓拍
     class MediaSnap : public MediaInfSnap, public MediaParamCBase<MediaInfSnap::Param> {
     public:
@@ -16,6 +19,7 @@ namespace Emx {
 
         ErrCodeE Trigger(int32_t timeoutMs) override;
     };
+    /** @}*/
 }
 #endif //EMX_MediaSnap_HPP
 

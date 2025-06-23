@@ -8,6 +8,9 @@
 #include "EmxCore.hpp"
 
 namespace Emx {
+    /** @addtogroup bsp
+     *  @{
+     */
     //通道号为-1代表默认通道
     class Bsp {
     public:
@@ -188,6 +191,7 @@ namespace Emx {
 
         std::shared_ptr<UpdateIndicator> updateIndicator;
     };
+    /** @}*/
 }
 
 #endif //EMX_EmxBsp_HPP

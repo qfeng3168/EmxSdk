@@ -9,6 +9,9 @@
 #include <cstring>
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfAiDataKeywordSpotting : public MediaInfAiData {
     public:
@@ -45,6 +48,7 @@ namespace Emx {
     public:
         DataMsg msg;
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfAiDataKeywordSpotting_HPP

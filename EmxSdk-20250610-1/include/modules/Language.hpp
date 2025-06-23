@@ -4,6 +4,9 @@
 #include "EmxCore.hpp"
 
 namespace Emx {
+    /** @addtogroup comenv
+     *  @{
+     */
 
     //!@brief 提供设备语言版本配置和获取
     class Language {
@@ -26,7 +29,7 @@ namespace Emx {
 
         /**
          * @brief 设置语种类型
-         * @param type [in] 语种类型
+         * @param language [in] 语种类型
          * @return ErrCodeE
          */
         ErrCodeE Set(const char *language);
@@ -35,6 +38,7 @@ namespace Emx {
         char m_language[MaxLanguageSize];
     };
 
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_Language_HPP

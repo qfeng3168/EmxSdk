@@ -10,6 +10,9 @@
 #include "EuvStmServerBase.hpp"
 
 namespace Emx {
+    /** @addtogroup euv
+     *  @{
+     */
 
     //!@brief 以pipe为底层通信基础实现接口类EuvStreamInf，pipe的底层使用STREAM+AF_UNIX的方式进行通信。
     class EuvPipe : public EuvStreamInf {
@@ -134,6 +137,7 @@ namespace Emx {
         EuvPipe m_pipe;
     };
 
+    /** @}*/
 }
 
 

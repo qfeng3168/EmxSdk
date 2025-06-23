@@ -10,6 +10,9 @@
 #include "media/common/MediaInfIsp.hpp"
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
 
     class MediaServerIspChn : public MediaInfIsp, public MediaServerModuleChnBase {
     public:
@@ -61,6 +64,7 @@ namespace Emx {
     public:
         MediaServerIsp() : MediaServerModuleBase(MediaModE::Isp, "isp") {}
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerIsp_HPP

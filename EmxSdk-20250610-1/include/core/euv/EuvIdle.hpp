@@ -8,6 +8,9 @@
 #include "EuvLoop.hpp"
 
 namespace Emx {
+    /** @addtogroup euv
+     *  @{
+     */
 
     //!@brief 空闲回调，当loop处于空闲状态时会触发此事件
     class EuvIdle {
@@ -40,5 +43,6 @@ namespace Emx {
         uv_idle_t *m_idle;
         Callback m_cb;
     };
+    /** @}*/
 }
 #endif //EMX_EuvIdle_HPP

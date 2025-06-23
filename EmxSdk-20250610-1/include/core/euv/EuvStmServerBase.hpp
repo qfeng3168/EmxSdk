@@ -9,6 +9,9 @@
 #include "EuvStreamInf.hpp"
 
 namespace Emx {
+    /** @addtogroup euv
+     *  @{
+     */
     class EuvStmServerClientBase;
 
     /*!
@@ -188,6 +191,7 @@ namespace Emx {
         EuvStreamInf *m_stm;
         EuvStmServerHostBase *m_host;
     };
+    /** @}*/
 }
 
 #endif //EMX_EuvStmServerBase_HPP

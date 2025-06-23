@@ -10,6 +10,9 @@
 #include "media/common/MediaInfSnap.hpp"
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
 
     class MediaServerSnapChn : public MediaInfSnap, public MediaServerModuleChnBase {
     public:
@@ -69,6 +72,7 @@ namespace Emx {
     public:
         MediaServerSnap() : MediaServerModuleBase(MediaModE::Snap, "snap") {}
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerSnap_HPP

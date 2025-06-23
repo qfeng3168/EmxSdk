@@ -8,6 +8,9 @@
 #include <string>
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
 
     //!@brief Base64编解码
     class Base64 {
@@ -67,6 +70,7 @@ namespace Emx {
     };
 
 
+    /** @}*/
 }
 
 #endif //EMX_Base64_HPP

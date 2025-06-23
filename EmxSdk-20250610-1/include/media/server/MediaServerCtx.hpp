@@ -9,6 +9,9 @@
 #include <mutex>
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
     class MediaFactory;
 
     class MediaServerCtx {
@@ -49,6 +52,7 @@ namespace Emx {
         char m_scene[EMX_MAX_PATH_SIZE];
     };
 
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerCtx_HPP

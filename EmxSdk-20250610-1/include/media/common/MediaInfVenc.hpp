@@ -8,6 +8,9 @@
 #include "media/common/MediaTypedef.hpp"
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfVenc {
     public:
@@ -42,6 +45,7 @@ namespace Emx {
         virtual ErrCodeE FlushIDR() = 0;
     };
 
+    /** @}*/
 }
 
 #endif //EMX_MediaInfVenc_HPP

@@ -8,6 +8,9 @@
 #include "EmxCore.hpp"
 
 namespace Emx {
+    /** @addtogroup comenv
+     *  @{
+     */
 
     //!@brief 提供设备MAC地址的获取与配置
     class Mac {
@@ -41,6 +44,7 @@ namespace Emx {
         char m_mac[MaxMacSize];
     };
 
+    /** @}*/
 }
 
 #endif //EMX_Mac_HPP

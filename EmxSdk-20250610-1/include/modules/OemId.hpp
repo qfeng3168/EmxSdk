@@ -8,6 +8,9 @@
 #include "EmxCore.hpp"
 
 namespace Emx {
+    /** @addtogroup comenv
+     *  @{
+     */
 
     //!@brief 提供设备OemId的获取与配置
     class OemId {
@@ -41,6 +44,7 @@ namespace Emx {
         char m_oemId[MaxOemIdSize];
     };
 
+    /** @}*/
 }
 
 #endif //EMX_OemId_HPP

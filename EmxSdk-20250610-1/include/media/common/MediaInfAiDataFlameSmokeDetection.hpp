@@ -10,6 +10,9 @@
 #include <cstring>
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfAiDataFlameSmokeDetection : public MediaInfAiData {
     public:
@@ -62,6 +65,7 @@ namespace Emx {
         int num;
         DataMsg *array;
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfAiDataFlameSmokeDetection_HPP

@@ -10,6 +10,9 @@
 #include <vector>
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
     class MediaServerModuleBase;
 
     class MediaServerModuleChnBase {
@@ -32,7 +35,6 @@ namespace Emx {
 
         /**
          * @brief 销毁模块通道
-         * @return ErrCodeE
          */
         virtual void OnServerDestroy() { OnDestroy(); }
 
@@ -122,6 +124,7 @@ namespace Emx {
         std::vector<MediaServerModuleChnBase *> m_array;
     };
 
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerGlobalBase_HPP

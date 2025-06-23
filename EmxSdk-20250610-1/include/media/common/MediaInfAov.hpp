@@ -8,6 +8,9 @@
 #include "media/common/MediaTypedef.hpp"
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
     //!@brief Aov接口
     class MediaInfAov {
     public:
@@ -51,11 +54,11 @@ namespace Emx {
         /**
          * @brief 更新aov状态
          * @param type [in] 状态类型
-         * @param flag [in] 状态值
          * @return ErrCodeE
          */
         virtual ErrCodeE UpdateStatus(AovStatusTypeE type) = 0;
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfAov_HPP

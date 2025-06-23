@@ -9,6 +9,9 @@
 #include "EmxCore.hpp"
 
 namespace Emx {
+    /** @addtogroup update
+     *  @{
+     */
     class UpdateClient {
     public:
         UpdateClient() {
@@ -61,6 +64,7 @@ namespace Emx {
         MsgTopicSubscriberAsync m_sub;
         EventCallBack m_cb;
     };
+    /** @}*/
 };
 
 #endif //EMX_UpdateClient_HPP

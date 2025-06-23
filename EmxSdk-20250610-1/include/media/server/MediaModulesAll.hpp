@@ -9,6 +9,9 @@
 #include <map>
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
     class MediaServerModuleBase;
 
     class MediaModulesAll {
@@ -33,6 +36,7 @@ namespace Emx {
         std::map<MediaModE, MediaServerModuleBase *> m_moduleMap;
         bool m_created;
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaModulesAll_HPP

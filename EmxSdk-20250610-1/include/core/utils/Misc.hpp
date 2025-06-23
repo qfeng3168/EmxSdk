@@ -9,6 +9,9 @@
 #include "uv.h"
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
 
     //!未分类的各种操作接口
     class Misc {
@@ -106,6 +109,7 @@ namespace Emx {
             uv_ip6_addr(ip, port, addr);
         }
     };
+    /** @}*/
 }
 
 #endif //EMX_Misc_HPP

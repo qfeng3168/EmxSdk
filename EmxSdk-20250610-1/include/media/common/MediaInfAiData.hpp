@@ -9,6 +9,9 @@
 #include "media/common/MediaTypedef.hpp"
 #include "EmxCore.hpp"
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     struct MediaInfAiPic {
         enum class TypeE : uint8_t {
@@ -68,6 +71,7 @@ namespace Emx {
             int32_t off;         //!<ringbuffer偏移，用户不需要关心
         } header;
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfAiData_HPP

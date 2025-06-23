@@ -10,7 +10,11 @@
 #include <cstring>
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
     using MediaInfAiDataCrossingDetection = MediaInfAiDataPersonVehicleNonDetection;
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfAiDataCrossingDetection_HPP

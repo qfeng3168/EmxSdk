@@ -11,6 +11,9 @@
 #include "media/common/MediaTypedef.hpp"
 
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
 
     //!@brief MediaFrame数据接收基类
     class MediaStream {
@@ -196,6 +199,7 @@ namespace Emx {
     private:
         MsgTopicSubscriberSync m_sub;
     };
+    /** @}*/
 }
 
 #endif //EMX_MediaStream_HPP

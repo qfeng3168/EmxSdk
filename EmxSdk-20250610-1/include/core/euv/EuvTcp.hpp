@@ -10,6 +10,9 @@
 #include "EuvStmServerBase.hpp"
 
 namespace Emx {
+    /** @addtogroup euv
+     *  @{
+     */
 
     //!@brief 以tcp为底层通信基础实现接口类EuvStreamInf。
     class EuvTcp : public EuvStreamInf {
@@ -141,6 +144,7 @@ namespace Emx {
     private:
         EuvTcp m_tcp;
     };
+    /** @}*/
 }
 
 #endif //EMX_EUVTCP_HPP

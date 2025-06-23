@@ -8,6 +8,9 @@
 #include "EuvLoop.hpp"
 
 namespace Emx {
+    /** @addtogroup euv
+     *  @{
+     */
     /*!
      * @brief EuvPoll可以实现所有文件描述符的监听，可以实现读写和连接状态的监听，
      * 当某些描述符并不是文件或者socket或者描述符已经被打开的时候可以考虑使用这个，
@@ -61,6 +64,7 @@ namespace Emx {
         Callback m_cbWrite;
         Callback m_cbDisconnect;
     };
+    /** @}*/
 }
 
 

@@ -8,6 +8,9 @@
 #include "core/EmxTypeDef.hpp"
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
 
     //!@brief 执行外部命令
     class Cmd {
@@ -46,6 +49,7 @@ namespace Emx {
          */
         static ErrCodeE VforkRun(const char *cmd, ...);
     };
+    /** @}*/
 }
 
 #endif //EMX_Cmd_HPP

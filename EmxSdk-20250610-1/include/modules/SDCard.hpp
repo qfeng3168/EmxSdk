@@ -8,6 +8,9 @@
 #include "EmxCore.hpp"
 
 namespace Emx {
+    /** @addtogroup sdcard
+     *  @{
+     */
 
     //!@brief 提供操作设备SD卡相关接口
     class SDCard {
@@ -82,6 +85,7 @@ namespace Emx {
         int m_chn;
     };
 
+    /** @}*/
 }
 
 #endif //EMX_SDCard_HPP

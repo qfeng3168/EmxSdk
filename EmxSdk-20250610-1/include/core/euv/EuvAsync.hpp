@@ -9,6 +9,9 @@
 #include "EuvLoop.hpp"
 
 namespace Emx {
+    /** @addtogroup euv
+     *  @{
+     */
 
     //!@brief 实现基于Loop的异步事件通知
     class EuvAsync {
@@ -49,6 +52,7 @@ namespace Emx {
         std::mutex m_mutex;
         Callback m_cb;
     };
+    /** @}*/
 }
 
 

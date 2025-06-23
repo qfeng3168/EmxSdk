@@ -11,6 +11,9 @@
 #include "EmxCore.hpp"
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfAiDataPersonVehicleNonDetection : public MediaInfAiData {
     public:
@@ -118,6 +121,7 @@ namespace Emx {
         DataMsg *array;
         MediaInfAiPic fullPic;//背景图，根据配置决定是否有截图
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfAiDataPersonVehicleNonDetection_HPP

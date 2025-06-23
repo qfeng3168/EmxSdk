@@ -11,6 +11,9 @@
 #include "media/common/MediaRegion.hpp"
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
     class PanoQrPreProcess;
 
     class MediaServerQrScanChn : public MediaInfQrScan, public MediaServerModuleChnBase {
@@ -99,6 +102,7 @@ namespace Emx {
     public:
         MediaServerQrScan() : MediaServerModuleBase(MediaModE::QrScan, "qrScan") {}
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerQrScan_HPP

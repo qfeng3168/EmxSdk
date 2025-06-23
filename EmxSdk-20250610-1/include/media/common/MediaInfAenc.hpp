@@ -8,6 +8,9 @@
 #include "media/common/MediaTypedef.hpp"
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
     //!@brief 音频编码接口
     class MediaInfAenc {
     public:
@@ -45,6 +48,7 @@ namespace Emx {
          */
         virtual ErrCodeE OnOffCtrl(bool onOff) = 0;
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfAenc_HPP

@@ -8,6 +8,9 @@
 #include "EuvLoop.hpp"
 
 namespace Emx {
+    /** @addtogroup euv
+     *  @{
+     */
 
     //!@brief 基于EuvLoop的定时器，很有用的一个东西
     class EuvTimer {
@@ -63,6 +66,7 @@ namespace Emx {
         uv_timer_t *m_timer;
         Callback m_cb;
     };
+    /** @}*/
 }
 
 

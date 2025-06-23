@@ -13,6 +13,9 @@
 #include <list>
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
 
     class MediaServerDrawChn : public MediaInfDraw, public MediaServerModuleChnBase {
     public:
@@ -79,7 +82,7 @@ namespace Emx {
         /**
          * @brief 设置Draw画线框
          * @param id [in] 画线框id
-         * @param data [in] 画线框数据
+         * @param item [in] 画线框数据
          */
         virtual void DrawSetItem(const int id, ParamItem &item) {}
 
@@ -107,6 +110,7 @@ namespace Emx {
     public:
         MediaServerDraw() : MediaServerModuleBase(MediaModE::Draw, "draw") {}
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerDraw_HPP

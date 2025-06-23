@@ -10,6 +10,9 @@
 #include "EmxCore.hpp"
 
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
     //!@brief 视频输出
     class MediaAov : public MediaInfAov, public MediaParamCBase<MediaInfAov::Param> {
     public:
@@ -51,6 +54,7 @@ namespace Emx {
         OnGetInfoCallback m_cb;
         bool m_started;
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaAov_HPP

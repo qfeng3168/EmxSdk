@@ -8,6 +8,9 @@
 #include "media/common/MediaTypedef.hpp"
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfIsp {
     public:
@@ -91,6 +94,7 @@ namespace Emx {
         virtual ErrCodeE GetRunMode(RunModeE &mode) = 0;
     };
 
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfIsp_HPP

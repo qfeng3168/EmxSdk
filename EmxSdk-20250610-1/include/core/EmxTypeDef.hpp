@@ -22,6 +22,9 @@
 #define ph_8 std::placeholders::_8
 
 namespace Emx {
+    /** @addtogroup typeDef
+     *  @{
+     */
     //!@brief 错误码定义
     enum class ErrCodeE : int32_t {
         Success = 0, //!< 成功
@@ -50,6 +53,7 @@ namespace Emx {
         void *data;
         int size;
     };
+    /** @}*/
 }
 #endif //EMX_EmxTypeDef_HPP
 

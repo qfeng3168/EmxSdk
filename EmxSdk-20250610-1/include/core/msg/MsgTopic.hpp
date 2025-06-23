@@ -11,6 +11,9 @@
 #include "core/utils/Socket.hpp"
 
 namespace Emx {
+    /** @addtogroup msg
+     *  @{
+     */
 
     //!@brief 用于Topic通信的数据类型定义
     class MsgTopic {
@@ -288,6 +291,7 @@ namespace Emx {
         SocketUnStream m_sock;
         char m_path[EMX_MAX_PATH_SIZE];
     };
+    /** @}*/
 }
 
 #endif //EMX_MSGTOPIC_HPP

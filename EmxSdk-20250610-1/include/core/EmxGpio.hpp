@@ -8,6 +8,9 @@
 #include "core/EmxTypeDef.hpp"
 
 namespace Emx {
+    /** @addtogroup gpio
+     *  @{
+     */
     //!@brief 关于GPIO的通用操作，奇葩的控制方式可通过继承此类后重载实现
     class Gpio {
     public:
@@ -58,13 +61,6 @@ namespace Emx {
          */
         virtual ErrCodeE SetValue(ValueE value);
 
-//        /*!
-//         * @brief 强制配置GPIO的使能状态
-//         * @param value 使能/失能
-//         * @return ErrCodeE
-//         */
-//        virtual ErrCodeE SetValueForce(ValueE value);
-
         /*!
          * @brief 获取GPIO实际的使能状态
          * @return Value
@@ -109,6 +105,7 @@ namespace Emx {
         ValueE m_default;
         ValueE m_value;
     };
+    /** @}*/
 }
 
 #endif //EMX_EmxGpio_HPP

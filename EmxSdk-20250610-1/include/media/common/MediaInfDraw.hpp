@@ -9,6 +9,9 @@
 #include <vector>
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
     class MediaInfDraw {
     public:
         static const int RateBase = 10000; //!<偏移量比率基准
@@ -64,6 +67,7 @@ namespace Emx {
             std::vector<std::shared_ptr<ParamItem>> array;
         };
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfDraw_HPP

@@ -10,6 +10,9 @@
 #include <cstring>
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfAiDataVehicleRecognition : public MediaInfAiData {
     public:
@@ -164,6 +167,7 @@ namespace Emx {
         DataMsg *array;
         MediaInfAiPic fullPic;//背景图，根据配置决定是否有截图
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfAiDataVehicleRecognition_HPP

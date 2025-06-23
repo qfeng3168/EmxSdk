@@ -8,6 +8,9 @@
 #include "EmxCore.hpp"
 
 namespace Emx {
+    /** @addtogroup comenv
+     *  @{
+     */
 
     //!@brief 提供获取设备类型版本信息等相关的接口
     class DevInfo {
@@ -55,6 +58,7 @@ namespace Emx {
         Info m_outer;
         Info m_hardware;
     };
+    /** @}*/
 }
 
 #endif //EMX_DevInfo_HPP

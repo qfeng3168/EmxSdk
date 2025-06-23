@@ -9,6 +9,9 @@
 #include <functional>
 
 namespace Emx {
+    /** @addtogroup sdcard
+     *  @{
+     */
     class SDCardServer;
 
     class SDCardServerLib {
@@ -26,5 +29,6 @@ namespace Emx {
     private:
         SDCardServer *m_server;
     };
+    /** @}*/
 }
 #endif //EMX_SDCardServerLib_HPP

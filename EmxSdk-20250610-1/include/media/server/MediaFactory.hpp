@@ -8,6 +8,9 @@
 #include "media/common/MediaTypedef.hpp"
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
     class MediaServer;
 
     class MediaServerModuleChnBase;
@@ -85,6 +88,7 @@ namespace Emx {
 
         virtual MediaServerModuleChnBase *MakeAovChn(int32_t chn);
     };
+    /** @}*/
 }// namespace Emx
 
 

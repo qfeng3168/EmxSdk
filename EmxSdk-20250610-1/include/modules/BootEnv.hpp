@@ -9,6 +9,9 @@
 #include <map>
 
 namespace Emx {
+    /** @addtogroup bootenv
+     *  @{
+     */
 
     //!@brief 提供应用层读写uboot环境变量的接口
     class BootEnv {
@@ -52,6 +55,7 @@ namespace Emx {
 
         static void CheckCfgDir();
     };
+    /** @}*/
 }
 #endif //EMX_bootEnv_HPP
 

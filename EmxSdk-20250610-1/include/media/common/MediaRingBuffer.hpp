@@ -9,6 +9,9 @@
 #include "core/EmxUtils.hpp"
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     //!@brief 媒体环形共享缓冲区写类(注意：所有操作都是非线程安全的)
     class MediaRingBufferWriter {
@@ -67,7 +70,6 @@ namespace Emx {
         /**
          * @brief 关联一个缓冲区
          * @param key [in] 缓冲区的识别码
-         * @return ErrCodeE
          */
         void Create(int32_t key){Create(key,0);}
 
@@ -119,6 +121,7 @@ namespace Emx {
         char *m_buffer;
         int32_t m_bufferSize;
     };
+    /** @}*/
 }
 
 #endif //EMX_MediaRingBuffer_HPP

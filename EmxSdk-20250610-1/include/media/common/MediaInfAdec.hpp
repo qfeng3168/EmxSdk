@@ -8,6 +8,9 @@
 #include "media/common/MediaTypedef.hpp"
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     //!@brief 音频解码
     class MediaInfAdec {
@@ -56,6 +59,7 @@ namespace Emx {
          */
         virtual PlayStatusE GetPlayStatus() = 0;
     };
+    /** @}*/
 }
 
 #endif //EMX_MediaInfAdec_HPP

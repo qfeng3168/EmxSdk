@@ -10,10 +10,14 @@
 #include "MediaParamCBase.hpp"
 
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
     //!@brief 视频输入
     class MediaVi : public MediaInfVi, public MediaParamCBase<MediaInfVi::Param> {
     public:
         explicit MediaVi(int32_t chn) : MediaParamCBase(MediaModE::Vi, chn) {}
     };
+    /** @}*/
 }
 #endif //EMX_MediaVi_HPP

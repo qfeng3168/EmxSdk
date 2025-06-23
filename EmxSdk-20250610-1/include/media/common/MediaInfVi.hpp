@@ -8,6 +8,9 @@
 #include "media/common/MediaTypedef.hpp"
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
     //!@brief 音频编码接口
     class MediaInfVi {
     public:
@@ -18,6 +21,7 @@ namespace Emx {
             bool hide;  //!<是否遮挡显示
         };
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaViInf_HPP

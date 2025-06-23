@@ -9,6 +9,9 @@
 #include "MediaServerBase.hpp"
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
 
     class MediaServerSystemChn : public MediaInfSystem, public MediaServerModuleChnBase {
     public:
@@ -59,6 +62,7 @@ namespace Emx {
     public:
         MediaServerSystem() : MediaServerModuleBase(MediaModE::System, "system") {}
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerSystem_HPP

@@ -8,6 +8,9 @@
 #include "core/EmxUV.hpp"
 
 namespace Emx {
+    /** @addtogroup msg
+     *  @{
+     */
 
     //!@brief 用于MsgRpc通信的数据类型定义
     class MsgRpc {
@@ -193,5 +196,6 @@ namespace Emx {
         RecvReqCallback m_cbRecvReq;
         uint32_t m_clientId;
     };
+    /** @}*/
 }// namespace Emx
 #endif//EMX_MSGRPC_HPP

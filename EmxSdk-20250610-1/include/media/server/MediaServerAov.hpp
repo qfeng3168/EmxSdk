@@ -10,6 +10,9 @@
 #include "media/common/MediaInfAov.hpp"
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
 
     class MediaServerAovChn : public MediaInfAov, public MediaServerModuleChnBase {
     public:
@@ -68,6 +71,7 @@ namespace Emx {
     public:
         MediaServerAov() : MediaServerModuleBase(MediaModE::Aov, "aov") {}
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerAov_HPP

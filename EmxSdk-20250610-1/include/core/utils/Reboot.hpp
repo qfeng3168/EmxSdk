@@ -10,6 +10,9 @@
 
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
     class Reboot {
     public:
         /*!
@@ -40,6 +43,7 @@ namespace Emx {
         OnReboot m_cb;
     };
 
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_Reboot_HPP

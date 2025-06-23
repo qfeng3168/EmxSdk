@@ -8,6 +8,9 @@
 #include "media/common/MediaTypedef.hpp"
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfVdec {
     public:
@@ -24,6 +27,7 @@ namespace Emx {
         };
     };
 
+    /** @}*/
 }
 
 #endif //EMX_MediaInfVdec_HPP

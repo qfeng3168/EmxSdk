@@ -7,6 +7,9 @@
 #define EMX_SDCardUpdateLib_HPP
 
 namespace Emx {
+    /** @addtogroup sdcardupdate
+     *  @{
+     */
 
     class SDCardUpdate;
 
@@ -23,6 +26,7 @@ namespace Emx {
     private:
         SDCardUpdate *m_update;
     };
+    /** @}*/
 }
 
 #endif //EMX_SDCardUpdateLib_HPP

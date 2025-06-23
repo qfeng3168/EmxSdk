@@ -10,7 +10,11 @@
 #include <cstring>
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
     using MediaInfAiDataLicensePlateRecognition = MediaInfAiDataVehicleRecognition;
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfAiDataLicensePlateRecognition_HPP

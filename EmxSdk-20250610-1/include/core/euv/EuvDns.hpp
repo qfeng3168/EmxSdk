@@ -10,6 +10,9 @@
 #include "core/EmxTypeDef.hpp"
 
 namespace Emx {
+    /** @addtogroup euv
+     *  @{
+     */
 
     //!@brief 用于异步解析DNS
     class EuvDns {
@@ -74,6 +77,7 @@ namespace Emx {
         OnResolved m_cb;
         char m_server[EMX_MAX_PATH_SIZE];
     };
+    /** @}*/
 }
 
 #endif //EMX_EuvDns_HPP

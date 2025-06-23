@@ -51,6 +51,9 @@
 #define MEDIA_TOPIC_AOV_PUSH (MEDIA_TOPIC_AOV + 0x10)
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
     ////////////////RPC///////////////////
     //MediaServerMethod
     enum class MediaServerMethodE : uint32_t {
@@ -134,6 +137,7 @@ namespace Emx {
     };
 
     enum class MediaOsdMethodE : uint32_t { SetOsdContent = (uint32_t) MediaParamMethodE::Butt };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInner_HPP

@@ -8,6 +8,9 @@
 #include "EuvLoop.hpp"
 
 namespace Emx {
+    /** @addtogroup euv
+     *  @{
+     */
 
     //!@brief 基于EuvLoop的UDP异步接收发送类
     class EuvUdp {
@@ -139,5 +142,6 @@ namespace Emx {
         char *m_buffer;
         int32_t m_size;
     };
+    /** @}*/
 }// namespace Emx
 #endif//EMX_EUVUDP_HPP

@@ -11,6 +11,9 @@
 #include <queue>
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
     class AudioDecoder;
 
     class MediaServerAdecChn : public MediaInfAdec, public MediaServerModuleChnBase {
@@ -109,6 +112,7 @@ namespace Emx {
     public:
         MediaServerAdec() : MediaServerModuleBase(MediaModE::Adec, "adec") {}
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerAdec_HPP

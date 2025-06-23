@@ -8,6 +8,9 @@
 #include <cstdint>
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
 
     //!用于共享内存
     class Shm {
@@ -39,6 +42,7 @@ namespace Emx {
         int m_shmId;
         void *m_shmPtr;
     };
+    /** @}*/
 }
 
 #endif //EMX_Shm_HPP

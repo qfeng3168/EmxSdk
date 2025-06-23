@@ -10,6 +10,9 @@
 #include <memory>
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfOsd {
     public:
@@ -112,6 +115,7 @@ namespace Emx {
             std::vector<std::shared_ptr<ParamItem>> array;
         };
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfOsd_HPP

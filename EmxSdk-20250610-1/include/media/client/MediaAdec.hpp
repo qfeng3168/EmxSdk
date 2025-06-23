@@ -9,6 +9,9 @@
 #include "MediaParamCBase.hpp"
 #include "core/EmxUtils.hpp"
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
     //!@brief 音频编码
     class MediaAdec : public MediaInfAdec, public MediaParamCBase<MediaInfAdec::Param> {
     public:
@@ -182,6 +185,7 @@ namespace Emx {
         uint32_t m_bufferSize;       //!< 缓冲区大小
         uint32_t m_userSize;         //!< 用户数据缓冲区大小
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MEDIAADEC_HPP

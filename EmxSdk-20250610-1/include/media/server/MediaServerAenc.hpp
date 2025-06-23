@@ -10,6 +10,9 @@
 #include "media/common/MediaInfAenc.hpp"
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
     class AudioEncoder;
     class TimestampPtsToUtc;
 
@@ -95,6 +98,7 @@ namespace Emx {
     public:
         MediaServerAenc() : MediaServerModuleBase(MediaModE::Aenc, "aenc") {}
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerAenc_HPP

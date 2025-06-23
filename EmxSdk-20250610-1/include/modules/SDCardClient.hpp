@@ -10,6 +10,9 @@
 #include "SDCard.hpp"
 
 namespace Emx {
+    /** @addtogroup sdcard
+     *  @{
+     */
     //!@brief 操作设备SD卡的客户端接口
     class SDCardClient : public SDCard {
     public:
@@ -73,6 +76,7 @@ namespace Emx {
         SDCardInfoCallback m_cb;
         MsgTopicSubscriberAsync m_sub;
     };
+    /** @}*/
 }
 
 #endif //EMX_SDCardClient_HPP

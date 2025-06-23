@@ -9,6 +9,9 @@
 #include <semaphore.h>
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
 
     //!进程间同步信号量
     class Sem {
@@ -53,6 +56,7 @@ namespace Emx {
 
     };
 
+    /** @}*/
 }
 
 #endif //EMX_Sem_HPP

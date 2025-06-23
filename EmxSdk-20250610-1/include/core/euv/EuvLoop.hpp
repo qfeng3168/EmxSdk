@@ -10,6 +10,9 @@
 #include "core/EmxTypeDef.hpp"
 
 namespace Emx {
+    /** @addtogroup euv
+     *  @{
+     */
 
     //!@brief 实现多路复用循环的主体，所有基于EuvLoop的事件都应绑定到一个EuvLoop上
     class EuvLoop {
@@ -103,6 +106,7 @@ namespace Emx {
         ModeE m_mode;
         bool m_quit;
     };
+    /** @}*/
 }
 
 

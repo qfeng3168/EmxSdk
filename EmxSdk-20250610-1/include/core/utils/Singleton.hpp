@@ -13,6 +13,9 @@
 #include <mutex>
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
 
     template <typename T>
     class Singleton {
@@ -49,6 +52,7 @@ namespace Emx {
 
     template <typename T>
     std::unique_ptr<T> Singleton<T>::m_instance = nullptr;
+    /** @}*/
 }
 
 #endif //EMX_Singleton_HPP

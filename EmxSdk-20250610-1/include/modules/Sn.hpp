@@ -8,6 +8,9 @@
 #include "EmxCore.hpp"
 
 namespace Emx {
+    /** @addtogroup comenv
+     *  @{
+     */
 
     //!@brief 提供设备序列号的获取与配置
     class Sn {
@@ -41,6 +44,7 @@ namespace Emx {
         char m_sn[MaxSnSize];
     };
 
+    /** @}*/
 }
 
 #endif //EMX_Sn_HPP

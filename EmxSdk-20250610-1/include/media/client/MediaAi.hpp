@@ -24,11 +24,15 @@
 #include "media/common/MediaInfAiDataClassify.hpp"
 #include "media/common/MediaInfAiDataKeywordSpotting.hpp"
 #include "media/common/MediaInfAiDataFlameSmokeDetection.hpp"
+#include "media/common/MediaInfAiDataPersonRecognition.hpp"
 #include "media/common/MediaInfAi.hpp"
 #include "media/common/MediaRingBuffer.hpp"
 
 
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
     //!@brief AI
     class MediaAi : public MediaInfAi, public MediaParamCBase<Json::Value> {
     public:
@@ -58,6 +62,7 @@ namespace Emx {
 
         /**
          * @brief 通过OnGetInfoCallback获取到header之后可通过此函数接收实际的消息数据
+         * @param header [in] 通过OnGetInfoCallback获取到的header
          * @param data [in,out] AI消息头信息
          * @return ErrCodeE
          */
@@ -82,7 +87,9 @@ namespace Emx {
 
         /**
          * @brief 开始接收AI消息数据
-         * @param cb [in] 获取到数据后的回调函数,如不需要接收实际数据，可填nullptr
+         * @param loop [in] 运行的所在loop
+         * @param buffer [in] 运行使用的buffer
+         * @param size [in] 运行使用的buffer大小
          * @param cbInfo [in] 仅获取到消息头信息的回调函数(可选)
          * @return ErrCodeE
          */
@@ -121,7 +128,7 @@ namespace Emx {
 
         /**
          * @brief 获取消息头信息
-         * @param data [out] 获取到的消息头
+         * @param header [out] 获取到的消息头
          * @param timeoutMs [in] 超时时间
          * @return ErrCodeE
          */
@@ -131,5 +138,6 @@ namespace Emx {
         MsgTopicSubscriberSync m_sub;
     };
 
+    /** @}*/
 }// namespace Emx
 #endif//EMX_MediaAi_HPP

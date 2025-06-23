@@ -10,6 +10,9 @@
 
 
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
     class MediaParamCBaseImpl {
     public:
         static ErrCodeE SetParam(uint32_t model, int32_t chn, const void *param, int32_t size, int32_t timeoutMs);
@@ -105,5 +108,6 @@ namespace Emx {
         uint32_t m_modelId;
         int32_t m_chn;
     };
+    /** @}*/
 }// namespace Emx
 #endif//EMX_MediaParamCBase_HPP

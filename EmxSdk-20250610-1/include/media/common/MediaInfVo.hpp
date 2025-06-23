@@ -8,6 +8,9 @@
 #include "media/common/MediaTypedef.hpp"
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfVo {
     public:
@@ -17,6 +20,7 @@ namespace Emx {
             bool loopVi;    //!< 是否本地回环显示摄像头数据
         };
     };
+    /** @}*/
 }
 
 #endif //EMX_MediaInfVo_HPP

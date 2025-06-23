@@ -8,6 +8,9 @@
 #include <string>
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
     //!@brief 计算MD5
     class MD5 {
     public:
@@ -84,6 +87,7 @@ namespace Emx {
         static std::string Get(const char *path);
     };
 
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MD5_HPP

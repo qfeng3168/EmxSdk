@@ -10,6 +10,9 @@
 #include "EmxCore.hpp"
 
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
     //!@brief Isp
     class MediaIsp : public MediaInfIsp, public MediaParamCBase<MediaInfIsp::Param> {
     public:
@@ -50,6 +53,7 @@ namespace Emx {
         OnGetInfoCallback m_cb;
         bool m_started;
     };
+    /** @}*/
 }
 #endif //EMX_MediaIsp_HPP
 

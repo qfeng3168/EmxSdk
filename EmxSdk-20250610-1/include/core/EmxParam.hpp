@@ -11,6 +11,9 @@
 #include "core/EmxMsg.hpp"
 
 namespace Emx {
+    /** @addtogroup param
+     *  @{
+     */
     //!@brief 关于系统需要持久化保存的参数的相关操作
     class Param {
     public:
@@ -108,6 +111,7 @@ namespace Emx {
         OnParamMsgLinkCallback m_cbLink;
         MsgTopicSubscriberAsync m_sub;
     };
+    /** @}*/
 }
 #endif //EMX_EmxParam_HPP
 

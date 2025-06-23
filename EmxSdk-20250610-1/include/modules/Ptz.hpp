@@ -9,6 +9,9 @@
 #include "EmxCore.hpp"
 
 namespace Emx {
+    /** @addtogroup ptz
+     *  @{
+     */
     class MotorBase;
 
     class Ptz {
@@ -89,5 +92,6 @@ namespace Emx {
     private:
         MotorBase *m_motor;
     };
+    /** @}*/
 }
 #endif //EMX_Ptz_HPP

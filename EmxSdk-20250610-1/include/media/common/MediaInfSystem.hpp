@@ -8,6 +8,9 @@
 #include "media/common/MediaTypedef.hpp"
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
     //!@brief 系统接口
     class MediaInfSystem {
     public:
@@ -29,6 +32,7 @@ namespace Emx {
          */
         virtual ErrCodeE GetChipInfo(std::string &info) = 0;
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfSystem_HPP

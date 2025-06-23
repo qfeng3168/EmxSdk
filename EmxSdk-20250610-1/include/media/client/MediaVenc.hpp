@@ -9,6 +9,9 @@
 #include "MediaParamCBase.hpp"
 
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
     //!@brief 视频编码
     class MediaVenc : public MediaInfVenc, public MediaParamCBase<MediaInfVenc::Param> {
     public:
@@ -16,6 +19,7 @@ namespace Emx {
 
         ErrCodeE FlushIDR() override;
     };
+    /** @}*/
 }
 
 #endif //EMX_MediaVenc_HPP

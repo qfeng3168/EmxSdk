@@ -8,6 +8,9 @@
 #include "EuvLoop.hpp"
 
 namespace Emx {
+    /** @addtogroup euv
+     *  @{
+     */
 
     /**!
      * @brief 提供在EuvLoop内调用线程池执行阻塞耗时任务的机制
@@ -94,6 +97,7 @@ namespace Emx {
         bool m_isRunning;
     };
 
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_EuvWork_HPP

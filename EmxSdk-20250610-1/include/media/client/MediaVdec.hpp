@@ -10,6 +10,9 @@
 #include "media/common/MediaRingBuffer.hpp"
 
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
     /**
      * @brief 视频解码类，实现视频解码相关功能。
      * 
@@ -111,6 +114,7 @@ namespace Emx {
         int m_key;                   //!< 环形缓冲区的键值
         MediaRingBufferWriter m_ring;//!< 环形缓冲区写入器
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaVdec_HPP

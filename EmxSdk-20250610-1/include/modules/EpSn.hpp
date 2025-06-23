@@ -8,6 +8,9 @@
 #include "EmxCore.hpp"
 
 namespace Emx {
+    /** @addtogroup comenv
+     *  @{
+     */
 
     //!@brief 提供设备EpSn的获取与配置
     class EpSn {
@@ -32,7 +35,7 @@ namespace Emx {
 
         /**
          * @brief 设置EpSn
-         * @param sn [in] EpSn
+         * @param epSn [in] EpSn
          * @return ErrCodeE
          */
         ErrCodeE Set(const char *epSn);
@@ -41,6 +44,7 @@ namespace Emx {
         char m_epSn[MaxEpSnSize];
     };
 
+    /** @}*/
 }
 
 #endif //EMX_EpSn_HPP

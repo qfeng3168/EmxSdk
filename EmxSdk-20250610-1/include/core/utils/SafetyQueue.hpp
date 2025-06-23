@@ -14,6 +14,9 @@
 #include <atomic>
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
 template<typename T>
 class SafetyQueue {
     public:
@@ -44,7 +47,6 @@ class SafetyQueue {
         /*!
          * @brief put数据到队列
          * @param data [in] 数据模板 
-         * @return void
          * @note 等待队列非空的时候，通知唤醒解锁等待get操作。
          */
         void Put(const T& data) {
@@ -109,7 +111,6 @@ class SafetyQueue {
 
         /*!
          * @brief 清除队列 
-         * @return void
          */
         void Clear() {
             std::unique_lock<std::mutex> locker(m_mtx);
@@ -126,7 +127,6 @@ class SafetyQueue {
 
         /*!
          * @brief 优雅安全退出Get操作线程等待阻塞 
-         * @return void
          */
         void Stop() {
             std::unique_lock<std::mutex> locker(m_mtx);
@@ -142,7 +142,6 @@ class SafetyQueue {
         /*!
          * @brief 设置队列长度上限，默认为3 
          * @param total [in] 配置队列长度
-         * @return void
          */
         void SetTotal(int total) {
             std::unique_lock<std::mutex> locker(m_mtx);
@@ -158,6 +157,7 @@ class SafetyQueue {
         OnFreed m_freedCb;
         std::atomic<bool> m_exit;
 };
+    /** @}*/
 }
 
 #endif // EMX_SAFETYQUEUE_HPP

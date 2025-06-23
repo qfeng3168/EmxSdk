@@ -8,7 +8,11 @@
 #include "MediaInfAiDataMotionDetection.hpp"
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
     using MediaInfAiDataPersonDetection = MediaInfAiDataMotionDetection;
+    /** @}*/
 }
 
 #endif//EMX_MediaInfAiPersonDetection_HPP

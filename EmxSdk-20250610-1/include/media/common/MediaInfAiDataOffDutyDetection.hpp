@@ -10,6 +10,9 @@
 #include <cstring>
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfAiDataOffDutyDetection : public MediaInfAiData {
     public:
@@ -30,6 +33,7 @@ namespace Emx {
     public:
         DataMsg msg;
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfAiDataOffDutyDetection_HPP

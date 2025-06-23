@@ -9,6 +9,9 @@
 #include <cstring>
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfAiDataPtzTargetTrack : public MediaInfAiData {
     public:
@@ -37,6 +40,7 @@ namespace Emx {
     public:
         DataMsg msg;
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfAiDataPtzTargetTrack_HPP

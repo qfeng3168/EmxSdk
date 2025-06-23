@@ -8,6 +8,9 @@
 #include "core/EmxTypeDef.hpp"
 
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
 
     //!@brief 控制媒体服务整体的启停
     class MediaSystem {
@@ -59,6 +62,7 @@ namespace Emx {
         static ErrCodeE GetChipInfo(std::string &info);
     };
 
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaSystem_HPP

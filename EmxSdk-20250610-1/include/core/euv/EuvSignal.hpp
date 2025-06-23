@@ -8,6 +8,9 @@
 #include "EuvLoop.hpp"
 
 namespace Emx {
+    /** @addtogroup euv
+     *  @{
+     */
 
     //!@brief 实现基于Loop的异步事件通知
     class EuvSignal {
@@ -49,5 +52,6 @@ namespace Emx {
         uv_signal_t *m_signal;
         Callback m_cb;
     };
+    /** @}*/
 }// namespace Emx
 #endif//EMX_EUVSIGNAL_HPP

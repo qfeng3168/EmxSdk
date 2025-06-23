@@ -11,6 +11,9 @@
 #define EMX_AUDIO_MAX_FRAME_SIZE 2048
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
     //!@brief 视频编码类型
     enum class VideoCodecE : uint8_t {
         H264 = 0,//!<H264编码
@@ -71,5 +74,6 @@ namespace Emx {
         Aov = 14,
         Ai = 15,
     };
+    /** @}*/
 }// namespace Emx
 #endif//EMX_MEDIATYPEDEF_HPP

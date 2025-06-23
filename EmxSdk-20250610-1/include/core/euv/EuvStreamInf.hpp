@@ -8,6 +8,9 @@
 #include "EuvLoop.hpp"
 
 namespace Emx {
+    /** @addtogroup euv
+     *  @{
+     */
 
     //It's the abstract interface for stream-like interfaces eg. pipe/tcp
     //!@brief 面向链接类型的抽象接口(例如tcp/pipe)，用于为EuvStmClientBase/EuvStmServerHostBase等提供统一的底层通信接口
@@ -85,6 +88,7 @@ namespace Emx {
          */
         virtual bool IsReceiving() = 0;
     };
+    /** @}*/
 }
 
 

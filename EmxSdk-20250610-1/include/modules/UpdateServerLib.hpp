@@ -7,6 +7,9 @@
 #define EMX_UpdateServerLib_HPP
 
 namespace Emx {
+    /** @addtogroup update
+     *  @{
+     */
 
     class UpdateServer;
 
@@ -23,6 +26,7 @@ namespace Emx {
     private:
         UpdateServer *m_server;
     };
+    /** @}*/
 }
 
 #endif //EMX_UpdateServerLib_HPP

@@ -9,6 +9,9 @@
 #include "json/json.h"
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
 
     //!@brief Json相关操作
     class EasyJson {
@@ -32,6 +35,7 @@ namespace Emx {
         /*!
          * @brief 解析json数据
          * @param data [in] json字符串
+         * @param size [in] json字符串的长度
          * @param json [out] 存储json数据
          * @return ErrCodeE
          */
@@ -53,6 +57,7 @@ namespace Emx {
          */
         static ErrCodeE Serialize(const Json::Value &json, std::string &jsonStr);
     };
+    /** @}*/
 }
 
 #endif //EMX_EasyJson_HPP

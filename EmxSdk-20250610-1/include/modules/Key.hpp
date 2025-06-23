@@ -9,6 +9,9 @@
 #include "Bsp.hpp"
 
 namespace Emx {
+    /** @addtogroup key
+     *  @{
+     */
 
     class Key {
     public:
@@ -43,6 +46,7 @@ namespace Emx {
         int m_pressTime;
     };
 
+    /** @}*/
 }
 
 #endif //EMX_Key_HPP

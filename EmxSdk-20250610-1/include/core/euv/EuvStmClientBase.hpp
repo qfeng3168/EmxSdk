@@ -9,6 +9,9 @@
 #include "EuvStreamInf.hpp"
 
 namespace Emx {
+    /** @addtogroup euv
+     *  @{
+     */
     /*!
      * @brief 面向连接的socket通信Client端基类，实现了这种类型客户端的创建销毁发送接收，
      * 内部使用EuvStreamInf抽象接口作为底层通信接口，实际实现客户端的时候，需要传入继承EuvStreamInf的实例
@@ -122,6 +125,7 @@ namespace Emx {
         int32_t m_size;
         EuvStreamInf *m_stm;
     };
+    /** @}*/
 }
 
 #endif //EMX_EUVSTMCLIENTBASE_HPP

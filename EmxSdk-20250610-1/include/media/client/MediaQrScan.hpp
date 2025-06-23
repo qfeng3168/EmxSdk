@@ -11,6 +11,9 @@
 #include "core/EmxUV.hpp"
 
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
     //!@brief 二维码扫描
     class MediaQrScan : public MediaInfQrScan, public MediaParamCBase<MediaInfQrScan::Param> {
     public:
@@ -51,6 +54,7 @@ namespace Emx {
         MsgTopicSubscriberAsync m_sub;
         OnGetResult m_cb;
     };
+    /** @}*/
 }
 
 #endif //EMX_MediaQRScan_HPP

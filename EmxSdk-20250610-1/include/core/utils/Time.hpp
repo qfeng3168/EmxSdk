@@ -10,6 +10,9 @@
 #include <mutex>
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
 
     //!时间相关函数
     class Time {
@@ -80,6 +83,7 @@ namespace Emx {
         uint64_t m_timeStart;
     };
 
+    /** @}*/
 }
 
 #endif //EMX_Time_HPP

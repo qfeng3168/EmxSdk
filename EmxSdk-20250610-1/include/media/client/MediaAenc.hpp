@@ -9,6 +9,9 @@
 #include "MediaParamCBase.hpp"
 
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
     //!@brief 音频编码
     class MediaAenc : public MediaInfAenc, public MediaParamCBase<MediaInfAenc::Param> {
     public:
@@ -20,5 +23,6 @@ namespace Emx {
 
         ErrCodeE OnOffCtrl(bool onOff) override;
     };
+    /** @}*/
 }// namespace Emx
 #endif//EMX_MediaAenc_HPP

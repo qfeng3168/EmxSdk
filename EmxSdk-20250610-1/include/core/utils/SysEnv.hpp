@@ -8,6 +8,9 @@
 #include "core/EmxTypeDef.hpp"
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
 
     class SysEnv {
     public:
@@ -75,6 +78,7 @@ namespace Emx {
          */
         static std::string GetCfgFilePath(const char *fmt, ...);
     };
+    /** @}*/
 }
 
 #endif //EMX_SysEnv_HPP

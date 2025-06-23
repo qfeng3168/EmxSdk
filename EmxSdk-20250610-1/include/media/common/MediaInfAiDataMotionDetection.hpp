@@ -10,6 +10,9 @@
 #include <cstring>
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfAiDataMotionDetection : public MediaInfAiData {
     public:
@@ -54,6 +57,7 @@ namespace Emx {
         int num;
         Rect *array;
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaInfAiMotionDetection_HPP

@@ -14,6 +14,9 @@
 #define EMX_LOG_MAX_SIZE (1024*4)
 
 namespace Emx {
+    /** @addtogroup log
+     *  @{
+     */
 
     //!@brief日志系统客户端
     class Log {
@@ -152,6 +155,7 @@ namespace Emx {
         int m_shmId;
         void *m_shm;
     };
+    /** @}*/
 }  // namespace Emx
 //!每个进程的全局日志系统客户端对象
 extern Emx::Log emxLog;

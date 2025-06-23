@@ -11,6 +11,9 @@
 #include <string>
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
 
     //!@brief 用于数据的AES CBC模式的加解密
     class AES_CBC {
@@ -53,14 +56,16 @@ namespace Emx {
          * @param v [in] data
          * @param n [in] data num
          * @param key [out] TEA key
+         * @param delta [in] delta 默认使用m_delta
          */
         static void Encrypt(uint32_t *v, int n, const uint32_t key[4] = m_teaKey, uint32_t delta = m_delta);
 
         /*!
          * @brief 使用teaKey解码出aes的key和iv
-         * @param tea [in] TEA key
-         * @param key [out] AES key
-         * @param iv [out] AES iv
+         * @param v [in] data
+         * @param n [in] data num
+         * @param key [out] TEA key
+         * @param delta [in] delta 默认使用m_delta
          */
         static void Decrypt(uint32_t *v, int n, const uint32_t key[4] = m_teaKey, uint32_t delta = m_delta);
     };
@@ -109,6 +114,7 @@ namespace Emx {
 
         static void Decode(const std::string &base64, uint8_t *key, uint8_t *iv);
     };
+    /** @}*/
 }
 
 #endif //EMX_Crypto_HPP

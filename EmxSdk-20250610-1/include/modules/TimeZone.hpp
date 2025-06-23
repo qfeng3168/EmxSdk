@@ -9,6 +9,9 @@
 #include "EmxCore.hpp"
 
 namespace Emx {
+    /** @addtogroup comenv
+     *  @{
+     */
 
     class TimeZone {
     public:
@@ -43,7 +46,6 @@ namespace Emx {
         /*!
          * @brief 获取时区文件列表
          * @param list [out] 获取时区列表
-         * @return 时区文件名
          */
         void GetZoneList(std::vector<std::string> &list);
 
@@ -105,6 +107,7 @@ namespace Emx {
         static ErrCodeE Load(ZoneParam &param);
         static ErrCodeE GenerateLocaltime(const ZoneParam &param);
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_TimeZone_HPP

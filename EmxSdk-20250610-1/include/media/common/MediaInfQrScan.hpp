@@ -8,6 +8,9 @@
 #include "media/common/MediaTypedef.hpp"
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfQrScan {
     public:
@@ -29,6 +32,7 @@ namespace Emx {
         virtual ErrCodeE Stop() = 0;
     };
 
+    /** @}*/
 }
 
 #endif //EMX_MediaInfQrScan_HPP

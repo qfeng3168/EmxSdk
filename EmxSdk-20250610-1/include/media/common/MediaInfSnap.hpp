@@ -8,6 +8,9 @@
 #include "media/common/MediaTypedef.hpp"
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
 
     class MediaInfSnap {
     public:
@@ -25,6 +28,7 @@ namespace Emx {
          */
         virtual ErrCodeE Trigger(int32_t timeoutMs) = 0;
     };
+    /** @}*/
 }
 
 #endif //EMX_MediaInfSnap_HPP

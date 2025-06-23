@@ -11,6 +11,9 @@
 #include "media/common/MediaRingBuffer.hpp"
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
 
     class MediaServerVdecChn : public MediaInfVdec, public MediaServerModuleChnBase {
     public:
@@ -83,6 +86,7 @@ namespace Emx {
     public:
         MediaServerVdec() : MediaServerModuleBase(MediaModE::Vdec, "vdec") {}
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerVdec_HPP

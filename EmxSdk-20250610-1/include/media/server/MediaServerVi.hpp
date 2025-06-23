@@ -10,6 +10,9 @@
 #include "media/common/MediaInfVi.hpp"
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
 
     class MediaServerViChn : public MediaInfVi, public MediaServerModuleChnBase {
     public:
@@ -41,6 +44,7 @@ namespace Emx {
     public:
         MediaServerVi() : MediaServerModuleBase(MediaModE::Vi, "vi") {}
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerVi_HPP

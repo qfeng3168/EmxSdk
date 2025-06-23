@@ -8,6 +8,9 @@
 #include <cstdint>
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
 
     //!CRC32校验
     class Crc {
@@ -25,6 +28,7 @@ namespace Emx {
         static const uint32_t tab[];
     };
 
+    /** @}*/
 }
 
 #endif //EMX_Crc_HPP

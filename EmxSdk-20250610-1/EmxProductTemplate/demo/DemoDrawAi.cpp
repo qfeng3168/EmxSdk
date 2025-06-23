@@ -21,9 +21,9 @@ public:
 
 private:
     void ProcAiData(MediaInfAiData::Header &header) {
-        emxlogd("header type: %d,size=%d\n", header.type, header.size);
+        emxlogd("header type: %d,chn=%d,size=%d\n", header.type,header.chn, header.size);
         MediaInfDraw::Param drawDefPms = {};
-        MediaDraw draw(0);
+        MediaDraw draw(header.chn==0?0:2);
         switch (header.type) {
             case MediaInfAiData::TypeE::MotionDetection: {
                 // 处理移动侦测消息
@@ -266,6 +266,39 @@ private:
                             fwrite(data.array[i].platePic.img, 1, data.array[i].platePic.size, fp);
                             fclose(fp);
                         }
+                    }
+                }
+                break;
+            }
+            case MediaInfAiData::TypeE::PersonRecognition: {
+                // 处理人侦测消息
+                MediaInfAiDataPersonRecognition data;
+                if (m_ai.GetDataByInfo(header, &data) != ErrCodeE::Success) break;
+                emxlogd("MediaInfAiDataPersonRecognition data num: %d\n", data.num);
+                for (int i = 0; i < data.num; i++) {
+                    emxlogi("[%d]x=%d,y=%d,w=%d,h=%d\n", i, data.array[i].rect.x, data.array[i].rect.y, data.array[i].rect.w,
+                            data.array[i].rect.h);
+                    std::shared_ptr<MediaInfDraw::ParamItem> item = std::make_shared<MediaInfDraw::ParamItem>();
+                    item->ena = true;
+                    item->color = 0xffff00ff;
+                    item->thickness = 2;
+                    item->type = MediaInfDraw::TypeE::Rect;
+                    item->rect.fill = 0;
+                    item->rect.x = data.array[i].rect.x * 10000 / header.srcPicSize.w;
+                    item->rect.y = data.array[i].rect.y * 10000 / header.srcPicSize.h;
+                    item->rect.width = data.array[i].rect.w * 10000 / header.srcPicSize.w;
+                    item->rect.height = data.array[i].rect.h * 10000 / header.srcPicSize.h;
+                    drawDefPms.array.emplace_back(item);
+                }
+                if(data.fullPic.img!=nullptr && data.fullPic.size>0){
+                    std::string fileName = "/mnt/nfs/output/";
+                    fileName += "Person_";
+                    fileName += std::to_string(Time::GetMs());
+                    fileName += ".jpg";
+                    FILE *fp = fopen(fileName.c_str(), "wb+");
+                    if (fp) {
+                        fwrite(data.fullPic.img, 1, data.fullPic.size, fp);
+                        fclose(fp);
                     }
                 }
                 break;

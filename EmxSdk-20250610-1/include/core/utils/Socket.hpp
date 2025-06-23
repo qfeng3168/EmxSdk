@@ -10,6 +10,9 @@
 #include <sys/un.h>
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
 
     //!socket操作接口
     class Socket {
@@ -103,6 +106,7 @@ namespace Emx {
 
         static void MakeAddr(sockaddr_un &un, const char *path);
     };
+    /** @}*/
 }
 
 #endif //EMX_Socket_HPP

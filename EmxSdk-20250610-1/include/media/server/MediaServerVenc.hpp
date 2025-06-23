@@ -10,6 +10,9 @@
 #include "media/common/MediaInfVenc.hpp"
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
     class TimestampPtsToUtc;
 
     class MediaServerVencChn : public MediaInfVenc, public MediaServerModuleChnBase {
@@ -88,6 +91,7 @@ namespace Emx {
     public:
         MediaServerVenc() : MediaServerModuleBase(MediaModE::Venc, "venc") {}
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerVenc_HPP

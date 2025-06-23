@@ -10,7 +10,11 @@
 #include <cstring>
 
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
     using MediaInfAiDataInvasionDetection = MediaInfAiDataPersonVehicleNonDetection;
+    /** @}*/
 }
 
 #endif//EMX_MediaInfAiDataInvasionDetection_HPP

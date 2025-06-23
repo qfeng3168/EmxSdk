@@ -10,6 +10,9 @@
 #include "media/common/MediaInfVo.hpp"
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
 
     class MediaServerVoChn : public MediaInfVo, public MediaServerModuleChnBase {
     public:
@@ -68,6 +71,7 @@ namespace Emx {
     public:
         MediaServerVo() : MediaServerModuleBase(MediaModE::Vo, "vo") {}
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerVo_HPP

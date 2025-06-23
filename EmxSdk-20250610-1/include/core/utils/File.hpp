@@ -8,6 +8,9 @@
 #include "core/EmxTypeDef.hpp"
 
 namespace Emx {
+    /** @addtogroup utils
+     *  @{
+     */
 
     //!@brief 文件操作相关函数
     class File {
@@ -40,6 +43,7 @@ namespace Emx {
         static ErrCodeE Write(const char *path, const char *buffer, int size);
     };
 
+    /** @}*/
 }
 
 #endif //EMX_File_HPP

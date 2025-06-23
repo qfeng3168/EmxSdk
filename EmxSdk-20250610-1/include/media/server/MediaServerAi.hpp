@@ -12,6 +12,9 @@
 #include "media/common/MediaRingBuffer.hpp"
 #include "media/server/EmxAiPlugin.h"
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
     class MediaAiJob {
     public:
         using OnCallBack = std::function<void(void *arg)>;
@@ -41,6 +44,7 @@ namespace Emx {
 
         /**
          * @brief 算法创建
+         * @param workspace [in] 上层传给ai的配置文件路径
          * @param param [in] 插件通道参数
          */
         virtual void Create(const char *workspace, Json::Value &param) {}
@@ -121,6 +125,7 @@ namespace Emx {
         bool m_created;
     };
 
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerAi_HPP

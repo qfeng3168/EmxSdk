@@ -5,6 +5,9 @@
 #ifndef EMX_MediaRegion_HPP
 #define EMX_MediaRegion_HPP
 namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
     /**二维平面上的一个点 */
     struct EpPoint {
         unsigned short x;//!< 点的 x 坐标，使用 16 位无符号整数表示
@@ -74,6 +77,7 @@ namespace Emx {
     //
     //        static bool HitMap(Size &srcSize, Rect &rect, Map &map);
     //    };
+    /** @}*/
 }// namespace Emx
 #endif//EMX_MediaRegion_HPP
 /*好好写代码，不然会被妈妈打

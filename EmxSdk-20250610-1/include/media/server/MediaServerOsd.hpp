@@ -17,6 +17,9 @@
 class OutlineOsd;
 
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
 
     class MediaServerOsdChn : public MediaInfOsd, public MediaServerModuleChnBase {
     public:
@@ -285,7 +288,9 @@ namespace Emx {
         /**
          * @brief 带换行字符串切割，返回bitmap
          * 根据指定字符串来分割原始字符串，并直接创建位图
-         * @param paramText [in]被分割字符串对象
+         * @param text [in]被分割字符串对象
+         * @param w [out]重组之后的bitmap宽
+         * @param h [out]重组之后的bitmap高
          * @return 返回位图数据
          */
         uint8_t *TextWrapLine(OsdItem &text, int *w, int *h);
@@ -295,6 +300,7 @@ namespace Emx {
     public:
         MediaServerOsd() : MediaServerModuleBase(MediaModE::Osd, "osd") {}
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MediaServerOsd_HPP

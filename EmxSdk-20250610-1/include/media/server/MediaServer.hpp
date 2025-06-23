@@ -9,6 +9,9 @@
 #include "media/common/MediaTypedef.hpp"
 #include "media/server/MediaServerBase.hpp"
 namespace Emx {
+    /** @addtogroup media-server
+     *  @{
+     */
     class MediaServerCtx;
 
     class MediaFactory;
@@ -46,6 +49,7 @@ namespace Emx {
         OnCreated m_cb;
         EuvTimer m_timer;
     };
+    /** @}*/
 }// namespace Emx
 
 #endif//EMX_MEDIASERVER_HPP

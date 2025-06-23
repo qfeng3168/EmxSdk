@@ -12,6 +12,9 @@
 #include <list>
 
 namespace Emx {
+    /** @addtogroup media-client
+     *  @{
+     */
     //!@brief Draw
     class MediaDraw : public MediaInfDraw, public MediaParamCBase<MediaInfDraw::Param> {
     public:
@@ -27,5 +30,6 @@ namespace Emx {
 
         ErrCodeE GetRunningParam(Param &param) override;
     };
+    /** @}*/
 }// namespace Emx
 #endif//EMX_MediaOSD_HPP
