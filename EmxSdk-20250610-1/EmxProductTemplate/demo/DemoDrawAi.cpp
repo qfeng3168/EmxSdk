@@ -9,9 +9,17 @@ using namespace Emx;
 // 异步AI消息获取示例，调用方式与获取实时流类似
 class Ai {
 public:
-    void Create(EuvLoop &loop) {
+    void Create(EuvLoop &loop,char *dir) {
         // AI的获取不需要配置监听类型和通道，默认监听所有通道
         m_ai.Start(&loop, m_buffer, (int) sizeof(m_buffer), std::bind(&Ai::ProcAiData, this, ph_1));
+
+        if(dir){
+            isRecored = true;
+            strcpy(imgDir,dir);
+            if(access(imgDir,F_OK)){
+                mkdir(imgDir,0777);
+            }
+        }
     }
 
     void Destroy() {
@@ -135,7 +143,7 @@ private:
                             data.array[i].h);
                     std::shared_ptr<MediaInfDraw::ParamItem> item = std::make_shared<MediaInfDraw::ParamItem>();
                     item->ena = true;
-                    item->color = 0xffff00ff;
+                    item->color = 0xff00FFff;
                     item->thickness = 2;
                     item->type = MediaInfDraw::TypeE::Rect;
                     item->rect.fill = 0;
@@ -152,10 +160,9 @@ private:
                 MediaInfAiDataFaceRecognition data;
                 if (m_ai.GetDataByInfo(header, &data) != ErrCodeE::Success) return;
                 emxlogd("face recognition data num: %d\n", data.num);
-                if (access("/tmp/faceImg", F_OK)) { mkdir("/tmp/faceImg/", 777); }
-                if (data.fullPic.size > 0 && data.fullPic.img) {
-                    std::string fileName = "/tmp/faceImg/";
-                    fileName += "full";
+                if (isRecored && data.fullPic.size > 0 && data.fullPic.img) {
+                    std::string fileName = imgDir;
+                    fileName += "face_full";
                     fileName += std::to_string(Time::GetMs());
                     fileName += ".jpg";
                     FILE *fp = fopen(fileName.c_str(), "wb+");
@@ -179,8 +186,9 @@ private:
                     item->rect.height = data.array[i].rect.h * 10000 / header.srcPicSize.h;
                     drawDefPms.array.emplace_back(item);
 
-                    if (data.array[i].pic.size > 0 && data.array[i].pic.img) {
-                        std::string fileName = "/tmp/faceImg/";
+                    if (isRecored && data.array[i].pic.size > 0 && data.array[i].pic.img) {
+                        std::string fileName = imgDir;
+                        fileName += "face_";
                         fileName += std::to_string(Time::GetMs());
                         fileName += "_";
                         fileName += std::to_string(i);
@@ -199,11 +207,9 @@ private:
                 MediaInfAiDataVehicleRecognition data;
                 if (m_ai.GetDataByInfo(header, &data) != ErrCodeE::Success) return;
                 emxlogd("Vehicle recognition data num: %d\n", data.num);
-                std::string vehicleDir = "/tmp/vehicleImg/";
-                if (access(vehicleDir.c_str(), F_OK)) { mkdir(vehicleDir.c_str(), 777); }
-                if (data.fullPic.size > 0 && data.fullPic.img) {
-                    std::string fileName = vehicleDir;
-                    fileName += "full";
+                if (isRecored && data.fullPic.size > 0 && data.fullPic.img) {
+                    std::string fileName = imgDir;
+                    fileName += "rcf_full";
                     fileName += std::to_string(Time::GetMs());
                     fileName += ".jpg";
                     FILE *fp = fopen(fileName.c_str(), "wb+");
@@ -230,10 +236,11 @@ private:
                         drawDefPms.array.emplace_back(item);
                     }
 
-                    if (data.array[i].pic.size > 0 && data.array[i].pic.img) {
-                        std::string fileName = vehicleDir;
+                    if (isRecored && data.array[i].pic.size > 0 && data.array[i].pic.img) {
+                        std::string fileName = imgDir;
+                        fileName += "Vehicle_";
                         fileName += std::to_string(Time::GetMs());
-                        fileName += "_Vehicle_";
+                        fileName += "_";
                         fileName += std::to_string(i);
                         fileName += ".jpg";
                         FILE *fp = fopen(fileName.c_str(), "wb+");
@@ -242,7 +249,7 @@ private:
                             fclose(fp);
                         }
                     }
-                    if (data.array[i].platePic.size > 0 && data.array[i].platePic.img) {
+                    if (isRecored && data.array[i].platePic.size > 0 && data.array[i].platePic.img) {
                          {
                             std::shared_ptr<MediaInfDraw::ParamItem> item = std::make_shared<MediaInfDraw::ParamItem>();
                             item->ena = true;
@@ -256,9 +263,10 @@ private:
                             item->rect.height = data.array[i].plateRect.h * 10000 / header.srcPicSize.h;
                             drawDefPms.array.emplace_back(item);
                         }
-                        std::string fileName = vehicleDir;
+                        std::string fileName = imgDir;
+                        fileName += "plate_";
                         fileName += std::to_string(Time::GetMs());
-                        fileName += "_plate_";
+                        fileName += "_";
                         fileName += std::to_string(i);
                         fileName += ".jpg";
                         FILE *fp = fopen(fileName.c_str(), "wb+");
@@ -290,8 +298,8 @@ private:
                     item->rect.height = data.array[i].rect.h * 10000 / header.srcPicSize.h;
                     drawDefPms.array.emplace_back(item);
                 }
-                if(data.fullPic.img!=nullptr && data.fullPic.size>0){
-                    std::string fileName = "/mnt/nfs/output/";
+                if(isRecored && data.fullPic.img!=nullptr && data.fullPic.size>0){
+                    std::string fileName = imgDir;
                     fileName += "Person_";
                     fileName += std::to_string(Time::GetMs());
                     fileName += ".jpg";
@@ -312,16 +320,18 @@ private:
 private:
     MediaAiDataRecvAsync m_ai;
     char m_buffer[256];
+    char imgDir[128];
+    bool isRecored = false;
 };
 
-int main() {
+int main(int argc,char **argv) {
     EuvLoop loop;// 定义一个loop用于所有事件的监听
     Ai demo = {};// 定义demo对象
     // loop取名为Ai，当loop销毁时执行demo.Destroy()
     loop.Init("Ai", [&]() { demo.Destroy(); }, Emx::EuvLoop::Dynamic);
 
     //创建
-    demo.Create(loop);
+    demo.Create(loop,argv[1]);
 
     // loop启动
     loop.Start();

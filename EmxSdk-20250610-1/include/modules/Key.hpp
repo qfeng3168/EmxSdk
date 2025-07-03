@@ -15,7 +15,7 @@ namespace Emx {
 
     class Key {
     public:
-        static const int DetectInterval = 100; //100ms
+        static const int DetectInterval = 50; //50ms
         enum class EventE : uint8_t {
             Click,
             LongPress,

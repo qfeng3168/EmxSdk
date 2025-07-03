@@ -36,6 +36,10 @@ namespace Emx {
             VideoFrameFailed,        //!<完整视频帧获取失败
             TargetTrigger,           //!<目标触发（人形侦测触发）
             TargetLost,              //!<目标丢失（人形侦测丢失）
+            EnterSleep,              //!<进入休眠状态
+            HighFrameMode,           //!<高帧率模式
+            LowFrameMode,            //!<低帧率模式
+            StopFrame,               //!<停止推流
         };
 
         //!@brief aov推送类型
@@ -44,6 +48,7 @@ namespace Emx {
             HighFrameRate, //!<高帧率状态
             LowFrameRate,  //!<低帧率状态
             UartData,      //!<uart数据
+            WakeUp,        //!<设备被唤醒
         };
 
         struct AovPushFrame {
