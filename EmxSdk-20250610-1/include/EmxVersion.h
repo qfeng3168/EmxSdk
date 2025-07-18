@@ -1,1 +1,1 @@
-#ifndef EMX_EmxVersion_H#define EMX_EmxVersion_H#define EMX_SDK_VERSION "20250717-2"#define EMX_SDK_VERSION_CODE (2025071702)#define EMX_SDK_VERSION_VERIFY(a,b) (a*100+b)#endif //EMX_EmxVersion_H
+#ifndef EMX_EmxVersion_H#define EMX_EmxVersion_H#define EMX_SDK_VERSION "20250718-1"#define EMX_SDK_VERSION_CODE (2025071801)#define EMX_SDK_VERSION_VERIFY(a,b) (a*100+b)#endif //EMX_EmxVersion_H
