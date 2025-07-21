@@ -44,6 +44,7 @@ namespace Emx {
             //!@brief LogServer存储通道的配置信息
             struct Channel {
                 int32_t maxSizeKB;//-1:means infinity
+                int32_t maxNum;//日志缓存文件最大数量
                 char path[EMX_MAX_PATH_SIZE];
             } normal, flash;
         };
