@@ -1,0 +1,9 @@
+[
+    {
+        "vpssGrp": 4,
+        "vpssChn": 0,
+        "vbId":5,
+        "modelPath": "yolov8n_headperson_kpt_cv181x.cvimodel",
+        "threshold": 0.6
+    }
+]
