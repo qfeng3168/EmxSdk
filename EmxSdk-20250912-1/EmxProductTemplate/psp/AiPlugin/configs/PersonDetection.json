@@ -1,0 +1,9 @@
+[
+    {
+        "vpssGrp": 3,
+        "vpssChn": 0,
+        "modelId": 18,
+        "modelPath": "mobiledetv2-pedestrian-d0-ls-448.cvimodel",
+        "threshold": 0.6
+    }
+]

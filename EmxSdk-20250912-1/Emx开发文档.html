@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>跳转到EMX文档</title>
+</head>
+<body>
+    <script>
+        function tryRedirect() {
+            const httpUrl = 'http://emx.eapil.com';
+            const httpsUrl = 'https://emx.eapil.com';
+            const testImg = new Image();
+            // time out 3s
+            testImg.timeout = 3000;
+            // HTTP call back succeed
+            testImg.onload = function() {
+                window.location.href = httpUrl;
+            };
+            // HTTP call back failed
+            testImg.onerror = function() {
+                // HTTPS try
+                window.location.href = httpsUrl;
+            };
+            // call back time out
+            testImg.ontimeout = function() {
+                // HTTPS try
+                window.location.href = httpsUrl;
+            };
+            // try http link
+            testImg.src = 'http://emx.eapil.com/logo.png?' + new Date().getTime();
+        }
+        tryRedirect();
+    </script>
+</body>
+</html>
+    
