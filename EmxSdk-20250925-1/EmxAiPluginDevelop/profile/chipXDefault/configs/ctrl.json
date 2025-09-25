@@ -1,0 +1,41 @@
+{
+	"all comment": "以下是ctl接口json的demo,每个接口单独使用",
+	"faceRegister comment": "人脸注册",
+	"faceRegister": [
+		{
+			"id": 0,
+			"isImg": false
+		},
+		{
+			"id": 1,
+			"isImg": true,
+			"path": "/tmp/face.jpg"
+		}
+	],
+	"faceUnregister comment": "人脸注销，填写注销id",
+	"faceUnregister": [ 0, 1 ],
+
+	"syncLibrary comment": "人脸数据库同步",
+	"syncLibrary": [
+		{
+			"id": 2,
+			"feature": "base64(feature)"
+		}
+	],
+	"motionDetection comment": "移动侦测控制暂停",
+	"motionDetection": {
+		"pause": false
+	},
+
+	"passengerFlowStatistics comment": "客流统计清空计数",
+	"passengerFlowStatistics": {
+		"clear": true
+	},
+	"ptzTargetTrack comment": "移动追踪控制参数",
+	"ptzTargetTrack": {
+		"ptzInit comment": "应用层电机初始化完成后通知算法",
+		"ptzInit": true,
+		"pause comment": "是否暂停追踪",
+		"pause": false
+	}
+}
