@@ -1,0 +1,15 @@
+[{
+	"MotionDetection":true,
+	"PersonDetection": true,
+	"InvasionDetection":false,
+	"CrossingDetection":false,
+	"PassengerFlowStatistics":false,
+	"RegionalPeopleStatistics":false,
+	"OffDutyDetection":false,
+	"FaceDetection":false,
+	"FaceRecognition":false,
+	"PersonVehicleNonDetection":false,
+	"VehicleRecognition":false,
+	"BabyCryDetection":false,
+	"PtzTargetTrack":false
+}]
