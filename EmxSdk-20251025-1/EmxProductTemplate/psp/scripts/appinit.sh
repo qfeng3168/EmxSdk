@@ -63,13 +63,17 @@ cd /root
 ####################run deamon####################
 cp ${EMX_CONFIGS_DIR}/zoneinfo/GMT-8 /tmp/localtime
 init_ai_resources.sh
+
+#allstart
 if [ -f /root/configs/allstart.sh ]; then
   echo "run /root/configs/allstart.sh"
-  /root/configs/allstart.sh
+  /root/configs/allstart.sh 
+elif [ -f /mnt/sdcard/allstart.sh ]; then
+  echo "run /mnt/sdcard/allstart.sh"
+  /mnt/sdcard/allstart.sh
 else
   echo "run default allstart.sh"
-  allstart.sh
+  allstart.sh 
 fi
-#daemon.sh&
 
 echo "leave appinit"
