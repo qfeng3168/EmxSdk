@@ -1,0 +1,161 @@
+{
+  "led": {
+    "class": "BspLed",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": true,
+        "default": true,
+        "num": 402
+      }
+    ]
+  },
+  "updateIndicator": {
+    "class": "BspUpdateIndicator",
+    "invMs": 300,
+    "allChannels": [
+      {
+        "dir": 1,
+        "active": true,
+        "default": true,
+        "num": 402
+      }
+    ],
+    "channelsCycleIdx": [
+      0,
+      -1
+    ]
+  },
+  "adc": {
+    "class": "BspAdcCvitek",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "chnNum": 0,
+        "reference": 1,
+        "adcValueAtMaxLuma": 4096,
+        "adcValueAtMinLuma": 0
+      }
+    ]
+  },
+  "irCut": {
+    "class": "BspIrCut2Wire",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "delayMs": 200,
+        "wire0": {
+          "dir": 1,
+          "active": true,
+          "default": false,
+          "num": 398
+        },
+        "wire1": {
+          "dir": 1,
+          "active": true,
+          "default": false,
+          "num": 403
+        }
+      }
+    ]
+  },
+  "irLight": {
+    "class": "BspIrLight",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": true,
+        "default": false,
+        "num": 381
+      }
+    ]
+  },
+  "whiteLight": {
+    "class": "BspWhiteLightCvitek",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "chipNum": 8,
+        "pwmNum": 0,
+        "period": 50000,
+        "dutyMin": 500,
+        "dutyMax": 50000,
+        "system": "devmem 0x30010a4 32 4"
+      }
+    ]
+  },
+  "keyReset": {
+    "class": "BspKeyReset",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 0,
+        "active": false,
+        "default": false,
+        "num": 510
+      }
+    ]
+  },
+  "keyCall": {
+    "class": "BspKeyCall",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 0,
+        "active": false,
+        "default": false,
+        "num": 0
+      }
+    ]
+  },
+  "spk": {
+    "class": "BspSpk",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": true,
+        "default": false,
+        "num": 495
+      }
+    ]
+  },
+  "rca": {
+    "class": "BspRca",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": true,
+        "default": false,
+        "num": 495
+      }
+    ]
+  },
+  "wifi": {
+    "class": "BspWifi",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": false,
+        "default": false,
+        "num": 0
+      }
+    ]
+  },
+  "mobile": {
+    "class": "BspMobile",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": false,
+        "default": true,
+        "num": 454
+      }
+    ]
+  }
+}

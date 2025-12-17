@@ -1,0 +1,33 @@
+{
+	"devName":"/dev/xs2201",
+	"chn":[{
+		"type":0,
+		"mirrorOrFlip":false,
+		"enable":true,
+		"position":{
+			"max":360,
+			"min":0,
+			"def":180
+		},
+		"speed":{
+			"max":500,
+			"min":300,
+			"def":400
+		}
+	},
+	{
+		"type":1,
+		"mirrorOrFlip":false,
+		"enable":true,
+		"position":{
+			"max":80,
+			"min":0,
+			"def":40
+		},
+		"speed":{
+			"max":500,
+			"min":300,
+			"def":400
+		}
+	}]
+}
