@@ -71,14 +71,23 @@ namespace Emx {
         virtual Size GetChnPicSize() = 0;
 
         struct RegionInfo {
-            MediaInfOsd::TypeE type;//!< OSD类型
-            int x;                  //!< 区域x坐标
-            int y;                  //!< 区域y坐标
-            int w;                  //!< 区域宽
-            int h;                  //!< 区域高
-            int layer;              //!< 叠加层级
-            bool show;              //!< 是否显示
-            int id;                 //!< region的唯一标识
+            MediaInfOsd::TypeE type; //!< OSD类型
+            int x;                   //!< 区域x坐标
+            int y;                   //!< 区域y坐标
+            int w;                   //!< 区域宽
+            int h;                   //!< 区域高
+            int layer;               //!< 叠加层级
+            bool show;               //!< 是否显示
+            int id;                  //!< region的唯一标识
+            uint16_t flickerInterval;//!<闪烁间隔，单位毫秒
+            uint8_t isFlicker;       //!<是否闪烁显示
+            uint8_t autoSwitchColor; //!< 是否自动黑白颜色转换
+        };
+        struct SwitchColorRect {
+            uint16_t x;//!< 区域起始x坐标
+            uint16_t y;//!< 区域起始y坐标
+            uint16_t w;//!< 区域宽
+            uint16_t h;//!< 区域高
         };
 
         /**
@@ -98,8 +107,10 @@ namespace Emx {
          * @param pix [in] 内存地址
          * @param w [in] 画面宽
          * @param h [in] 画面高
+         * @param switchColorRectList [in] 自动黑白颜色转换的坐标宽高度列表,每一个宽代表一个完整的字符或汉字
          */
-        virtual void SetBitMap(int id, uint8_t *pix, int w, int h) = 0;
+        virtual void SetBitMap(int id, uint8_t *pix, int w, int h,
+                std::vector<SwitchColorRect> *switchColorRectList = nullptr) = 0;
 
         /**
          * @brief 将图片更新至画布
@@ -258,6 +269,7 @@ namespace Emx {
             OutlineOsd *outline;//!< 指向 OutlineOsd 对象的指针，表示该项使用的字体轮廓
             ParamItem *item;    //!< 指向 ParamItem 对象的指针，表示该项的参数
             RegionInfo *region; //!< 指向 RegionInfo 对象的指针，表示该项所在的区域
+            std::vector<SwitchColorRect> switchColorRect;//!< 存储切换颜色的矩形列表
             int index;          //!< 该项在参数数组中的下标
         };
 
@@ -293,9 +305,9 @@ namespace Emx {
          * @param text [in]被分割字符串对象
          * @param w [out]重组之后的bitmap宽
          * @param h [out]重组之后的bitmap高
-         * @return 返回位图数据
+         * @return -1 失败 0 成功
          */
-        uint8_t *TextWrapLine(OsdItem &text, int *w, int *h);
+        int TextWrapLine(OsdItem &text);
     };
 
     class MediaServerOsd : public MediaServerModuleBase {

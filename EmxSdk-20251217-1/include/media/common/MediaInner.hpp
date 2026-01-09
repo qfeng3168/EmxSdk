@@ -90,6 +90,7 @@ namespace Emx {
     enum class MediaIspMethodE : uint32_t {
         SetRunMode = (uint32_t) MediaParamMethodE::Butt,
         GetRunMode,
+        SetGrey,
         GetIspInfo,
     };
 

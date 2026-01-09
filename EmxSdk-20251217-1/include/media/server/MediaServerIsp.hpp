@@ -42,6 +42,8 @@ namespace Emx {
 
         void OnServerDestroy() override;
 
+        ErrCodeE GetIspInfo(Info &info) override;
+
     protected:
         /**
          * @brief 定时触发收集isp信息

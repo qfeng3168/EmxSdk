@@ -22,29 +22,28 @@ namespace Emx {
 
         //! 操作类型
         enum class TypeE : uint8_t {
-            Horizon = 0, //!< 水平
-            Vertical, //!< 垂直
-            Zoom, //!< 焦距
-            Iris, //!< 光圈
-            Focus, //!< 对焦
+            Horizon = 0,//!< 水平
+            Vertical,   //!< 垂直
+            Zoom,       //!< 焦距
+            Iris,       //!< 光圈
+            Focus,      //!< 对焦
         };
 
         //! 状态值
         struct StatusValue {
-            int min; //!< 最小值
-            int max; //!< 最大值
-            int current; //!< 当前值
+            int min;    //!< 最小值
+            int max;    //!< 最大值
+            int current;//!< 当前值
         };
 
         //! 状态
         struct Status {
-            bool busy; //!< 当前类型是否处于忙碌状态(移动中)
+            bool busy;        //!< 当前类型是否处于忙碌状态(移动中)
             StatusValue step; //!< 步数状态
-            StatusValue speed; //!< 速度状态
+            StatusValue speed;//!< 速度状态
         };
 
     public:
-
         /**
          * @brief 初始化驱动，此处会对所有的电机进行复位，是阻塞操作，会引起长时间的阻塞
          * @retval ErrCodeE
@@ -62,9 +61,10 @@ namespace Emx {
          * @param block [in] 是否以阻塞的方式步进，阻塞方式下配置的步数走完函数才会返回
          * @param step [in] 步长
          * @param speed [in] 速度 : 0 代表使用默认速度
+         * @param unlimitedStep [in] 是否无限位运转，默认false
          * @retval ErrCodeE
          */
-        ErrCodeE MoveStep(TypeE type, bool block, int step, int speed = 0);
+        ErrCodeE MoveStep(TypeE type, bool block, int step, int speed = 0, bool unlimitedStep = false);
 
         /**
          * @brief 复位所有PTZ通道，所有电机恢复默认位置，此操作会引起长时间的阻塞
@@ -93,5 +93,5 @@ namespace Emx {
         MotorBase *m_motor;
     };
     /** @}*/
-}
-#endif //EMX_Ptz_HPP
+}// namespace Emx
+#endif//EMX_Ptz_HPP
