@@ -91,17 +91,6 @@ private:
                 for (int i = 0; i < data.num; i++) {
                     emxlogi("[%d]id=%lld,x=%d,y=%d,w=%d,h=%d\n", i, data.array[i].id, data.array[i].rect.x,
                             data.array[i].rect.y, data.array[i].rect.w, data.array[i].rect.h);
-                    std::shared_ptr<MediaInfDraw::ParamItem> item = std::make_shared<MediaInfDraw::ParamItem>();
-                    item->ena = true;
-                    item->color = 0xffFF00ff;
-                    item->thickness = 2;
-                    item->type = MediaInfDraw::TypeE::Rect;
-                    item->rect.fill = 0;
-                    item->rect.x = data.array[i].rect.x * 10000 / header.srcPicSize.w;
-                    item->rect.y = data.array[i].rect.y * 10000 / header.srcPicSize.h;
-                    item->rect.width = data.array[i].rect.w * 10000 / header.srcPicSize.w;
-                    item->rect.height = data.array[i].rect.h * 10000 / header.srcPicSize.h;
-                    drawDefPms.array.emplace_back(item);
                 }
                 break;
             }
@@ -113,18 +102,6 @@ private:
                 for (int i = 0; i < data.num; i++) {
                     emxlogi("[%d]id=%lld,x=%d,y=%d,w=%d,h=%d\n", i, data.array[i].id, data.array[i].rect.x,
                             data.array[i].rect.y, data.array[i].rect.w, data.array[i].rect.h);
-                            
-                    std::shared_ptr<MediaInfDraw::ParamItem> item = std::make_shared<MediaInfDraw::ParamItem>();
-                    item->ena = true;
-                    item->color = 0xff0000ff;
-                    item->thickness = 2;
-                    item->type = MediaInfDraw::TypeE::Rect;
-                    item->rect.fill = 0;
-                    item->rect.x = data.array[i].rect.x * 10000 / header.srcPicSize.w;
-                    item->rect.y = data.array[i].rect.y * 10000 / header.srcPicSize.h;
-                    item->rect.width = data.array[i].rect.w * 10000 / header.srcPicSize.w;
-                    item->rect.height = data.array[i].rect.h * 10000 / header.srcPicSize.h;
-                    drawDefPms.array.emplace_back(item);
                 }
                 break;
             }

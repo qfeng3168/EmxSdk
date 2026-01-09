@@ -64,7 +64,6 @@ namespace Emx {
             char weekFormat[7][16];//!< 星期显示格式,下标0到6从星期日到星期六
                                    //!<eg:["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
             uint32_t color;        //!<字体位图主体rgba颜色 0=黑白描边自动
-            bool autoSwitchColor;  //!<是否自动翻转黑白颜色
         };
 
         //!@brief 文字类型OSD持久化参数
@@ -76,7 +75,6 @@ namespace Emx {
             char font[64];            //!<字体文件名(字体文件均放置在configs/media/font目录下
             char content[MaxTextSize];//!<显示内容
             uint32_t color;           //!<字体位图主体rgba颜色 0=黑白描边自动
-            bool autoSwitchColor;     //!<是否自动翻转黑白颜色
         };
 
         //!@brief 图片类型OSD持久化参数
@@ -89,12 +87,10 @@ namespace Emx {
 
         //!@brief OSD持久化参数
         struct ParamItem {
-            TypeE type;              //!<OSD类型
-            bool ena;                //!<是否使能
-            uint16_t flickerInterval;//!<闪烁间隔，单位毫秒
-            uint8_t isFlicker;       //!<是否闪烁显示
-            uint8_t layer;           //!<显示层级
-            Margin margin;           //!<对齐方式
+            TypeE type;   //!<OSD类型
+            bool ena;     //!<是否使能
+            int layer;    //!<显示层级
+            Margin margin;//!<对齐方式
             union {
                 ParamTime time;  //!<时间戳类型OSD持久化参数
                 ParamText text;  //!<文字类型OSD持久化参数

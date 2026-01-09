@@ -83,7 +83,7 @@ void DefaultOsd::RegionDestroyAll(const std::list<RegionInfo> &region) {
     // }
 }
 
-void DefaultOsd::SetBitMap(int region, uint8_t *pix, int w, int h,std::vector<SwitchColorRect> *switchColorRectList) {
+void DefaultOsd::SetBitMap(int region, uint8_t *pix, int w, int h) {
     //! 这里需要把一张文字bitmap图片叠加到region中
     //    BITMAP_S stBitmap = {};
     //    stBitmap.u32Width = w;
@@ -91,12 +91,6 @@ void DefaultOsd::SetBitMap(int region, uint8_t *pix, int w, int h,std::vector<Sw
     //    stBitmap.pData = pix;
     //    stBitmap.enPixelFormat = PIXEL_FORMAT_ARGB_1555;
     //    ChipRgnSetBitMap(region, &stBitmap);
-    //! 这里需要根据switchColorRectList来设置文字的黑白自动控制颜色
-    // if (switchColorRectList) {
-    //     for (auto &e: *switchColorRectList) {
-    //         ChipRgnSetBitMap(region, &stBitmap, e.x, e.y, e.w, e.h, e.color);
-    //     }
-    // }
 }
 
 ErrCodeE DefaultOsd::ImageToCanvas(int region, const std::string &data) {

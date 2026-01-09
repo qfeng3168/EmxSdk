@@ -15,7 +15,7 @@ namespace Emx {
 
         DefaultOsd(int32_t chn) : MediaServerOsdChn(chn), m_osdIdx(0) {}
 
-        virtual ~DefaultOsd() {};
+        virtual ~DefaultOsd(){};
 
     public:
         ErrCodeE OnCreate() override;
@@ -28,8 +28,7 @@ namespace Emx {
 
         void RegionDestroyAll(const std::list<RegionInfo> &region) override;
 
-        void SetBitMap(int region, uint8_t *pix, int w, int h,
-                std::vector<SwitchColorRect> *switchColorRectList = nullptr) override;
+        void SetBitMap(int region, uint8_t *pix, int w, int h) override;
 
         ErrCodeE ImageToCanvas(int region, const std::string &data) override;
 
