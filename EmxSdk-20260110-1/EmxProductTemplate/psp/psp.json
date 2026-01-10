@@ -1,0 +1,45 @@
+{
+  "Cross": "x86_64",
+  "CrossPath": "",
+  "EmxMediaVersion": "EmxMedia-20251025-1",
+  "EmxMediaProfile": "chipXDefault",
+  "EmxAiPluginVersion": "EmxAiPlugin-20251025-1",
+  "EmxAiPluginProfile": "chipXDefault",
+  "EmxMediaDrivers" : "drivers",
+  "partition": {
+    "flashImgSize": "59M",
+    "partitionTable": [
+      { "name": "boot", "file": "boot.bin", "size": "2M" },
+      { "name": "env", "size": "512K" },
+      {"name": "kernel.A","file": "kernel.bin","size": "4M"},
+      {"name": "rootfs.A","file": "rootfs.bin","size": "4M"},
+      {"name": "firmware.A","file": "firmware.bin","size": "20M"},
+      {"name": "kernel.B","file": "kernel.bin","size": "4M"},
+      {"name": "rootfs.B","file": "rootfs.bin","size": "4M"},
+      {"name": "firmware.B","file": "firmware.bin","size": "20M"},
+      {"name": "config","size": "-"}
+    ]
+  },
+  "EmxResToProduct": [
+    {
+      "src": "imgs/boot/boot-cv182x-nand-CMSXJ40H.bin",
+      "dst": "imgs/boot.bin"
+    },
+    {
+      "src": "imgs/kernel/kernel-cv182x-70-QJ.bin",
+      "dst": "imgs/kernel.bin"
+    },
+    {
+      "src": "imgs/rootfs/rootfs-cv182x-nand.bin",
+      "dst": "imgs/rootfs.bin"
+    },
+    {
+      "src": "imgs/scripts/mkImg-128MB-doubleSystem-ubi.py",
+      "dst": "imgs/mkImg.py"
+    },
+    {
+      "src": "imgs/scripts/firmware_ubinize.cfg",
+      "dst": "imgs/firmware_ubinize.cfg"
+    }
+  ]
+}
