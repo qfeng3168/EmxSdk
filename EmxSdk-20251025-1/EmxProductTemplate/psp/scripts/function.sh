@@ -1,8 +1,9 @@
 #!/bin/sh
 #通用函数接口定义 其他文件如需引用 添加：source ${EMX_SCRIPTS_DIR}/function.sh  即可
 UPDATING_FLAG="/tmp/updating"
-DEBUG_FILE_FLAG="/mnt/sdcard/zn_debug"
+UPDATE_FILE="/mnt/sdcard/rom.bin"
 MAC_JSON="/root/configs/normal/mac.json"
+SDCARD_DEBUG_FILE_FLAG="/mnt/sdcard/zn_debug"
 
 runExe() {
     if [ $# -lt 1 ]; then
@@ -18,7 +19,7 @@ runExe() {
 
     # Run EXE bin here
     $@
-    sleep 1
+    sleep 0.5
 }
 
 #没有延迟函数
@@ -39,24 +40,46 @@ run() {
     # sleep 0.2
 }
 
+# 通用配置检查函数
+# 参数 $1: 要查询的字段名 (例如: coredump_mode)
+# 返回值: 0 (True/存在且为true), 1 (False/不存在或不为true)
+IsConfigTrue() {
+    local target_key="$1"
+    local config_file="$SDCARD_DEBUG_FILE_FLAG"
+
+    # 1. 检查参数是否为空
+    if [ -z "$target_key" ]; then
+        echo "Error: No config key provided."
+        return 1 # False
+    fi
+
+    # 2. 检查配置文件是否存在
+    if [ ! -f "$config_file" ]; then
+        # 调试打印，实际使用可视情况注释掉
+        # echo "Debug file not found: $config_file"
+        return 1 # False
+    fi
+
+    # 3. 使用扩展正则 grep -E 进行精确匹配
+    # ^[[:space:]]*      : 匹配行首，允许有空格
+    # ${target_key}      : 传入的字段名
+    # [[:space:]]*=[[:space:]]* : 匹配等号，允许等号两边有空格
+    # true               : 匹配值 true
+    # \b                 : 单词边界，防止匹配到 true_value 这种情况
+    # -i                 : 忽略大小写 (可选，如果 value 必须是小写 true 则去掉 -i)
+    if grep -qE "^[[:space:]]*${target_key}[[:space:]]*=[[:space:]]*true\b" "$config_file"; then
+        return 0 # Shell标准：0 代表成功 (True)
+    else
+        return 1 # Shell标准：非0 代表失败 (False)
+    fi
+}
+
 #zn_debug工厂模式检测
 #1，工厂模式；0，正常模式
 ZndebugFactoryCheck() {
-    # 检查文件是否存在
-    if [ ! -f "$DEBUG_FILE_FLAG" ]; then
-        echo "Error: File '$DEBUG_FILE_FLAG' not found."
-        return 0
-    fi
-
-    # 1. 使用 grep 查找包含 "factory_mode" 的行
-    # 2. 使用 sed 移除所有空格，并移除可能存在的分号
-    # 3. 使用 grep -q 精确匹配 "factory_mode=true"
-    #    -q 选项表示安静模式，只通过退出码表示是否找到
-    if grep "factory_mode" "$DEBUG_FILE_FLAG" | sed 's/[[:space:]]//g' | sed 's/;//' | grep -q "factory_mode=true"; then
-        echo "Found 'factory_mode'"
+    if IsConfigTrue "factory_mode"; then
         return 1
     else
-        echo "Did not find 'factory_mode'"
         return 0
     fi
 }
@@ -113,10 +136,117 @@ IsUpdating() {
 
 #是否调试模式 0,非调试模式;1,调试模式
 IsDebugMode() {
-    if [ -f ${DEBUG_FILE_FLAG} ]; then
+    if [ -f ${SDCARD_DEBUG_FILE_FLAG} ]; then
         return 1
     else
         return 0
     fi
     return 0
+}
+
+#是否coredump数据模式 0,非抓取模式;1,抓取模式
+IsCoreDumpMode() {
+    if IsConfigTrue "coredump_mode"; then
+        return 1
+    else
+        return 0
+    fi
+}
+
+#emmc检测并挂载 参数说明：$1=分区号 $2=挂载路径 $3=挂载模式(ro/rw) $4=是否快速格式化(0/1) $5=配置初始化标志
+#eg:
+#	configInitFlag=$(BootEnvTool get configInit)
+#	EmmcExt4CheckMount 7 /root/configs rw 0 $configInitFlag >> /tmp/EmmcExt4CheckMount.log
+EmmcExt4CheckMount(){
+    local mmcblk=/dev/mmcblk0p$1
+    local mmcblkEnv='mmc'$1'FsckFailNum'
+    local mountPath=$2
+    local mountMode=$3
+    local quickformat=$4
+    local configInit=$5
+    local result=0
+	local checkFlag=0
+
+    # 检查设备是否存在
+    if [ ! -b "$mmcblk" ]; then
+        echo "Error: Device $mmcblk does not exist"
+        return 0
+    fi
+    
+    echo 'Check '$mmcblk' configInitFlag: '$configInit 'quickformat: '$quickformat
+    #如果configInit是1，就检查文件系统
+    if [ "$configInit" == "1" ]; then
+        fsck.ext4 -n $mmcblk
+		checkFlag=$?
+    else
+        #如果不是就查看是否存在文件系统,存在返回0
+        blkid $mmcblk | grep $mmcblk
+		checkFlag=$?
+        #如果存在文件系统，就检查文件系统是否正常
+        if [ $checkFlag -eq 0 ]; then
+            echo 'File system is existing:' $mmcblk 
+            fsck.ext4 -n $mmcblk
+		    checkFlag=$?
+        fi
+    fi
+    if [ $checkFlag -ne 0  ]; then
+        echo 'Check '$mmcblk' failed!'
+        #检测到文件系统异常，并且configInit不是1，就格式化
+        if [ "$configInit" != "1" ]; then
+            echo 'Try formatting' $mmcblk
+            if [ "$quickformat" = "1" ]; then
+                echo 'Quick format' $mmcblk
+                mkfs.ext4 -F -O sparse_super,large_file -b 4096 -g 32768 -E nodiscard -J size=128 $mmcblk
+            else
+                mkfs.ext4 -F $mmcblk
+            fi
+            if [ $? -eq 0 ]; then
+                echo 'Format successfully' $mmcblk 
+            else    
+                echo 'Format failed' $mmcblk
+            fi
+            # 验证修复是否成功
+            fsck.ext4 -n $mmcblk
+            if [ $? -eq 0 ]; then
+                echo 'Format Fix successfully' $mmcblk
+            else    
+                echo 'Format Fix failed' $mmcblk
+                result=1
+            fi
+        else
+            #尝试修复
+            fsck.ext4 -yf $mmcblk
+            # 验证修复是否成功
+            fsck.ext4 -n $mmcblk
+            if [ $? -eq 0 ]; then
+                echo 'Fix successfully' $mmcblk
+            else    
+                echo 'Fix failed' $mmcblk
+                result=1
+            fi
+      fi
+    else
+        echo 'Check successfully' $mmcblk
+    fi
+    #如果修复失败，需要写入环境变量失败次数
+    if [ "$result" -ne 0 ]; then
+        echo 'Fix failed, try fix and mount'
+        #尝试再次修复
+        fsck.ext4 -yf $mmcblk
+    fi
+    # 尝试挂载文件系统
+    mount -o $mountMode -t ext4 $mmcblk $mountPath
+    if [ $? != 0  ]; then
+        # 挂载失败，且没法修复
+        echo 'Mount '$mountPath' failed, The partition cannot be repaired.'
+        cur=$(BootEnvTool get $mmcblkEnv | awk '{print $1}')
+        cur=$((cur + 1))
+        echo $mmcblkEnv':'$cur
+        BootEnvTool set $mmcblkEnv $cur
+        result=1
+    else
+        echo 'Mount '$mountPath' successfully'
+        result=0
+    fi
+    return $result
 }
