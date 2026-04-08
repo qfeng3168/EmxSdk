@@ -1,0 +1,450 @@
+{
+  "led": {
+    "class": "BspLed",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": true,
+        "default": true,
+        "num": 360
+      }
+    ]
+  },
+  "led": {
+    "class": "BspLedOfRegister",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "addr": "0x03000000",
+        "addrLen": 32,
+        "bitPos": 10,
+        "active": true,
+        "default": true,
+        "function": "",
+        "dir": ""
+      }
+    ]
+  },
+  "led": {
+    "class": "BspLedPwm",
+    "defaultChnIdx": 0,
+    "channels": [ 
+      {
+        "chipNum": 0,
+        "pwmNum": 1,
+        "period": 50000,
+        "dutyMin": 0,
+        "dutyMax": 49990,
+        "active": 1,
+        "system": ""
+      }
+    ]
+  },
+
+  "updateIndicator": {
+    "class": "BspUpdateIndicator",
+    "invMs": 600,
+    "allChannels": [
+      {
+        "dir": 1,
+        "active": true,
+        "default": true,
+        "num": 374
+      },
+      {
+        "dir": 1,
+        "active": true,
+        "default": true,
+        "num": 360
+      }
+    ],
+    "channelsCycleIdx": [
+      0, 1, -1
+    ],
+    "channelsCycleIdxExt": [
+      {
+        "chn": 0,
+        "holdMs": 500
+      },
+      {
+        "chn": -1,
+        "holdMs": 500
+      },
+      {
+        "chn": 1,
+        "holdMs": 500
+      },
+      {
+        "chn": -1,
+        "holdMs": 500
+      }
+    ]
+  },
+  "updateIndicator": {
+    "class": "BspUpdateIndicatorPwm",
+    "invMs": 600,
+    "allChannels": [
+      {
+        "chipNum": 0,
+        "pwmNum": 3,
+        "period": 50000,
+        "dutyMin": 0,
+        "dutyMax": 49990,
+        "active": 1,
+        "system": ""
+      },
+      {
+        "chipNum": 0,
+        "pwmNum": 2,
+        "period": 50000,
+        "dutyMin": 0,
+        "dutyMax": 49990,
+        "active": 1,
+        "system": ""
+      }
+    ],
+    "channelsCycleIdx": [
+      0, 1, -1
+    ],
+    "channelsCycleIdxExt": [
+      {
+        "chn": 0,
+        "holdMs": 500
+      },
+      {
+        "chn": -1,
+        "holdMs": 500
+      },
+      {
+        "chn": 1,
+        "holdMs": 500
+      },
+      {
+        "chn": -1,
+        "holdMs": 500
+      }
+    ]
+  },
+  "adc": {
+    "class": "BspAdcCvitek",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "chnNum": 0,
+        "reference": 1,
+        "adcValueAtMaxLuma": 900,
+        "adcValueAtMinLuma": 600
+      }
+    ]
+  },
+  "adc": {
+    "class": "BspAdcTx",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "chnNum": 0,
+        "reference": 1,
+        "adcValueAtMaxLuma": 900,
+        "adcValueAtMinLuma": 600
+      }
+    ]
+  },
+  "adc": {
+    "class": "BspAdcSigmastar",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "chnNum": 0,
+        "reference": 1,
+        "adcValueAtMaxLuma": 900,
+        "adcValueAtMinLuma": 600
+      }
+    ]
+  },
+  "irCut": {
+    "class": "BspIrCut1Wire",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": true,
+        "default": false,
+        "num": 384
+      }
+    ]
+  },
+  "irCut": {
+    "class": "BspIrCut2Wire",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "delayMs": 200,
+        "wire0": {
+          "dir": 1,
+          "active": true,
+          "default": false,
+          "num": 377
+        },
+        "wire1": {
+          "dir": 1,
+          "active": true,
+          "default": false,
+          "num": 378
+        }
+      }
+    ]
+  },
+  "irCut": {
+    "class": "BspIrCutOfExt",
+    "channels": [
+      {
+        "devName": "/dev/i2c-1",
+        "moduleName": "LK8209L",
+        "default": false
+      }
+    ]
+  },
+  "irCut": {
+    "class": "BspIrCutMixed",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "BspIrCut1Wire": {
+            "dir": 1,
+            "active": true,
+            "default": false,
+            "num": 378
+        }
+      },
+      {
+        "BspIrCut2Wire": {
+          "delayMs": 200,
+          "wire0": {
+            "dir": 1,
+            "active": true,
+            "default": false,
+            "num": 377
+          },
+          "wire1": {
+            "dir": 1,
+            "active": true,
+            "default": false,
+            "num": 378
+          }
+        }
+      },
+      {
+        "BspIrCutOfExt": {
+          "devName": "/dev/i2c-1",
+          "moduleName": "LK8209L",
+          "default": false
+        }
+      }
+    ]
+  },
+
+  "irLight": {
+    "class": "BspIrLight",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": true,
+        "default": false,
+        "num": 353
+      }
+    ]
+  },
+  "irLight": {
+    "class": "BspIrLightPwm",
+    "defaultChnIdx": 0,
+    "channels": [ 
+      {
+        "chipNum": 1,
+        "pwmNum": 4,
+        "period": 50000,
+        "dutyMin": 0,
+        "dutyMax": 49990,
+        "active": 1,
+        "system": ""
+    }
+    ]
+  },
+  "whiteLight": {
+    "class": "BspWhiteLight",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": true,
+        "default": false,
+        "num": 353
+      }
+    ]
+  },
+  "whiteLight": {
+    "class": "BspWhiteLightPwm",
+    "defaultChnIdx": 0,
+    "channels": [ 
+      {
+        "chipNum": 1,
+        "pwmNum": 4,
+        "period": 50000,
+        "dutyMin": 0,
+        "dutyMax": 49990,
+        "active": 1,
+        "system": ""
+    }
+    ]
+  },
+  "keyReset": {
+    "class": "BspKeyReset",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 0,
+        "active": false,
+        "default": false,
+        "num": 510
+      }
+    ]
+  },
+  "keyReset": {
+    "class": "BspKeyResetOfAdc",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "devPathDeclare": "字符设备路径，指向ADC设备的系统路径",
+        "devPath": "/sys/bus/iio/devices/iio:device0/in_voltage0_raw",
+        "thresholdDeclare": "ADC状态判断阈值",
+        "valueMin": 400,
+        "valueMax": 800,
+        "activeDeclare": "//有效状态，true=adc在valueMain 和 ValuMax之内返回true，fals=adc在valueMain 和 ValuMax之外返回true",
+        "active": true
+      }
+    ]
+  },
+  "keyCall": {
+    "class": "BspKeyCall",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 0,
+        "active": false,
+        "default": false,
+        "num": 419
+      }
+    ]
+  },
+  "keyCall": {
+    "class": "BspKeyCallOfAdc",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "chipTypeDeclare": "芯片类型,sigmastar必填,cvitek/rk/ingenic 可以忽略",
+        "chipType": "sigmastar",
+        "devPathDeclare": "字符设备路径，指向ADC设备的系统路径",
+        "devPath": "/sys/bus/iio/devices/iio:device0/in_voltage0_raw",
+        "thresholdDeclare": "ADC状态判断阈值",
+        "valueMin": 400,
+        "valueMax": 800,
+        "chnDeclare": "adc的通道号,sigmastar 必填,cvitek/rk/ingenic 可以忽略",
+        "chn": 0,
+        "activeDeclare": "//有效状态，true=adc在valueMain 和 ValuMax之内返回true，fals=adc在valueMain 和 ValuMax之外返回true",
+        "active": true
+      }
+    ]
+  },
+  "spk": {
+    "class": "BspSpk",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": true,
+        "default": false,
+        "num": 390
+      }
+    ]
+  },
+  "rca": {
+    "class": "BspRca",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": true,
+        "default": false,
+        "num": 415
+      }
+    ]
+  },
+  "wifi": {
+    "class": "BspWifi",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": true,
+        "default": false,
+        "num": 405
+      }
+    ]
+  },
+  "mobile": {
+    "class": "BspMobile",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": true,
+        "default": false,
+        "num": 425
+      }
+    ]
+  },
+  "rcaDetect": {
+    "class": "BspRcaDetect",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 0,
+        "active": false,
+        "default": false,
+        "num": 412
+      }
+    ]
+  },
+  "rcaDetect": {
+    "class": "BspRcaDetectOfAdc",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "chipTypeDeclare": "芯片类型,sigmastar必填,cvitek/rk/ingenic 可以忽略",
+        "chipType": "sigmastar",
+        "devPathDeclare": "字符设备路径，指向ADC设备的系统路径",
+        "devPath": "/sys/bus/iio/devices/iio:device0/in_voltage0_raw",
+        "thresholdDeclare": "ADC状态判断阈值",
+        "valueMin": 400,
+        "valueMax": 800,
+        "chnDeclare": "adc的通道号,sigmastar 必填,cvitek/rk/ingenic 可以忽略",
+        "chn": 0,
+        "activeDeclare": "//有效状态，true=adc在valueMain 和 ValuMax之内返回true，fals=adc在valueMain 和 ValuMax之外返回true",
+        "active": true
+      }
+    ]
+  },
+  "gmGpio": {
+    "class": "BspGpio",
+    "defaultChnIdx": 0,
+    "channels": [
+      {
+        "dir": 1,
+        "active": false,
+        "default": false,
+        "num": 412
+      }
+    ]
+  } 
+}

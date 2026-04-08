@@ -1,10 +1,13 @@
 #!/bin/sh
 
-#¿ª»úÆô¶¯Ê±£¬Íù/etc/resolv.confÐ´ÈëÄ¬ÈÏDNS½âÎö·þÎñÆ÷µØÖ·
-#½â¾öµ¥Õ»IPV6»ñÈ¡µ½µØÖ·ºó£¬Ã»ÓÐÓòÃû½âÎö·þÎñ
-#udhcpc³ÌÐòÖ»ÔÚIPV4Çé¿öÏÂÉúÐ§
+#å¼€æœºå¯åŠ¨æ—¶ï¼Œå¾€/etc/resolv.confå†™å…¥é»˜è®¤DNSè§£æžæœåŠ¡å™¨åœ°å€
+#è§£å†³å•æ ˆIPV6èŽ·å–åˆ°åœ°å€åŽï¼Œæ²¡æœ‰åŸŸåè§£æžæœåŠ¡
+#udhcpcç¨‹åºåªåœ¨IPV4æƒ…å†µä¸‹ç”Ÿæ•ˆ
 
 RESOLV_FILE="/tmp/resolv.conf"
 echo "write default dns addr:${RESOLV_FILE}"
-echo "nameserver 114.114.114.114" >> ${RESOLV_FILE}
+echo "nameserver 2400:3200::1" >> ${RESOLV_FILE}
+echo "nameserver 2400:3200:baba::1" >> ${RESOLV_FILE}
+echo "nameserver 223.5.5.5" >> ${RESOLV_FILE}
+echo "nameserver 223.6.6.6" >> ${RESOLV_FILE}
 echo "write default dns addr done"

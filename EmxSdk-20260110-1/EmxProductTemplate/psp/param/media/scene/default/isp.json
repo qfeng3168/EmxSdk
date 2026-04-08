@@ -6,14 +6,14 @@
     "manualExpGain": 0,
     "expTime": 1000,
     "brightness": 50,
-    "sharpness": 128,
+    "sharpness": 50,
     "hue": 50,
     "contrast": 50,
     "saturation": 50,
-    "deNoise": 128,
+    "deNoise": 50,
     "wbMode": 0,
     "redGain": 128,
     "blueGain": 128,
-    "antiFlicker": 50
+    "antiFlickerHz": 50
   }
 ]

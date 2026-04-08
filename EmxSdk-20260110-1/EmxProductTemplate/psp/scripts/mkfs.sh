@@ -2,6 +2,7 @@
 
 echo "into mkfs"
 
-mkfs.fat $1
+/sbin/mdev -s
+mkexfatfs $1
 
 echo "leave mkfs"

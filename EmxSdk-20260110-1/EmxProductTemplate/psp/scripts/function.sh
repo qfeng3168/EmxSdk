@@ -1,6 +1,9 @@
 #!/bin/sh
 #通用函数接口定义 其他文件如需引用 添加：source ${EMX_SCRIPTS_DIR}/function.sh  即可
 
+DEBUG_FILE_FLAG="/mnt/sdcard/zn_debug"
+MAC_JSON="/root/configs/normal/mac.json"
+
 runExe() {
     if [ $# -lt 1 ]; then
         echo -e "\033[1;31mERR: require at least input EXE name!!\033[0m"
@@ -36,12 +39,33 @@ run() {
     # sleep 0.2
 }
 
+#mac工厂模式检测
+#1，工厂模式；0，正常模式
+MacFactoryCheck() {
+  if [ -f ${MAC_JSON} ]; then
+    #stat有时候不支持
+    # size=`stat -c "%s" /root/configs/normal/mac.json`
+    size=`ls -l ${MAC_JSON} | awk '{print $5}'`
+    echo "mac.json size:${size}"
+    if [ $size -lt 30 ];then
+      echo "factory mode!!!"
+      return 1
+    else
+      echo "normal mode!!!"
+      return 0
+    fi
+  else
+    echo "no mac file, factory mode!!!"
+    return 1
+  fi
+}
+
 #zn_debug工厂模式检测
 #1，工厂模式；0，正常模式
 ZndebugFactoryCheck() {
     # 检查文件是否存在
-    if [ ! -f "$FILE" ]; then
-        echo "Error: File '$FILE' not found."
+    if [ ! -f "$DEBUG_FILE_FLAG" ]; then
+        echo "Error: File '$DEBUG_FILE_FLAG' not found."
         return 0
     fi
 
@@ -58,26 +82,8 @@ ZndebugFactoryCheck() {
     fi
 }
 
-#mac工厂模式检测
-#1，工厂模式；0，正常模式
-MAC_JSON="/root/configs/normal/mac.json"
-MacFactoryCheck() {
-  if [ -f ${MAC_JSON} ]; then
-    size=`ls -l ${MAC_JSON} | awk '{print $5}'`
-    echo "mac.json size:${size}"
-    if [ $size -lt 30 ];then
-      echo "factory mode!!!"
-      return 1
-    else
-      echo "normal mode!!!"
-      return 0
-    fi
-  else
-    echo "no mac file, factory mode!!!"
-    return 1
-  fi
-}
 
+#1，工厂模式；0，正常模式
 AppFactoryCheck() {
     MacFactoryCheck
     macFactoryCheck=$?
@@ -111,7 +117,6 @@ IsUpdating() {
 }
 
 #是否调试模式 0,非调试模式;1,调试模式
-DEBUG_FILE_FLAG="/mnt/sdcard/zn_debug"
 IsDebugMode() {
     if [ -f ${DEBUG_FILE_FLAG} ]; then
         return 1
@@ -214,6 +219,79 @@ EmmcExt4CheckMount(){
     else
         echo 'Mount '$mountPath' successfully'
         result=0
+    fi
+    return $result
+}
+
+#nand检测并挂载到configs分区 参数说明：$1=分区号 $2=配置初始化标志
+#eg:
+#	NandConfigCheckMount 7 >> /tmp/NandConfigCheckMount.log
+NandConfigCheckMount(){
+    local mtdblk=/dev/mtd$1
+    local ubiblk=/dev/ubi$1
+    local mtdblkEnv='mtd'$1'FsckFailNum'
+    local mountPath="/root/configs"   
+    local configInit=$(BootEnvTool get configInit)
+    local ubiblk_0=$ubiblk'_0'
+	local result=0
+
+    # 检查设备是否存在
+    if [ ! -c "$mtdblk" ]; then
+        echo "Error: Device $mtdblk does not exist"
+        return -1
+    fi
+    
+    echo 'Check '$mtdblk' configInitFlag: '$configInit
+    # 挂载ubi设备
+    ubiattach /dev/ubi_ctrl -m $1 -d $1
+    if [ $? != 0  ]; then
+        if [ "$configInit" == "1" ]; then
+            echo 'ubiattach failed, Try ubiattach $1'
+            ubiattach /dev/ubi_ctrl -m $1 -d $1
+        else
+            echo 'ubiattach failed, Try ubiformat and ubimkvol'
+            # 格式化ubi设备,这里可能会出现卡死的情况，需要使用timeout做超时处理
+            # 如果30秒都没有处理完，那么就需要特殊处理了
+            timeout -s 9 30 ubiformat -y $mtdblk
+            if [ $? != 0  ]; then
+                echo 'ubiformat failed, Please fill in the data and try again.'
+                ep_mtd_ctl erase $mtdblk 0 0
+                timeout -s 9 30 ubiformat -y $mtdblk
+            fi
+            ubiattach /dev/ubi_ctrl -m $1 -d $1
+            ubimkvol $ubiblk -N CFG -m
+            mdev -s
+        fi
+    else
+        # 如果configInit不是1，就检查是否存在configs分区
+        if [ "$configInit" != "1" ]; then
+            # 如果configs分区不存在，就创建
+            echo 'configs partition is not existing, try create it'
+            if [ ! -c "$ubiblk_0" ]; then
+                ubimkvol $ubiblk -N CFG -m
+                mdev -s
+            fi
+        fi
+    fi
+    if [ ! -c "$ubiblk_0" ]; then
+        echo "Error: Device $ubiblk_0 does not exist"
+        cur=$(BootEnvTool get $mtdblkEnv | awk '{print $1}')
+        cur=$((cur + 1))
+        echo $mtdblkEnv':'$cur
+        BootEnvTool set $mtdblkEnv $cur
+        result=1
+    else
+        echo 'Check successfully' $ubiblk_0
+        mount -t ubifs -o sync $ubiblk_0  $mountPath
+        result=$?
+        if [ $result == 0 ]; then
+            echo 'Mount successfully' $ubiblk_0
+            if [ "$configInit" != "1" ]; then
+                BootEnvTool set configInit 1
+            fi
+        else
+            echo 'Mount failed' $ubiblk_0
+        fi
     fi
     return $result
 }

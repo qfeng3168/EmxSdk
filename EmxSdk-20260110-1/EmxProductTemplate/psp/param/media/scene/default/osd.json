@@ -35,11 +35,11 @@
         "margin": {
           "horizon": {
             "align": 1,
-            "rate": 25
+            "rate": 250
           },
           "vertical": {
             "align": 0,
-            "rate": 25
+            "rate": 250
           }
         },
 
@@ -62,11 +62,11 @@
         "margin": {
           "horizon": {
             "align": 1,
-            "rate": 10
+            "rate": 100
           },
           "vertical": {
             "align": 1,
-            "rate": 10
+            "rate": 100
           }
         },
         "path": "logo/640x360.rgba",
