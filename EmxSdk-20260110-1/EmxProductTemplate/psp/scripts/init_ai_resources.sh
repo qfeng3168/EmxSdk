@@ -5,6 +5,7 @@ echo "init_ai_resources"
 g_startTime=$(date +%s)
 g_currentDir=$(pwd)
 g_sourceFile="${EMX_MEDIA_DIR}/AiPlugin/AiPlugin.json"
+g_sourceXzFile="${EMX_MEDIA_DIR}/AiPlugin/AiPlugin.tar.xz"
 g_dataFile="/mnt/data/AiPlugin/AiPlugin.json"
 g_destinationFile="${EMX_DATA_DIR}/AiPlugin/AiPlugin.json"
 
@@ -29,7 +30,6 @@ VerifyAllFiles() {
     local filePath
 
     cd "${dataDir}"
-    jsonFile="${EMX_MEDIA_DIR}/AiPlugin/AiPlugin.json"
     # 核心步骤：提取files数组并精准拆分为单个文件项
     # 1. 定位files数组区间 2. 过滤所有空白 3. 移除数组首尾标识 4. 按"},{"拆分单条数据
     sed -n '/"files": \[/,/\]/p' "${jsonFile}" | \
@@ -67,7 +67,14 @@ VerifyAllFiles() {
                 echo "Actual MD5: ${actualMd5}"
                 echo "Start copy ${filePath}"
                 echo "====================================="
-                cp -ad "${EMX_MEDIA_DIR}/AiPlugin/${filePath}" "${dataDir}/${filePath}"
+                if [ -f "${g_sourceXzFile}" ]; then
+                    echo "Warning: AiPlugin.tar.xz file exists, extract it!"
+                    rm -rf "${EMX_DATA_DIR}/AiPlugin"
+                    xz -dkc ${g_sourceXzFile} | tar -xvf - -C ${EMX_DATA_DIR}
+                    return -1
+                else
+                    cp -ad "${EMX_MEDIA_DIR}/AiPlugin/${filePath}" "${dataDir}/${filePath}"
+                fi
             fi
         done
 
@@ -77,7 +84,8 @@ VerifyAllFiles() {
 
 VerifyConfigsRoFiles() {
     local sourceDir="/mnt/data/AiPlugin/configs_ro"
-    local objDir="${EMX_DATA_DIR}/AiPlugin/AiConfigs"
+    local objDir="${EMX_DATA_DIR}/AiPlugin"
+    local configDir="${EMX_DATA_DIR}/AiConfigs"
     local sourceFilePath
     local relativePath
     local destinationFilePath
@@ -85,13 +93,19 @@ VerifyConfigsRoFiles() {
     local destinationMd5
     local destinationDir
 
-    if [ ! -d "${objDir}" ]; then
-        mkdir -p "${objDir}"
-        echo "${objDir} not exists, create it and copy files from ${sourceDir}"
-        cp -ad "${sourceDir}/*" "${objDir}"
+    if [ ! -L "${objDir}" ]; then
+        echo "Created symlink: ${objDir} -> /mnt/data/AiPlugin"
+        ln -s /mnt/data/AiPlugin ${objDir}
+        sync
+    fi
+
+    if [ ! -d "${configDir}" ]; then
+        echo "${configDir} not exists, create it and copy files from ${sourceDir}"
+        cp -ad "${sourceDir}" "${configDir}"
         return 0
     fi
-    cd "${objDir}"
+
+    cd "${configDir}"
 
     # 核心步骤：遍历sourceDir目录下的所有文件，然后和objDir目录下的文件进行对比，需要忽略 config.json param.def param.bak.json 这些文件
     find "${sourceDir}" -type f | while read -r sourceFilePath; do
@@ -103,7 +117,7 @@ VerifyConfigsRoFiles() {
                 ;;
         esac
 
-        destinationFilePath="${objDir}/${relativePath}"
+        destinationFilePath="${configDir}/${relativePath}"
         sourceMd5=$(CalculateMd5 "${sourceFilePath}")
         destinationMd5=$(CalculateMd5 "${destinationFilePath}")
 
@@ -130,6 +144,7 @@ VerifyConfigsRoFiles() {
 
 if [ -f "${g_dataFile}" ]; then
     echo "${g_dataFile} is exists!"
+    
     VerifyConfigsRoFiles
 elif [ -f "${g_sourceFile}" ]; then
     echo "${g_sourceFile} is exists!"
@@ -144,7 +159,12 @@ elif [ -f "${g_sourceFile}" ]; then
         echo "AiPlugin.json md5 does not match, re-copy the algorithm resources"
         cd /tmp
         rm -rf "${EMX_DATA_DIR}/AiPlugin"
-        cp -r "${EMX_MEDIA_DIR}/AiPlugin" "${EMX_DATA_DIR}/"
+        
+        if [ -f "${g_sourceXzFile}" ]; then
+            xz -dkc ${g_sourceXzFile} | tar -xvf - -C ${EMX_DATA_DIR}
+        else
+            cp -r "${EMX_MEDIA_DIR}/AiPlugin" "${EMX_DATA_DIR}/"
+        fi
         sync
         cd "${g_currentDir}"
     fi
