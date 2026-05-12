@@ -272,7 +272,10 @@ NandConfigCheckMount(){
                 mdev -s
             fi
         fi
-    fi
+    fi    
+    mdev -s
+    sync
+    sleep 1
     if [ ! -c "$ubiblk_0" ]; then
         echo "Error: Device $ubiblk_0 does not exist"
         cur=$(BootEnvTool get $mtdblkEnv | awk '{print $1}')
