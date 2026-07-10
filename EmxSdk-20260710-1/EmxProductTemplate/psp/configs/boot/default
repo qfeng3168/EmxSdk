@@ -1,0 +1,45 @@
+APP2_PART_OFFSET=0x2680000
+APP2_PART_SIZE=0x1400000
+APP_PART_OFFSET=0xa80000
+APP_PART_SIZE=0x1400000
+BOOT2_PART_OFFSET=0x1e80000
+BOOT2_PART_SIZE=0x400000
+BOOT_PART_OFFSET=0x280000
+BOOT_PART_SIZE=0x400000
+DATA_PART_OFFSET=0x3b00000
+DATA_PART_SIZE=0x8000000000000000
+ENV_PART_OFFSET=0x200000
+ENV_PART_SIZE=0x80000
+LOGO_PART_OFFSET=0x3a80000
+LOGO_PART_SIZE=0x80000
+ROOTFS2_PART_OFFSET=0x2280000
+ROOTFS2_PART_SIZE=0x400000
+ROOTFS_PART_OFFSET=0x680000
+ROOTFS_PART_SIZE=0x400000
+arch=riscv
+baudrate=115200
+bootcmd=cvi_update || run nandboot
+bootdelay=1
+consoledev=ttyS0
+fdtcontroladdr=8772cb70
+fip_PART_OFFSET=0x0
+fip_PART_SIZE=0x200000
+gatewayip=192.168.0.11
+hostname=unknown
+ipaddr=192.168.0.3
+mem=0x8000000
+mtdids=nand0=cvsnfc
+mtdparts=mtdparts=cvsnfc:2048K(fip),512K(ENV),4096K(BOOT),4096K(ROOTFS),20480K(APP),4096K(BOOT2),4096K(ROOTFS2),20480K(APP2),512K(LOGO),-(DATA)
+nandboot=setenv bootargs ${reserved_mem} ${root} ${mtdparts} console=$consoledev,$baudrate $othbootargs;nand read ${uImage_addr} BOOT;mw.l 4330058 1 1; md.l 4330058 1; mw.l 3000154 0 1;bootm ${uImage_addr}#config-cv1821_wevb_0005b_spinand;
+netdev=eth0
+netmask=255.255.255.0
+othbootargs=earlycon=sbi riscv.fwsz=0x80000   loglevel=9
+partition={"flashImgSize":"59M","partitionTable":[{"name":"boot","file":"boot.bin","size":"2M"},{"name":"env","size":"512K"},{"name":"kernel.A","file":"kernel.bin","size":"4M"},{"name":"rootfs.A","file":"rootfs.bin","size":"4M"},{"name":"firmware.A","file":"firmware.bin","size":"20M"},{"name":"kernel.B","file":"kernel.bin","size":"4M"},{"name":"rootfs.B","file":"rootfs.bin","size":"4M"},{"name":"firmware.B","file":"firmware.bin","size":"20M"},{"name":"config","size":"-"}]}
+root=ubi.mtd=ROOTFS ubi.block=0,0 root=/dev/ubiblock0_0 rootfstype=squashfs
+sdboot=setenv bootargs ${reserved_mem} ${root} ${mtdparts} console=$consoledev,$baudrate $othbootargs;echo Boot from SD with ramboot.itb;mmc dev 1 && fatload mmc 1 ${uImage_addr} ramboot.itb; if test $? -eq 0; then bootm ${uImage_addr}#config-cv1811c_wevb_0006a_spinand;fi;
+serverip=192.168.0.110
+showlogo=nand read 0x84080000 MISC;cvi_jpeg_dec 0x84080000 0x8417e000 0x80000;startvo 0 8192 0;startvl 0 0x84080000 0x8417e000 0x80000 16;setvobg 0 0xffffffff;
+systemSelect=A
+uImage_addr=0x81800000
+update_addr=0x84340000
+vendor=cvitek
