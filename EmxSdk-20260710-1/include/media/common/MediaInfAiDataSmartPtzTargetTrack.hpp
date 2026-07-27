@@ -38,16 +38,17 @@ namespace Emx {
             UnDefined,  //!<未定义
         };
         struct TrackMsg {
-            TypeE type;            //!<追踪类型
-            EndTypeE endType;      //!<结束追踪类型
-            int16_t angleH;        //!<追踪水平角度
-            int16_t angleV;        //!<追踪垂直角度
+            TypeE type;             //!<追踪类型
+            EndTypeE endType;       //!<结束追踪类型
+            int16_t angleH;         //!<追踪水平角度
+            int16_t angleV;         //!<追踪垂直角度
             uint64_t startTrackTime;//!<开始追踪时间
             uint64_t endTrackTime;  //!<结束追踪时间
         };
         struct DataMsg {
-            TrackMsg start;         //!<开始追踪
-            TrackMsg stop;          //!<结束追踪
+            TrackMsg start;//!<开始追踪
+            TrackMsg stop; //!<结束追踪
+            uint32_t score;//!<追踪得分
         };
 
         int GetSerializeSize() override { return (int) sizeof(DataMsg); }
