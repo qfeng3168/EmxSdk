@@ -1,0 +1,99 @@
+[
+  {
+    "cacheChar": {
+      "str": " 0123456789:-_进入离开人数统计周星期一二三四五六日",
+      "thickness": 1
+    },
+    "image": [
+      {
+        "alpha": 255,
+        "ena": true,
+        "height": 60,
+        "layer": 0,
+        "margin": {
+          "horizon": {
+            "align": 1,
+            "rate": 10
+          },
+          "vertical": {
+            "align": 1,
+            "rate": 10
+          }
+        },
+        "path": "logo/2304x1296.rgba",
+        "width": 230
+      }
+    ],
+    "text": [],
+    "time": [
+      {
+        "ena": true,
+        "font": "font.ttf",
+        "formatString": "Zy-m-d H:M:S",
+        "weekFormat": ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],
+        "layer": 1,
+        "margin": {
+          "horizon": {
+            "align": 1,
+            "rate": 250
+          },
+          "vertical": {
+            "align": 0,
+            "rate": 250
+          }
+        },
+
+        "size": 56,
+        "thickness": 1
+      }
+    ]
+  },
+  {
+    "cacheChar": {
+      "str": " 0123456789:-_进入离开人数统计周星期一二三四五六日",
+      "thickness": 1
+    },
+    "image": [
+      {
+        "alpha": 255,
+        "ena": false,
+        "height": 18,
+        "layer": 0,
+        "margin": {
+          "horizon": {
+            "align": 1,
+            "rate": 100
+          },
+          "vertical": {
+            "align": 1,
+            "rate": 100
+          }
+        },
+        "path": "logo/640x360.rgba",
+        "width": 66
+      }
+    ],
+    "text": [],
+    "time": [
+      {
+        "ena": true,
+        "font": "font.ttf",
+        "formatString": "Zy-m-d H:M:S",
+        "weekFormat": ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],
+        "layer": 1,
+        "margin": {
+          "horizon": {
+            "align": 1,
+            "rate": 25
+          },
+          "vertical": {
+            "align": 0,
+            "rate": 25
+          }
+        },
+        "size": 16,
+        "thickness": 1
+      }
+    ]
+  }
+]

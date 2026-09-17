@@ -144,7 +144,12 @@ elif [ -f "${g_sourceFile}" ]; then
         echo "AiPlugin.json md5 does not match, re-copy the algorithm resources"
         cd /tmp
         rm -rf "${EMX_DATA_DIR}/AiPlugin"
+        
+        if [ -f "${g_sourceXzFile}" ]; then
+            xz -dkc ${g_sourceXzFile} | tar -xvf - -C ${EMX_DATA_DIR}
+        else
         cp -r "${EMX_MEDIA_DIR}/AiPlugin" "${EMX_DATA_DIR}/"
+        fi
         sync
         cd "${g_currentDir}"
     fi

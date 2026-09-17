@@ -1,0 +1,24 @@
+#!/bin/sh
+
+echo "into net"
+
+eth0=`ifconfig -a | grep eth0`
+if [[ "$eth0" != "" ]];then
+    ifconfig eth0 up 0.0.0.0
+    # udhcpc -b -t 1 -T 1 -A 3 -i eth0 -s ${EMX_CONFIGS_DIR}/net/udhcpc.script -R
+fi
+
+wlan0=`ifconfig -a | grep wlan0`
+if [[ "$wlan0" != "" ]];then
+    ifconfig wlan0 up
+    #wpa_supplicant -B -Dnl80211 -i wlan0 -c ${EMX_CONFIGS_DIR}/net/wifi.conf
+    # udhcpc -b -t 1 -T 2 -A 3 -i wlan0 -s ${EMX_APP_CONFIGS_DIR}/net/udhcpc.script -R
+fi
+
+####################wifi start up(test)####################
+# wpa_cli -i wlan0 add_network
+# wpa_cli -i wlan0 set_network 0 ssid '"EMX_RD_2"'
+# wpa_cli -i wlan0 set_network 0 psk '"panorama001@eapil"'
+# wpa_cli -i wlan0 select_network 0
+
+echo "leave net"
