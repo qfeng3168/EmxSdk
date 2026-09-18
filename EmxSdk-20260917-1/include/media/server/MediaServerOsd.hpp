@@ -179,7 +179,8 @@ namespace Emx {
          * @param content 存储时间信息的字符串
          * 该方法根据指定的时间戳、格式字符串和星期格式，将时间信息填充到content中。
          */
-        void GetTime(time_t time, char *formatString, char weekFormat[7][16], int maxSize, char *content);
+        void GetTime(time_t time, char *formatString, char weekFormat[7][16], int maxSize, char *content,
+                bool useMaxWeek = false);
 
         /**
          * @brief 计算坐标
