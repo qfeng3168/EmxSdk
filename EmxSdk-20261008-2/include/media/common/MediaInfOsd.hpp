@@ -1,0 +1,125 @@
+//
+// Created by xiong on 2023/8/22.
+//
+
+#ifndef EMX_MediaInfOsd_HPP
+#define EMX_MediaInfOsd_HPP
+
+#include "media/common/MediaTypedef.hpp"
+#include <vector>
+#include <memory>
+
+namespace Emx {
+    /** @addtogroup media-common
+     *  @{
+     */
+
+    class MediaInfOsd {
+    public:
+        static const int MaxTextSize = 512;//!<字符类型最大长度
+        static const int RateBase = 10000; //!<偏移量比率基准
+        static const int MaxOSDNum = 8;    //!<最大通道数
+
+        //!@brief OSD类型
+        enum class TypeE : uint8_t {
+            Time = 0,//!<时间戳显示
+            Text,    //!<文字显示
+            Image,   //!<图片显示
+        };
+
+        //!@brief 水平对齐方式
+        enum class HAlignE : uint8_t {
+            Left,  //!<左对齐
+            Right, //!<右对齐
+            Center,//!<居中
+        };
+
+        //!@brief 竖直对齐方式
+        enum class VAlignE : uint8_t {
+            Top,   //!<顶部对齐
+            Bottom,//!<底部对齐
+            Center,//!<居中
+        };
+
+        //!@brief 描述位置偏移以及对齐方式
+        struct Margin {
+            HAlignE horizon; //!<水平对齐方式
+            int rateX;       //!<水平偏移值 1/RateBase
+            VAlignE vertical;//!<竖直对齐方式
+            int rateY;       //!<竖直偏移值 1/RateBase
+        };
+
+        //!@brief 时间戳类型OSD持久化参数
+        struct ParamTime {
+            int size;              //!<字体大小
+            int thickness;         //!<边框大小
+            char font[64];         //!<字体文件名(字体文件均放置在configs/media/font目录下)
+            char formatString[128];//!<时间显示格式，eg:Zy-m-d H:M:S
+                                   //!< 第一字节表示中英文显示：Z=中文，E=英文
+                                   //!< y:年 m:月 d:日 w:星期
+                                   //!< H:24小时制小时 h:24小时制小时
+                                   //!< P:12小时制PM或AM显示 p:12小时制pm或am显示
+                                   //!< M:分钟 S:秒 %:转义符
+                                   //!< 其他非上述字符显示为原字符
+            char weekFormat[7][16];//!< 星期显示格式,下标0到6从星期日到星期六
+                                   //!<eg:["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
+            uint32_t color;        //!<字体位图主体rgba颜色 0=黑白描边自动
+            bool autoSwitchColor;  //!<是否自动翻转黑白颜色
+        };
+
+        //!@brief 文字类型OSD持久化参数
+        struct ParamText {
+            int size;                 //!<字体大小
+            int thickness;            //!<边框大小
+            bool wrapLine;            //!<使能换行操作
+            int lineSpace;            //!<行间距,分辨率万分比0~10000，wrapLine=true生效
+            char font[64];            //!<字体文件名(字体文件均放置在configs/media/font目录下
+            char content[MaxTextSize];//!<显示内容
+            uint32_t color;           //!<字体位图主体rgba颜色 0=黑白描边自动
+            bool autoSwitchColor;     //!<是否自动翻转黑白颜色
+        };
+
+        //!@brief 图片类型OSD持久化参数
+        struct ParamImage {
+            uint32_t alpha;              //!<透明度
+            int width;                   //!<图片宽
+            int height;                  //!<图片高
+            char path[EMX_MAX_PATH_SIZE];//!<图片路径
+        };
+
+        //!@brief OSD持久化参数
+        struct ParamItem {
+            TypeE type;              //!<OSD类型
+            bool ena;                //!<是否使能
+            uint16_t flickerInterval;//!<闪烁间隔，单位毫秒
+            uint8_t isFlicker;       //!<是否闪烁显示
+            uint8_t layer;           //!<显示层级
+            Margin margin;           //!<对齐方式
+            union {
+                ParamTime time;  //!<时间戳类型OSD持久化参数
+                ParamText text;  //!<文字类型OSD持久化参数
+                ParamImage image;//!<图片类型OSD持久化参数
+            };
+        };
+
+        //!@brief 时间或文字类型OSD显示内容
+        struct OsdContent {
+            int index;                //!<初始设置array下标
+            char content[MaxTextSize];//!< text内容或time 格式
+        };
+
+        /**
+         * @brief 设置osd文字内容，一般长度变化不能超过初始值
+         * 应用场景：客流统计或区域人数统计osd实时显示
+         * @param pInfo [in] osd内容
+         * @return ErrCodeE
+         */
+        virtual ErrCodeE SetOsdContent(OsdContent *pInfo) = 0;
+        struct Param {
+            std::vector<std::shared_ptr<ParamItem>> array;
+        };
+    };
+    /** @}*/
+}// namespace Emx
+
+#endif//EMX_MediaInfOsd_HPP
